@@ -16,3 +16,4 @@ Spree.config do |config|
 end
 
 Spree.user_class = "Spree::User"
+Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :city, :state, :zip_code, :address

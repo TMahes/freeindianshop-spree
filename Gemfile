@@ -36,8 +36,7 @@ gem 'spree', '~> 3.4.4'
 gem 'spree_auth_devise', '~> 3.3'
 gem 'spree_gateway', '~> 3.3'
 gem 'deface', '~> 1.0', '>= 1.0.2'
-gem 'datashift_spree',:git => "git://github.com/autotelik/datashift_spree"
-gem 'datashift' , :git => "git://github.com/autotelik/datashift"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

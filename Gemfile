@@ -36,7 +36,6 @@ gem 'spree', '~> 3.4.4'
 gem 'spree_auth_devise', '~> 3.3'
 gem 'spree_gateway', '~> 3.3'
 gem 'deface', '~> 1.0', '>= 1.0.2'
-gem 'wdm', '>= 0.1.0' 
 gem 'datashift_spree',:git => "git://github.com/autotelik/datashift_spree"
 gem 'datashift' , :git => "git://github.com/autotelik/datashift"
 group :development, :test do

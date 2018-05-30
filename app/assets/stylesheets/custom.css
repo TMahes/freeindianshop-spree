@@ -1,0 +1,6 @@
+div#spree-header #header {
+    padding: 10px 0;
+}
+
+@import "bootstrap-sprockets";
+@import "bootstrap";

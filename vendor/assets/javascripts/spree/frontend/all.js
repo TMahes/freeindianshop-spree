@@ -11,3 +11,39 @@
 
 //= require_tree .
 //= require spree/frontend/spree_auth
+$(document).ready(function(){
+	$('.categories-menu').each(function(){
+	  var filterAmount = $(this).find('li').length;
+	  console.log(filterAmount);
+	  if( filterAmount > 8){    
+	    $('li', this).eq(8).nextAll().hide().addClass('toggleable');
+	    $(this).append('<li class="more">More</li>');    
+	  }  
+	});
+
+	$('.categories-menu').on('click','.more', function(){
+	  if( $(this).hasClass('less') ){    
+	    $(this).text('More').removeClass('less');    
+	  }else{
+	    $(this).text('Less').addClass('less'); 
+	  }
+	  $(this).siblings('li.toggleable').slideToggle(); 
+	});
+
+	$(document).on('click','#category-clear-all',function(){
+	  $('.category-clear-selection').prop('checked', false);
+	}); 
+
+	$(document).on('click','#size-clear-all',function(){
+	  $('.category-clear-selection-two').prop('checked', false);
+	});
+
+	$(document).on('click','#color-clear-all',function(){
+	  $('.clear-color').prop('checked', false);
+	});
+	$(document).on('click','#price-clear-all',function(){
+	  $('.clear-price').prop('checked', false);
+	});    
+
+});
+

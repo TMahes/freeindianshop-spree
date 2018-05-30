@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ div#spree-header #header {
+    padding: 10px 0;
+}

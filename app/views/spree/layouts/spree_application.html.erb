@@ -12,9 +12,9 @@
     <%= render partial: 'spree/shared/trackers/segment/initializer.js' %>
     <%= render partial: 'spree/shared/header' %>
 
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="row" data-hook>
-        <%= breadcrumbs(@taxon) %>
+       <%= breadcrumbs(@taxon) %>
 
         <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
 
@@ -25,6 +25,7 @@
 
         <%= yield :templates %>
       </div>
-    </div>
+    <!-- </div> -->
+    <%= render partial: 'spree/shared/footer' %>
   </body>
 </html>

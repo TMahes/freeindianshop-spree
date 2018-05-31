@@ -21,8 +21,37 @@ module Spree
       def create
         params[:product].each do |product_params|
           product_params.permit!
-    @productObj = Product.new(product_params)
+    @productObj = Product.new
+    @productObj.name = product_params["name"]
+    @productObj.price = product_params["price"]
+    d = DateTime.now
+    @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
+    @productObj.shipping_category_id = 1
+    @productObj.sku = product_params["sku"]
+    @productTaxon = product_params["taxon_ids"]
+    @optionTypeId = product_params["option_type_ids"]
+    @quantity = product_params["quantity"]
+    logger.debug "with taxons #{product_params["taxon_ids"]}"
+    print product_params["taxon_ids"]
     @productObj.save
+    stockMovementObj = StockMovement.new
+    stockMovementObj.stock_item_id = @productObj.id
+    stockMovementObj.quantity = @quantity
+    stockMovementObj.save
+    @productTaxonObj = Taxonomy.new
+    
+=begin 
+@productTaxonObj.update_attributes(:taxon_id => @productTaxon)
+   productTaxonObj.id = @productTaxon
+    productTaxonObj.product_id = @productObj.id
+    productTaxonObj.save
+   
+     productOptionObj = OptionTypes.new
+    productOptionObj.option_type_id = @optionTypeId
+    productOptionObj.product_id = @productObj.id
+=end
+    flash[:success] = flash_message_for(@productObj, :successfully_Created)
+    redirect_to admin_products_url
   end
   end
   

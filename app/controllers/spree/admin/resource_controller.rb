@@ -22,6 +22,24 @@ class Spree::Admin::ResourceController < Spree::Admin::BaseController
     end
   end
 
+def create
+    invoke_callbacks(:create, :before)
+    @object.attributes = permitted_resource_params
+    if @object.save
+      invoke_callbacks(:create, :after)
+      flash[:success] = flash_message_for(@object, :successfully_created)
+      respond_with(@object) do |format|
+        format.html { redirect_to location_after_save }
+        format.js   { render layout: false }
+      end
+    else
+      invoke_callbacks(:create, :fails)
+      respond_with(@object) do |format|
+        format.html { render action: :new }
+        format.js { render layout: false }
+      end
+    end
+end
   def update
     invoke_callbacks(:update, :before)
     if @object.update_attributes(permitted_resource_params)

@@ -18,6 +18,9 @@ module Spree
         respond_with(@collection)
       end
 
+      def multinew
+       @product = Product.new
+    end
       def create
         params[:product].each do |product_params|
           product_params.permit!
@@ -31,15 +34,17 @@ module Spree
     @productTaxon = product_params["taxon_ids"]
     @optionTypeId = product_params["option_type_ids"]
     @quantity = product_params["quantity"]
+    image = product_params["images"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"
     print product_params["taxon_ids"]
     @productObj.save
     stockMovementObj = StockMovement.new
+    logger.debug "StockMovement #{StockMovement}"
     stockMovementObj.stock_item_id = @productObj.id
     stockMovementObj.quantity = @quantity
     stockMovementObj.save
+    logger.debug "StockMovement #{stockMovementObj.id}"
     @productTaxonObj = Taxonomy.new
-    
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon
@@ -50,9 +55,9 @@ module Spree
     productOptionObj.option_type_id = @optionTypeId
     productOptionObj.product_id = @productObj.id
 =end
-    flash[:success] = flash_message_for(@productObj, :successfully_Created)
-    redirect_to admin_products_url
   end
+  flash[:success] = flash_message_for(@productObj, :successfully_Created)
+    redirect_to admin_products_url
   end
   
       def update

@@ -4,8 +4,9 @@
   <%= link_to Spree.t(:products), spree.admin_products_url %> /
   <%= Spree.t(:new_product) %>
 <% end %>
-
-<table class="table">
+ <button tabindex="8" type="button" class="btn btn-primary" style="float: right;">Add Product</button>
+<table class="table" id="oChild">
+  
   <thead>
   <tr>
   <th>Name</th>
@@ -15,9 +16,10 @@
   <th>Options</th>
   <th>Category</th>
   <th>Image</th>
+  <th>Selected Image</th>
 </tr>
 </thead>
-  <tr>
+  <tr id="DocumentRow">
     <td>
 <%= form_for [:admin, @product], html: { multipart: true } do |f| %>
   <fieldset data-hook="new_product">
@@ -65,7 +67,7 @@
  <div data-hook="admin_product_form_option_types">
     <%= f.field_container :option_types, class: ['form-group'] do %>
       <% if can? :modify, Spree::ProductOptionType %>
-        <%= f.hidden_field :option_type_ids,name:"product[][option_type_ids]", value: @product.option_type_ids.join(',') %>
+        <%= f.hidden_field :option_type_ids,name:"product[][option_type_ids]",class:['product_option_type_ids'], value: @product.option_type_ids.join(',') %>
       <% elsif @product.option_types.any? %>
         <ul class="text_list">
           <% @product.option_types.each do |type| %>
@@ -90,7 +92,7 @@
         <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
       <% if can? :modify, Spree::Classification %>
-        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,value: @product.taxon_ids.join(',') %>
+        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
       <% elsif @product.taxons.any? %>
         <ul class="text_list">
           <% @product.taxons.each do |taxon| %>
@@ -112,10 +114,11 @@
         <% end %>
       </div> 
        <div data-hook="file" class="form-group">
-      <%= f.file_field :attachment,name:"product[][images]" %>
+      <%= f.file_field :attachment,name:"product[][images]",onchange:"readURL(this);" %>
+      
     </div>
     </td>
-
+<td><img id="blah" src="#" alt="" /></td>
     </div>
 
     <div data-hook="product-from-prototype" id="product-from-prototype">
@@ -125,13 +128,114 @@
     <%= render partial: 'spree/admin/shared/new_resource_links' %>
 </tr>
 <tr>
+    <td>
+  <fieldset data-hook="new_product">
+    <%= f.field_container :name, class: ['form-group'] do %>
+      <!-- <%= f.label :name, Spree.t(:name) %> <span class="required">*</span> -->
+      <%= f.text_field :name,name: "product[][name]", class: 'form-control title', required: :required %>
+      <%= f.error_message_on :name %>
+    <% end %>
+</td>
+<td>
+    <div data-hook="new_product_attrs">
+      <% unless @product.has_variants? %>
+        <div data-hook="new_product_sku">
+          <%= f.field_container :sku, class: ['form-group'] do %>
+            <!-- <%= f.label :sku, Spree.t(:sku) %> -->
+            <%= f.text_field :sku,name: "product[][sku]", size: 16, class: 'form-control' %>
+            <%= f.error_message_on :sku %>
+          <% end %>
+        </div>
+      <% end %>
+</td>
+<td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"product[][quantity]", class: 'form-control', value: 1 %>
+          <% end %>
+        </div>
+</td>
+     <!--  <div data-hook="new_product_prototype">
+        <%= f.field_container :prototype, class: ['form-group'] do %>
+          <%= f.label :prototype_id, Spree.t(:prototype) %>
+          <%= f.collection_select :prototype_id, Spree::Prototype.all, :id, :name, {include_blank: true}, {class: 'select2'} %>
+        <% end %>
+      </div> -->
+<td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.text_field :price,name: "product[][price]", value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+ <div data-hook="admin_product_form_option_types">
+    <%= f.field_container :option_types, class: ['form-group'] do %>
+      <% if can? :modify, Spree::ProductOptionType %>
+        <%= f.hidden_field :option_type_ids,name:"product[][option_type_ids]",class:['product_option_type_ids'], value: @product.option_type_ids.join(',') %>
+      <% elsif @product.option_types.any? %>
+        <ul class="text_list">
+          <% @product.option_types.each do |type| %>
+            <li><%= type.presentation %> (<%= type.name %>)</li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="alert alert-info"><%= Spree.t(:no_resource_found, resource: :option_types) %></div>
+      <% end %>
+
+    <% end %>
+  </div>
+  </td>
+     <!--  <div data-hook="new_product_available_on">
+        <%= f.field_container :available_on, class: ['form-group'] do %>
+          <%= f.label :available_on, Spree.t(:available_on) %>
+          <%= f.error_message_on :available_on %>
+          <%= f.text_field :available_on, class: 'datepicker form-control' %>
+        <% end %>
+      </div> -->
+          <td>
+        <div data-hook="admin_product_form_taxons">
+    <%= f.field_container :taxons, class: ['form-group'] do %>
+      <% if can? :modify, Spree::Classification %>
+        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
+      <% elsif @product.taxons.any? %>
+        <ul class="text_list">
+          <% @product.taxons.each do |taxon| %>
+            <li><%= taxon.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="alert alert-info"><%= Spree.t(:no_resource_found, resource: :taxons) %></div>
+      <% end %>
+
+    <% end %>
+  </div>
+    </td>
+<td>
+     <div data-hook="new_product_shipping_category">
+        <%= f.field_container :shipping_category, class: ['form-group'] do %>
+           <%= f.hidden_field :shipping_category_id,name: "product[][shipping_category_id]", size: 16, class: 'form-control' %>
+          <%= f.error_message_on :shipping_category_id %>
+        <% end %>
+      </div> 
+       <div data-hook="file" class="form-group">
+      <%= f.file_field :attachment,name:"product[][images]",onchange:"readURL(this);" %>
+      
+    </div>
+    </td>
+<td><img id="blah" src="#" alt="" /></td>
+    </div>
+
+</tr>
+
     <div data-hook="product-from-prototype" id="product-from-prototype">
       <%= render file: 'spree/admin/prototypes/show' if @prototype %>
     </div>
-
   </fieldset>
 <% end %>
-</tr>
+
 </table>
 <script type="text/javascript">
 //<![CDATA[
@@ -154,4 +258,26 @@
   })(jQuery);
 //]]>
 </script>
+<script type="text/javascript">
+$('.btn').click(function () {
+    var t = $('#oChild');
+    var clone = t.find('#DocumentRow').clone(true);
+    clone.attr('id', '');
+     clone.find(':text').val('');
+    t.append(clone);
+});
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $('.blah')
+                    .attr('src', e.target.result)
+                    .width(50)
+                    .height(50);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

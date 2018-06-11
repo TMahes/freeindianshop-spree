@@ -54,6 +54,11 @@
           <%= f.error_message_on :shipping_category_id %>
         <% end %>
       </div>
+       <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"stock_movement[quantity]",class: 'form-control', value: 1 %>
+          <% end %>
+        </div>
 
     </div>
 

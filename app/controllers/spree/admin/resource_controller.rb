@@ -26,6 +26,19 @@ def create
     invoke_callbacks(:create, :before)
     @object.attributes = permitted_resource_params
     if @object.save
+      @variantObj = Spree::Variant.find_by(product_id:@object.id)
+      logger.debug "StockMovement #{@variantObj.id}"
+    Spree::StockItem.find_by(variant_id:@variantObj.id).update(count_on_hand: 0)
+    @staockItemObj = Spree::StockItem.find_by(variant_id:@variantObj.id)
+     @staockMovementObj = Spree::StockMovement.new
+     @staockMovementObj.stock_item_id = @staockItemObj.id
+     @staockMovementObj.quantity = params[:stock_movement][:quantity]
+     @staockMovementObj.save
+     @optionValueObj = Spree::OptionValue.find_by(id:1)
+     logger.debug "StockMovement #{@optionValueObj.name}"
+     
+     @optionValue = @object.product_option_types.new({:product_id=>@object.id, :option_type_id=>2})
+     @optionValue.save
       invoke_callbacks(:create, :after)
       flash[:success] = flash_message_for(@object, :successfully_created)
       respond_with(@object) do |format|

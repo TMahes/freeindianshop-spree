@@ -32,7 +32,6 @@ module Spree
     @productObj.shipping_category_id = 1
     @productObj.sku = product_params["sku"]
     @productTaxon = product_params["taxon_ids"]
-    @optionTypeId = product_params["option_type_ids"]
     @quantity = product_params["quantity"]
     image = product_params["images"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"
@@ -56,7 +55,7 @@ module Spree
     productOptionObj.product_id = @productObj.id
 =end
   end
-  flash[:success] = flash_message_for(@productObj, :successfully_Created)
+  flash[:success] = "Product Uploaded Successfully"
     redirect_to admin_products_url
   end
   

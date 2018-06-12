@@ -91,14 +91,14 @@
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["product[][option_types]"],class: ["select2"]} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["product[][option_types]"],class: ["select2"]} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["product[][option_types_size]"],class: ["select2"]} %>
+          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["product[][option_types_size]"],class: ["select2"]} %>
           <% end %>
         </div>
     </td>

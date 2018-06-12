@@ -35,7 +35,7 @@
         <div data-hook="new_product_sku">
           <%= f.field_container :sku, class: ['form-group'] do %>
             <!-- <%= f.label :sku, Spree.t(:sku) %> -->
-            <%= f.text_field :sku,name: "product[][sku]", size: 16, class: 'form-control' %>
+            <%= f.text_field :sku,name: "product[][sku]", size: 16, value:([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(8).join,class: 'form-control', required: :required %>
             <%= f.error_message_on :sku %>
           <% end %>
         </div>
@@ -44,7 +44,7 @@
 <td>
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"product[][quantity]", class: 'form-control', value: 1 %>
+            <%= f.number_field :quantity,name:"product[][quantity]",class: 'form-control', value: 1 %>
           <% end %>
         </div>
 </td>
@@ -58,7 +58,7 @@
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "product[][price]", value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
+          <%= f.number_field :price,name: "product[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -178,5 +178,8 @@ function readURL(input) {
     }
     $('table').on('click', '.rmv', function () {
    $(this).closest('tr').remove();
+});
+    $('#product_price').keypress(function(event){
+    event.preventDefault();
 });
 </script>

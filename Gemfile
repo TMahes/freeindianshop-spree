@@ -37,6 +37,8 @@ gem 'spree_auth_devise', '~> 3.3'
 gem 'spree_gateway', '~> 3.3'
 gem 'deface', '~> 1.0', '>= 1.0.2'
 
+gem 'spree_drop_ship', github: 'spree-contrib/spree_drop_ship'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

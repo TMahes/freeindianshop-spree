@@ -33,17 +33,25 @@ module Spree
     @productObj.sku = product_params["sku"]
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
-    image = product_params["images"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"
     print product_params["taxon_ids"]
+    image = Image.create(:attachment =>File.open(product_params["images"].path) ,:viewable => @productObj)
+    @productObj.images << image
     @productObj.save
-    stockMovementObj = StockMovement.new
-    logger.debug "StockMovement #{StockMovement}"
-    stockMovementObj.stock_item_id = @productObj.id
-    stockMovementObj.quantity = @quantity
-    stockMovementObj.save
-    logger.debug "StockMovement #{stockMovementObj.id}"
-    @productTaxonObj = Taxonomy.new
+    logger.debug "StockMovement #{@productObj.id}"
+      @variantObj = Spree::Variant.find_by(product_id:@productObj.id)
+    Spree::StockItem.find_by(variant_id:@variantObj.id).update(count_on_hand: 0)
+    @staockItemObj = Spree::StockItem.find_by(variant_id:@variantObj.id)
+     @staockMovementObj = Spree::StockMovement.new
+     @staockMovementObj.stock_item_id = @staockItemObj.id
+     @staockMovementObj.quantity = @quantity
+     @staockMovementObj.save
+    logger.debug "StockMovement #{@staockMovementObj.id}"
+    @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
+    @optionValue.save
+    
+   
+    
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon

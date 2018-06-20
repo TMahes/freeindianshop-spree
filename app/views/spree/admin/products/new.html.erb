@@ -113,7 +113,6 @@
       </div> 
        <div data-hook="file" class="form-group">
       <%= f.file_field :attachment,name:"product[][images]",onchange:"readURL(this);" %>
-      
     </div>
     </td>
 <td><img class="blah" src="#" alt="" /></td>
@@ -156,8 +155,6 @@ $('#addVariant').click(function () {
     var t = $('#oChild');
     var clone = t.find('#DocumentRow').clone(true);
     clone.attr('id', '');
-     clone.find(':text').val('');
-     clone.find('#product_name').hide();
      clone.find('#product_sku').hide();
      clone.find('#s2id_autogen1').hide();
      clone.find('.select2-choices').hide();

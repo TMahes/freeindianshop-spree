@@ -8,6 +8,14 @@ GIT
       spree_core (>= 3.1.0, < 4.0)
       spree_extension
 
+GIT
+  remote: https://github.com/spree-contrib/spree_multi_vendor.git
+  revision: 668559d321285b7f9f84d61f5f94731c609d47f8
+  specs:
+    spree_multi_vendor (0.0.1.alpha)
+      spree_core (>= 3.1.0, < 4.0)
+      spree_extension
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -394,6 +402,7 @@ DEPENDENCIES
   spree_auth_devise (~> 3.3)
   spree_drop_ship!
   spree_gateway (~> 3.3)
+  spree_multi_vendor!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

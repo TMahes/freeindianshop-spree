@@ -49,9 +49,14 @@ module Spree
     logger.debug "StockMovement #{@staockMovementObj.id}"
     @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
     @optionValue.save
-    
-   
-    
+    @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>3})
+    @optionType.save
+    @optionValue = Spree::OptionValue.find_by(id:product_params["option_types"],option_type_id:2)
+   @optionValueVariant = @optionValue.option_value_variants.new({:variant_id=>@variantObj.id, :option_value_id=>@optionValue.id})
+    @optionValueVariant.save
+     @optionValue = Spree::OptionValue.find_by(id:product_params["option_types_size"],option_type_id:3)
+   @optionValueVariant = @optionValue.option_value_variants.new({:variant_id=>@variantObj.id, :option_value_id=>@optionValue.id})
+   @optionValueVariant.save
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon

@@ -5,21 +5,19 @@
   <%= Spree.t(:new_product) %>
 <% end %>
  <button tabindex="8" type="button" class="btn btn-primary" id="addVariant" style="float: right;">Add Variant</button>
-<table class="table" id="oChild">
+<table class="table">
   
   <thead>
   <tr>
   <th>Name</th>
   <th>Model No</th>
   <th>Category</th>
-  <th>Color</th>
-  <th>Size</th>
   <th>Quantity</th>
   <th>Price</th>
   <th>Image</th>
 </tr>
 </thead>
-  <tr id="DocumentRow">
+  <tr>
 <%= form_for [:admin, @product], html: { multipart: true } do |f| %>
     <td>
   <fieldset data-hook="new_product">
@@ -67,21 +65,6 @@
     <% end %>
   </div>
     </td>
-    <td>
-        <div class="form-group" data-hook="presentation">
-          <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["product[][option_types]"]} %>
-        </div>
-    </td>
-       <td>
-        <div class="form-group" data-hook="presentation">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-          <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["product[][option_types_size]"]} %>
-          <% end %>
-        </div>
-    </td>
-
   <td>
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>
@@ -112,14 +95,63 @@
         <% end %>
       </div> 
        <div data-hook="file" class="form-group">
-      <%= f.file_field :attachment,name:"product[][images]",multiple:true,onchange:"readURL(this);" %>
+      <%= f.file_field :attachment,name:"images[][image]",multiple:true,onchange:"readURL(this);" %>
     </div>
     </td>
 <td><img id="blah" src="#" alt="" /></td>
     </div>
 
 </tr>
-
+</table>
+<h4> Variants </h4>
+<table class="table" id="oChild">
+  <thead>
+    <tr>
+  <th>Color</th>
+  <th>Size</th>
+  <th>Quantity</th>
+  <th>price</th>
+  <th>Image</th>
+</tr>
+  </thead>
+  <tr id="DocumentRow">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"]} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"]} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1 %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+      <%= f.file_field :attachment,name:"variant[][image]",multiple:true,onchange:"readURL(this);" %>
+    </div>
+    </td>
+  </tr>
+</table>
     <div data-hook="product-from-prototype" id="product-from-prototype">
       <%= render file: 'spree/admin/prototypes/show' if @prototype %>
     </div>
@@ -128,7 +160,8 @@
   </fieldset>
 <% end %>
 
-</table>
+
+
 <script type="text/javascript">
 //<![CDATA[
   (function($){
@@ -182,5 +215,5 @@ function readURL(input) {
     $('#product_price').keypress(function(event){
     event.preventDefault();
 });
-    
+
 </script>

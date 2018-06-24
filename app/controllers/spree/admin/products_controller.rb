@@ -44,7 +44,7 @@ module Spree
     @optionValue.save
     @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>3})
     @optionType.save
-
+@productObj.save
 params[:variant].each do |variants_params|
     logger.debug "Creating Variants"
     @variantnewObj = Spree::Variant.create({:is_master => false, :product_id => @productObj.id})

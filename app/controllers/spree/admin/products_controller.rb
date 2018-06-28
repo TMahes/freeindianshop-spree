@@ -45,33 +45,32 @@ module Spree
     @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>3})
     @optionType.save
 @productObj.save
-params[:variant].each do |variants_params|
+
+params[:variant].each do |variant_params|
+  @optionValue = Spree::OptionValue.where(id:[variant_params["option_types"],variant_params["option_types_size"]])
     logger.debug "Creating Variants"
-    @variantnewObj = Spree::Variant.create({:is_master => false, :product_id => @productObj.id})
-    @productObj.variants << @variantnewObj
+  @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
+  @productObj.variants << @variantnewObj
+  
     logger.debug "@variantnewObj #{@variantnewObj.id}"
     #Quantity save
-    logger.debug "StockMovement #{product_params["sku"]}"
-    #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
-    #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
-    #@staockMovementObj = Spree::StockMovement.new
-    #@staockMovementObj.stock_item_id = @staockItemObj.id
-    #@staockMovementObj.quantity = @quantity
-    #@staockMovementObj.save
-
+    logger.debug "StockMovement #{product_params["sku"]+"-"+variant_params["option_types"]}"
+    Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
+    @staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
+    @staockMovementObj = Spree::StockMovement.new
+    @staockMovementObj.stock_item_id = @staockItemObj.id
+    @staockMovementObj.quantity = @quantity
+    @staockMovementObj.save
     #OptionValue
+   #@variantnewObj.save
+   #params[:variantimages].each do |variant_images|
+    #logger.debug "imagessssssssss #{product_images["image"].path}"
+    #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
+    #@variantnewObj.images << image
+    #end
     
-    @optionValue = Spree::OptionValue.find_by(id:variants_params["option_types"],option_type_id:2)
-   @optionValueVariant = @optionValue.option_value_variants.new({:variant_id=>@variantnewObj.id, :option_value_id=>@optionValue.id})
-    @optionValueVariant.save
-     @optionValue = Spree::OptionValue.find_by(id:variants_params["option_types_size"],option_type_id:3)
-   @optionValueVariant = @optionValue.option_value_variants.new({:variant_id=>@variantnewObj.id, :option_value_id=>@optionValue.id})
-   @optionValueVariant.save
-   #image = Image.create(:attachment =>File.open(variants_params["image"].path) ,:viewable => @productObj.id)
-    #@productObj.images << image
-    @productObj.save
  end
-   
+   @productObj.save
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon

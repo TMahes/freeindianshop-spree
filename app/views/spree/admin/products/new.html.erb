@@ -1,5 +1,15 @@
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @product } %>
+<style type="text/css">
+img {
+    height:50px;
+    width:50px;
+    background:white;
+}
 
+input[name=images[][image]] {
+    display:none;
+}
+</style>
 <% content_for :page_title do %>
   <%= link_to Spree.t(:products), spree.admin_products_url %> /
   <%= Spree.t(:new_product) %>
@@ -95,7 +105,8 @@
         <% end %>
       </div> 
        <div data-hook="file" class="form-group">
-      <%= f.file_field :attachment,name:"images[][image]",multiple:true,onchange:"readURL(this);" %>
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile1" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
     </div>
     </td>
 <td><img id="blah" src="#" alt="" /></td>
@@ -147,9 +158,76 @@
 </td>
 <td>
        <div data-hook="file" class="form-group">
-      <%= f.file_field :attachment,name:"variant[][image]",multiple:true,onchange:"readURL(this);" %>
+        <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile2" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
+    </div>
+  </td>
+  <td>
+     <div data-hook="file" class="form-group">
+        <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile3" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
+    </div>
+  </td>
+  <td>
+     <div data-hook="file" class="form-group">
+        <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile4" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
     </div>
     </td>
+    <td><img id="blah" src="#" alt="" /></td>
+  </tr>
+  </tr>
+  </thead>
+  <tr>
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"]} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"]} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1 %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
+    </div>
+  </td>
+  <td>
+    <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile6" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
+   </div>
+ </td>
+ <td>
+   <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile7" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"images[][image]",style:"display:none" %>
+    </div>
+    </td>
+    <td><img id="blah" src="#" alt="" /></td>
   </tr>
 </table>
     <div data-hook="product-from-prototype" id="product-from-prototype">
@@ -187,20 +265,15 @@
 $('#addVariant').click(function () {
     var t = $('#oChild');
     var clone = t.find('#DocumentRow').clone(true);
-    clone.attr('id', '');
-    clone.find(':text').val('');
-     clone.find('#product_sku').hide();
-     clone.find('#s2id_autogen1').hide();
-     clone.find('.select2-choices').hide();
-     clone.append("<td><button class='rmv' >Remove</button></td>");
+     t.append("<td><button class='rmv' >Remove</button></td>");
     t.append(clone);
 });
 function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
+            var img =  $("img");
             reader.onload = function (e) {
-                $('#blah')
+                $(e.target).closest(img)
                     .attr('src', e.target.result)
                     .width(50)
                     .height(50);
@@ -210,10 +283,44 @@ function readURL(input) {
         }
     }
     $('table').on('click', '.rmv', function () {
+      
    $(this).closest('tr').remove();
 });
     $('#product_price').keypress(function(event){
     event.preventDefault();
 });
 
+//image upload
+$(document).on("click", ".img", function () {
+
+    $(this).closest("div").find("input[name='images[][image]']").trigger("click");
+});
+
+var count = 1;
+$(".add").on("click", function () {
+    count++;
+    var row = '<div class="row"><label> Step ' + count + ' </label> <img src="http://png-4.findicons.com/files/icons/129/soft_scraps/256/button_upload_01.png" id="upfile1" style="cursor:pointer" class="img"/ ><input type="file" name="images[][image]" class="inputimg" />';
+    $(".prep").append(row);
+
+    $("input[name='images[][image]']").change(function () {
+        console.log(this);
+        readURL(this);
+    });
+
+});
+$("input[name='images[][image]']").change(function () {
+    readURL(this);
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(input).siblings('.img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 </script>

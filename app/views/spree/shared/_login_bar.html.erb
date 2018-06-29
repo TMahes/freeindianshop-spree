@@ -3,5 +3,4 @@
   <li><%= link_to Spree.t(:logout), spree.logout_path %></li>
 <% else %>
   <li id="link-to-login"><%= link_to Spree.t(:login), spree.login_path %></li>
-  <%= button_link_to Spree.t('new_supplier'), new_object_url, icon: 'add', class: 'btn-success' %>
 <% end %>

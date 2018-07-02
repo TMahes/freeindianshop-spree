@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180620113709) do
+ActiveRecord::Schema.define(version: 20180702032258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 20180620113709) do
     t.string "meta_title"
     t.datetime "discontinue_on"
     t.integer "vendor_id"
+    t.boolean "featured", default: false
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["discontinue_on"], name: "index_spree_products_on_discontinue_on"
@@ -894,6 +895,45 @@ ActiveRecord::Schema.define(version: 20180620113709) do
     t.index ["url"], name: "index_spree_stores_on_url"
   end
 
+  create_table "spree_supplier_bank_accounts", force: :cascade do |t|
+    t.string "masked_number"
+    t.bigint "supplier_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "country_iso"
+    t.string "name"
+    t.index ["supplier_id"], name: "index_spree_supplier_bank_accounts_on_supplier_id"
+    t.index ["token"], name: "index_spree_supplier_bank_accounts_on_token"
+  end
+
+  create_table "spree_supplier_option_types", force: :cascade do |t|
+    t.bigint "supplier_id"
+    t.bigint "option_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_type_id"], name: "index_spree_supplier_option_types_on_option_type_id"
+    t.index ["supplier_id"], name: "index_spree_supplier_option_types_on_supplier_id"
+  end
+
+  create_table "spree_supplier_properties", force: :cascade do |t|
+    t.bigint "supplier_id"
+    t.bigint "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_spree_supplier_properties_on_property_id"
+    t.index ["supplier_id"], name: "index_spree_supplier_properties_on_supplier_id"
+  end
+
+  create_table "spree_supplier_prototypes", force: :cascade do |t|
+    t.bigint "supplier_id"
+    t.bigint "prototype_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prototype_id"], name: "index_spree_supplier_prototypes_on_prototype_id"
+    t.index ["supplier_id"], name: "index_spree_supplier_prototypes_on_supplier_id"
+  end
+
   create_table "spree_supplier_variants", id: :serial, force: :cascade do |t|
     t.integer "supplier_id"
     t.integer "variant_id"
@@ -918,6 +958,15 @@ ActiveRecord::Schema.define(version: 20180620113709) do
     t.string "tax_id"
     t.string "token"
     t.string "slug"
+    t.string "profile_picture_file_name"
+    t.string "profile_picture_content_type"
+    t.integer "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
+    t.text "bio"
+    t.boolean "approved", default: false
+    t.boolean "agree_tos", default: false
+    t.boolean "agree_not_dropshiped", default: false
+    t.boolean "agree_tos_violate", default: false
     t.index ["active"], name: "index_spree_suppliers_on_active"
     t.index ["address_id"], name: "index_spree_suppliers_on_address_id"
     t.index ["deleted_at"], name: "index_spree_suppliers_on_deleted_at"
@@ -1061,6 +1110,7 @@ ActiveRecord::Schema.define(version: 20180620113709) do
     t.string "zip_code"
     t.text "address"
     t.integer "supplier_id"
+    t.string "seller"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true

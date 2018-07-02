@@ -36,7 +36,7 @@ module Spree
     logger.debug "with taxons #{product_params["taxon_ids"]}"
     print product_params["taxon_ids"]
     params[:images].each do |product_images|
-    logger.debug "imagessssssssss #{product_images["image"].path}"
+    
     image = Image.create(:attachment =>File.open(product_images["image"].path) ,:viewable => @productObj)
     @productObj.images << image
     end
@@ -61,6 +61,9 @@ params[:variant].each do |variant_params|
     @staockMovementObj.stock_item_id = @staockItemObj.id
     @staockMovementObj.quantity = @quantity
     @staockMovementObj.save
+    @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
+    @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
+    @suppliervariant.save
     #OptionValue
    #@variantnewObj.save
    #params[:variantimages].each do |variant_images|
@@ -70,7 +73,13 @@ params[:variant].each do |variant_params|
     #end
     
  end
-   @productObj.save
+ @productObj.save
+ firstvariant = Spree::Variant.find_by(sku: @productObj.sku)
+ @supplierObj1 = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
+    @suppliervariant1 = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj1.id, :variant_id => firstvariant.id)
+    @suppliervariant1.save
+   
+   logger.debug "variant1 #{@productObj.sku}"
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon

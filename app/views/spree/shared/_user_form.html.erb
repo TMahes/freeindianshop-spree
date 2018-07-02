@@ -1,5 +1,7 @@
 <fieldset id="password-credentials">
    <div class="form-group">
+    <%= f.hidden_field :seller, :class => 'form-control',:value=> [params[:seller]] %>
+    
     <%= f.text_field :first_name, :class => 'form-control', :placeholder => Spree.t(:first_name) %>
   </div>
    <div class="form-group">

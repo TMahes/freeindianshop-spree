@@ -1,5 +1,6 @@
 class Spree::Admin::SupplierBankAccountsController < Spree::Admin::ResourceController
 
+  before_action :load_supplier
   create.before :set_supplier
 
   def new

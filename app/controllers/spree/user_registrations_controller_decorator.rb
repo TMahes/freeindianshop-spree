@@ -14,10 +14,12 @@ Spree::UserRegistrationsController.class_eval do
         		@object.save
         		logger.debug "#{@object.id}"
     			@rolesObj = Spree::Role.find_by(name:'Sellers')
-    			@rolesUserObj = @rolesObj.role_users.new(:role_id => @rolesObj.id, :user_id => @resource.id)
+    			logger.debug "Role ID #{@rolesObj.id}"
+    			logger.debug "Role ID #{resource.id}"
+    			@rolesUserObj = @rolesObj.role_users.new(:role_id => @rolesObj.id, :user_id => resource.id)
     			@rolesUserObj.save
-    			@userObj = Spree::UserRegistration.find_by(id:resource.id).update(supplier_id:@object.id)
-    			@userObj.save
+    			@userObj = Spree.user_class.find_by(id:resource.id).update(supplier_id:@object.id)
+    			
     end
     
     yield resource if block_given?

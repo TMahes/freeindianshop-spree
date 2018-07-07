@@ -61,20 +61,16 @@ input[name=images[][image]] {
           <td>
         <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
-      <% if can? :modify, Spree::Classification %>
+      
         <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
-      <% elsif @product.taxons.any? %>
+      
         <ul class="text_list">
           <% @product.taxons.each do |taxon| %>
             <li><%= taxon.name %></li>
-          <% end %>
+        <% end %>
         </ul>
-      <% else %>
-        <div class="alert alert-info"><%= Spree.t(:no_resource_found, resource: :taxons) %></div>
-      <% end %>
-
-    <% end %>
   </div>
+  <% end %>
     </td>
   <td>
   <div class="form-group">

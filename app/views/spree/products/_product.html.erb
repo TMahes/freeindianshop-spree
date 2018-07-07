@@ -16,6 +16,9 @@
           </span>
           <span itemprop="priceCurrency" content="<%= current_currency %>"></span>
         </span>
+        <%= link_to url, itemprop: "url" do %>
+         <button class="btn btn-success">View Product</button>
+        <% end %>
       </div>
     <% end %>
   </div>

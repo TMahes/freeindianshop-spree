@@ -1,7 +1,11 @@
 <fieldset id="password-credentials">
    <div class="form-group">
     <%= f.hidden_field :seller, :class => 'form-control',:value=> [params[:seller]] %>
-
+<% if params[:seller] %>
+ <div class="form-group">
+    <%= f.text_field :shop_name, :class => 'form-control', :placeholder => 'Shop Name' %>
+  </div>
+  <% end %>
     <%= f.text_field :first_name, :class => 'form-control', :placeholder => Spree.t(:first_name) %>
   </div>
    <div class="form-group">
@@ -20,7 +24,9 @@
     <%= f.text_field :city, :class => 'form-control', :placeholder => 'City' %>
   </div>
   <div class="form-group">
-    <%= f.text_field :state, :class => 'form-control', :placeholder => 'State' %>
+   
+     <%= f.collection_select :state,
+          Spree::State.where(:country_id=>105), :id, :name,{},{:class => "form-control"} %>
   </div>
   <div class="form-group">
     <%= f.text_field :zip_code, :class => 'form-control', :placeholder => 'ZipCode' %>

@@ -8,11 +8,6 @@ Rails.application.routes.draw do
   # We ask that you don't use the :as option here, as Spree relies on it being
   # the default of "spree".
   get 'admin/products/multinew'     => 'spree/admin/products#multinew', as: 'admin_products_multinew'
-  devise_scope :user do
-    post "/checkshopname" => "spree/user_registrations#checkshopname", :as => :checkshopname
-  end
-   @request.env["devise.mapping"] = Devise.mappings[:checkshopname]
-  mount Spree::Core::Engine, at: '/'
 
   #get "admin/products/multinew" => "products#multinew"
   #get 'admin/products/multinew', :to => 'products#multinew', :as => :multinew

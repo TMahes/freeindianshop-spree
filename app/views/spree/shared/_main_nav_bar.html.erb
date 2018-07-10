@@ -1,4 +1,4 @@
-<nav class="col-md-12">
+<nav class="col-md-9">
   <div id="main-nav-bar" class="navbar">
     <ul class="nav navbar-nav" data-hook>
       <li id="home-link" data-hook><%= link_to Spree.t(:home), spree.root_path %></li>
@@ -14,3 +14,46 @@
     </ul>
   </div>
 </nav>
+          <div class="navbar-right">
+            <% if try_spree_current_user %>
+  <ul class="nav navbar-nav">
+    <li class="dropdown user user-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="glyphicon glyphicon-user"></i>
+        <span><%= try_spree_current_user.email %> <i class="caret"></i></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if spree.respond_to? :root_path %>
+          <li>
+            <%= link_to spree.root_path, {:style=>'color:black;'}, target: :blank do %>
+              <i class="glyphicon glyphicon-new-window"></i>
+              &nbsp;
+              <%= Spree.t(:back_to_store) %>
+            <% end %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to "admin/products",{:style=>'color:black;'} do %>
+            <i class="glyphicon glyphicon-user"></i>
+            &nbsp;
+            <%= "Products" %>
+          <% end %>
+        </li>
+        <% if spree.respond_to? :admin_logout_path %>
+          <li>
+            <%= link_to spree.admin_logout_path ,{:style=>'color:black;'} do %>
+              <i class="glyphicon glyphicon-log-out"></i>
+              &nbsp;
+              <%= Spree.t(:logout) %>
+            <% end %>
+          </li>
+        <% end %>
+        <hr />
+      </ul>
+    </li>
+  </ul>
+<% end %>
+
+          </div>
+
+     

@@ -15,19 +15,20 @@
     <%= f.email_field :email, :class => 'form-control', :placeholder => Spree.t(:email) %>
   </div>
    <div class="form-group">
-    <%= f.text_field :dob, :class => 'form-control', :placeholder => 'DOB' %>
+    <%= f.date_field :dob,:class => 'form-control', :placeholder => 'DOB' %>
   </div>
   <div class="form-group">
     <%= f.text_area :address, :class => 'form-control', :placeholder => 'Address' %>
   </div>
    <div class="form-group">
-    <%= f.text_field :city, :class => 'form-control', :placeholder => 'City' %>
-  </div>
-  <div class="form-group">
    
      <%= f.collection_select :state,
           Spree::State.where(:country_id=>105), :id, :name,{},{:class => "form-control"} %>
   </div>
+   <div class="form-group">
+    <%= f.text_field :city, :class => 'form-control', :placeholder => 'City' %>
+  </div>
+
   <div class="form-group">
     <%= f.text_field :zip_code, :class => 'form-control', :placeholder => 'ZipCode' %>
   </div>
@@ -41,3 +42,25 @@
   </div>
 </fieldset>
 <div data-hook="signup_below_password_fields"></div>
+<script type="text/javascript">
+$( "#spree_user_shop_name" )
+  .focusout(function() {
+    $.ajax({
+                 url: "/checkshopname",
+                type: "POST",
+            dataType: "json",
+                data: { shop_name: $(this).val() }, // This goes to Controller in params hash, i.e. params[:file_name]
+            complete: function() {},
+             success: function(data, textStatus, xhr) {
+                        // Do something with the response here
+                        editor.setValue(data.file_content) // Show the file contents in our editor.
+                                                           // editor is defined somewhere above 
+                                                           // 'file_content' is the key we use to respond
+                                                           // in the controller function below
+                      },
+               error: function() {
+                        alert("Ajax error!")
+                      }
+    });
+  })
+</script>

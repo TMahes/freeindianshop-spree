@@ -344,7 +344,7 @@ input[name=images[][image]] {
   <td>
     <div data-hook="file" class="form-group">
          <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile6" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"images[][image]",style:"display:none",disabled:true %>
+      <%= f.file_field :attachment,name:"images[][image]", style:"display:none",disabled:true %>
    </div>
  </td>
     <td><button class='rmv' >Remove</button></td>
@@ -402,7 +402,7 @@ currentrow++;
 $('table tr:eq(' + currentrow  + ')').find('#product_quantity').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_option_types').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', false);
-$('table tr:eq(' + currentrow  + ')').find('.img').prop('disabled', false);
+$('table tr:eq(' + currentrow  + ')').find("input[name='images[][image]']").prop('disabled', false);
 
 });
 function readURL(input) {

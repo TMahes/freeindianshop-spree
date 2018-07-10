@@ -92,7 +92,7 @@ params[:variant].each do |variant_params|
 =end
   end
   flash[:success] = "Product Uploaded Successfully"
-    redirect_to admin_products_url
+    redirect_to edit_admin_product_url(@productObj)
   end
   
       def update
@@ -233,6 +233,7 @@ params[:variant].each do |variant_params|
       def variant_stock_includes
         [:images, stock_items: :stock_location, option_values: :option_type]
       end
+      
     end
   end
 end

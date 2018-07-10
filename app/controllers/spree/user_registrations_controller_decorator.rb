@@ -39,4 +39,12 @@ Spree::UserRegistrationsController.class_eval do
       render :new
     end
   end
+
+  def checkshopname
+        if Spree.user_class.find_by(shop_name:params[:shop_name])
+          return 1
+        else
+          return 0
+        end
+      end
 end

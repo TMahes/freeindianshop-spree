@@ -30,7 +30,8 @@ module Spree
     d = DateTime.now
     @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
     @productObj.shipping_category_id = 1
-    @productObj.sku = spree_current_user.first_name+"-"+product_params["sku"]
+    #@productObj.sku = spree_current_user.first_name+"-"+product_params["sku"]
+    @productObj.sku = product_params["sku"]
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"

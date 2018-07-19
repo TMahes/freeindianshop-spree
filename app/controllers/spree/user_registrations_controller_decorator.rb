@@ -8,7 +8,7 @@ Spree::UserRegistrationsController.class_eval do
     resource_saved = resource.save
 
     #Adding supplier
-    if params[:spree_user][:seller]
+    if params[:spree_user][:seller] == 'yes'
         		logger.debug "Seller Registration #{resource.id}"
         		@object = Spree::Supplier.new(:active => true,:email => params[:spree_user][:email],:name => params[:spree_user][:first_name],:url => params[:spree_user][:shop_name] )
         		@object.save

@@ -7,7 +7,6 @@ class CreateSupplierBankAccounts < ActiveRecord::Migration[5.1]
       t.string :token
       t.timestamps
     end
-    add_index :spree_supplier_bank_accounts, :supplier_id
-    add_index :spree_supplier_bank_accounts, :token
+    
   end
 end

@@ -44,7 +44,7 @@ input[name=images[][image]] {
         <div data-hook="new_product_sku">
           <%= f.field_container :sku, class: ['form-group'] do %>
             <!-- <%= f.label :sku, Spree.t(:sku) %> -->
-            <%= f.text_field :sku,name: "product[][sku]", size: 16, value:([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(8).join,class: 'form-control', required: :required %>
+            <%= f.text_field :sku,name: "product[][sku]", size: 16, value:([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(8).join,class: 'form-control', required: :required , :readonly => true %>
             <%= f.error_message_on :sku %>
           <% end %>
         </div>
@@ -126,14 +126,14 @@ input[name=images[][image]] {
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"]} %>
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"]} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"]} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"]} %>
           <% end %>
         </div>
     </td>
@@ -173,14 +173,14 @@ input[name=images[][image]] {
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
           <% end %>
         </div>
     </td>
@@ -218,14 +218,14 @@ input[name=images[][image]] {
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
           <% end %>
         </div>
     </td>
@@ -263,14 +263,14 @@ input[name=images[][image]] {
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
           <% end %>
         </div>
     </td>
@@ -308,14 +308,14 @@ input[name=images[][image]] {
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types]"],:disabled => "disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled => "disabled"} %>
         </div>
     </td>
        <td>
         <div class="form-group" data-hook="presentation">
           <%= f.field_container :quantity, class: ['form-group'] do %>
           <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>3), :id, :name, {},{:name => ["variant[][option_types_size]"],:disabled => "disabled"} %>
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name, {},{:name => ["variant[][option_types_size]"],:disabled => "disabled"} %>
           <% end %>
         </div>
     </td>

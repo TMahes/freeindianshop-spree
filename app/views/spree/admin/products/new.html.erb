@@ -15,7 +15,6 @@ input[name=images[][image]] {
   <%= Spree.t(:new_product) %>
 
 <% end %>
- <button tabindex="8" type="button" class="btn btn-primary" id="addVariant" style="float: right;">Add Variant</button>
 <table class="table">
   
   <thead>
@@ -23,8 +22,8 @@ input[name=images[][image]] {
   <th>Name</th>
   <th>Model No</th>
   <th>Category</th>
-  <th>Quantity</th>
-  <th>Price</th>
+  <th id="quantity">Quantity</th>
+  <th id="price">Price</th>
   <th>Image</th>
 </tr>
 </thead>
@@ -72,7 +71,7 @@ input[name=images[][image]] {
   </div>
   <% end %>
     </td>
-  <td>
+  <td id="tdquantity">
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>
             <%= f.number_field :quantity,name:"product[][quantity]",class: 'form-control', value: 1 %>
@@ -85,11 +84,11 @@ input[name=images[][image]] {
           <%= f.collection_select :prototype_id, Spree::Prototype.all, :id, :name, {include_blank: true}, {class: 'select2'} %>
         <% end %>
       </div> -->
-<td>
+<td id="tdprice">
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "product[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), class: 'form-control', required: :required %>
+          <%= f.number_field :price,name: "product[][price]",:step => 50, value: 50, class: 'form-control', required: :required %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -111,7 +110,7 @@ input[name=images[][image]] {
 
 </tr>
 </table>
-<h4> Variants </h4>
+<h4 class="labelvariant"> Variants </h4>
 <table class="table" id="oChild">
   <thead>
     <tr>
@@ -166,6 +165,7 @@ input[name=images[][image]] {
     </div>
   </td>
     <td><button class='rmv' >Remove</button></td>
+    <td><button class='add' >Add</button></td>
   </tr>
   </tr>
   </thead>
@@ -213,6 +213,7 @@ input[name=images[][image]] {
    </div>
  </td>
     <td><button class='rmv' >Remove</button></td>
+    <td><button class='add' >Add</button></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -258,6 +259,7 @@ input[name=images[][image]] {
    </div>
  </td>
     <td><button class='rmv' >Remove</button></td>
+    <td><button class='add' >Add</button></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -303,6 +305,7 @@ input[name=images[][image]] {
    </div>
  </td>
     <td><button class='rmv' >Remove</button></td>
+    <td><button class='add' >Add</button></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -348,6 +351,7 @@ input[name=images[][image]] {
    </div>
  </td>
     <td><button class='rmv' >Remove</button></td>
+    <td><button class='add' >Add</button></td>
   </tr>
 </table>
     <div data-hook="product-from-prototype" id="product-from-prototype">
@@ -405,6 +409,7 @@ $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', fa
 $('table tr:eq(' + currentrow  + ')').find("input[name='images[][image]']").prop('disabled', false);
 
 });
+
 function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -419,11 +424,26 @@ function readURL(input) {
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $('table').on('click', '.rmv', function () {
 
-   $(this).closest('tr').remove();
+$('table').on('click', '.rmv', function () {
+  $(this).closest('tr').hide();
+  $(this).closest('tr').prev('tr').find('.add').show();
+  $(this).closest('tr').find('#product_quantity').prop('disabled', true);
+  $(this).closest('tr').find('#product_option_types').prop('disabled', true);
+  $(this).closest('tr').find('#product_price').prop('disabled', true);
+  $(this).closest('tr').find("input[name='images[][image]']").prop('disabled', true);
 });
-    $('#product_price').keypress(function(event){
+
+$('table').on('click', '.add', function () {
+  $(this).closest('tr').find('.add').hide();
+  $(this).closest('tr').next('tr').show();
+  $(this).closest('tr').next('tr').find('#product_quantity').prop('disabled', false);
+  $(this).closest('tr').next('tr').find('#product_option_types').prop('disabled', false);
+  $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
+  $(this).closest('tr').next('tr').find("input[name='images[][image]']").prop('disabled', false);
+});
+
+$('#product_price').keypress(function(event){
     event.preventDefault();
 });
 
@@ -459,5 +479,31 @@ function readURL(input) {
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return decodeURI(results[1]) || 0;
+    }
+}
+
+
+if($.urlParam('single')=='true')
+{
+ $('#oChild').remove();
+ $('.labelvariant').hide();
+ $('#addVariant').hide();
+}
+
+if($.urlParam('single')==null)
+{
+ $('#price').hide();
+ $('#quantity').hide();
+ $('#tdquantity').hide();
+ $('#tdprice').hide();
 }
 </script>

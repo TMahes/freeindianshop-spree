@@ -41,18 +41,19 @@ module Spree
     image = Image.create(:attachment =>File.open(product_images["image"].path) ,:viewable => @productObj)
     @productObj.images << image
     end
-  @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
+  @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>1})
     @optionValue.save
-    @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>3})
+    @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
     @optionType.save
 @productObj.save
 
+unless params[:variant].nil?
 params[:variant].each do |variant_params|
   @optionValue = Spree::OptionValue.where(id:[variant_params["option_types"],variant_params["option_types_size"]])
-    logger.debug "Creating Variants"
+    logger.debug "Creating Variants #{@productObj.id}"
   @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
   @productObj.variants << @variantnewObj
-  
+   @productObj.save
     logger.debug "@variantnewObj #{@variantnewObj.id}"
     #Quantity save
     logger.debug "StockMovement #{product_params["sku"]+"-"+variant_params["option_types"]}"
@@ -72,15 +73,18 @@ params[:variant].each do |variant_params|
     #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
     #@variantnewObj.images << image
     #end
+  end
     
  end
  @productObj.save
+ unless params[:variant].nil?
  firstvariant = Spree::Variant.find_by(sku: @productObj.sku)
  @supplierObj1 = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
     @suppliervariant1 = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj1.id, :variant_id => firstvariant.id)
     @suppliervariant1.save
    
    logger.debug "variant1 #{@productObj.sku}"
+ end
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon
@@ -93,7 +97,8 @@ params[:variant].each do |variant_params|
 =end
   end
   flash[:success] = "Product Uploaded Successfully"
-    redirect_to edit_admin_product_url(@productObj)
+   # redirect_to edit_admin_product_url(@productObj)
+   redirect_to new_object_url
   end
   
       def update

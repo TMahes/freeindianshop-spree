@@ -3,8 +3,8 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <%= button_link_to Spree.t("Add Product"), new_object_url, { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
-  
+  <%= button_link_to "Product with Variant", new_object_url, { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
+    <%= button_link_to "Signle Product", new_object_url(:single => "true"), { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
 <% end if can?(:create, Spree::Product) %>
 
 <% content_for :table_filter do %>

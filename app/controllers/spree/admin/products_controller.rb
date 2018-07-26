@@ -97,8 +97,8 @@ params[:variant].each do |variant_params|
 =end
   end
   flash[:success] = "Product Uploaded Successfully"
-   # redirect_to edit_admin_product_url(@productObj)
-   redirect_to new_object_url
+    redirect_to edit_admin_product_url(@productObj)
+   #redirect_to new_object_url
   end
   
       def update

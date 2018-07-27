@@ -22,16 +22,16 @@ module Spree
        @product = Product.new
     end
       def create
+        
         params[:product].each do |product_params|
           product_params.permit!
+    
     @productObj = Product.new
-    logger.debug "Creating Variants #{@productObj.id}"
     @productObj.name = product_params["name"]
     @productObj.price = product_params["price"]
     d = DateTime.now
     @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
-    @productObj.shipping_category_id = 1
-    #@productObj.sku = spree_current_user.first_name+"-"+product_params["sku"]
+    @productObj.shipping_category_id = product_params["shipping_category_id"]
     @productObj.sku = product_params["sku"]
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
@@ -48,8 +48,9 @@ module Spree
     @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
     @optionType.save
 @productObj.save
+logger.debug "Creating Variants #{@productObj.save!} #{ActiveRecord::Base.logger = Logger.new(STDOUT)}==============================="
 
-
+unless params[:variant].nil?
 params[:variant].each do |variant_params|
   @optionValue = Spree::OptionValue.where(id:[variant_params["option_types"],variant_params["option_types_size"]])
     logger.debug "Creating Variants #{@productObj.id}"
@@ -59,12 +60,13 @@ params[:variant].each do |variant_params|
     logger.debug "@variantnewObj #{@variantnewObj.id}"
     #Quantity save
     logger.debug "StockMovement #{product_params["sku"]+"-"+variant_params["option_types"]}"
-    Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
-    @staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
-    @staockMovementObj = Spree::StockMovement.new
-    @staockMovementObj.stock_item_id = @staockItemObj.id
-    @staockMovementObj.quantity = @quantity
-    @staockMovementObj.save
+    #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
+    #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
+    #@staockMovementObj = Spree::StockMovement.new
+    #@staockMovementObj.stock_item_id = @staockItemObj.id
+    #@staockMovementObj.quantity = @quantity
+    #@staockMovementObj.save
+    logger.debug "spulllllllllllllliiiiiier id #{spree_current_user.supplier_id}"
     @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
     @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
     @suppliervariant.save
@@ -75,18 +77,18 @@ params[:variant].each do |variant_params|
     #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
     #@variantnewObj.images << image
     #end
-  
+  end
     
  end
  @productObj.save
-
+ unless params[:variant].nil?
  firstvariant = Spree::Variant.find_by(sku: @productObj.sku)
  @supplierObj1 = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
     @suppliervariant1 = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj1.id, :variant_id => firstvariant.id)
     @suppliervariant1.save
    
    logger.debug "variant1 #{@productObj.sku}"
- 
+ end
 =begin 
 @productTaxonObj.update_attributes(:taxon_id => @productTaxon)
    productTaxonObj.id = @productTaxon

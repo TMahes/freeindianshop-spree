@@ -58,6 +58,7 @@ params[:variant].each do |variant_params|
   @productObj.variants << @variantnewObj
    @productObj.save
     logger.debug "@variantnewObj #{@variantnewObj.id}"
+    Spree::Price.create!({:variant_id => @variantnewObj.id, :amount => variant_params["price"]})
     #Quantity save
     logger.debug "StockMovement #{product_params["sku"]+"-"+variant_params["option_types"]}"
     #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)

@@ -77,8 +77,8 @@
         <% end %>
       </div>
 
-      <% if @product.has_variants? %>
-        <div data-hook="admin_product_form_multiple_variants" class="well">
+    <!--  <% if @product.has_variants? %>
+         <div data-hook="admin_product_form_multiple_variants" class="well">
           <%= f.label :skus, Spree.t(:sku).pluralize %>
           <div class="info marginb">
             <%= Spree.t(:info_product_has_multiple_skus, count: @product.variants.size) %>
@@ -105,7 +105,7 @@
             <%= f.label :sku, Spree.t(:sku) %>
             <%= f.text_field :sku, size: 16, class: 'form-control' %>
           <% end %>
-        </div>
+        </div> -->
 
         <div id="shipping_specs" class="row">
           <div class="col-xs-12 col-md-6">
@@ -195,7 +195,7 @@
     <% end %>
   </div>
 
-  <div data-hook="admin_product_form_tag_list">
+ <!--  <div data-hook="admin_product_form_tag_list">
     <%= f.field_container :tag_list, class: ['form-group'] do %>
       <%= f.label :tag_list, Spree.t(:tags) %>
       <%= f.hidden_field :tag_list, value: @product.tag_list.join(','), class: 'tag_picker' %>
@@ -222,7 +222,7 @@
         <%= f.label :meta_description, Spree.t(:meta_description) %>
         <%= f.text_field :meta_description, class: 'form-control' %>
       <% end %>
-    </div>
+    </div> -->
 
     <div data-hook="admin_product_form_additional_fields"></div>
 

@@ -18,8 +18,8 @@ end
 
 Spree.user_class = "Spree::User"
 Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :city, :state, :zip_code, :address, :seller,:shop_name,:phone
-
-=beginattachment_config = {
+=begin
+attachment_config = {
 
   s3_credentials: {
     access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
@@ -47,5 +47,6 @@ Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :
 }
 
 attachment_config.each do |key, value|
-  Spree::Image.attachment_definitions[:attachment][key.to_sym] = value=end
+  Spree::Image.attachment_definitions[:attachment][key.to_sym] = value
+=end
 end

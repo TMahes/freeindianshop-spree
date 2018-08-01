@@ -37,18 +37,26 @@ module Spree
     @quantity = product_params["quantity"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"
     print product_params["taxon_ids"]
+
     params[:images].each do |product_images|
-    
     image = Image.create(:attachment =>File.open(product_images["image"].path) ,:viewable => @productObj)
     @productObj.images << image
     end
 
-  @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>1})
+    @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>1})
     @optionValue.save
     @optionType = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>2})
     @optionType.save
-@productObj.save
-logger.debug "Creating Variants #{@productObj.save!} #{ActiveRecord::Base.logger = Logger.new(STDOUT)}==============================="
+
+    @productObj.save
+
+   product_params["taxon_ids"] = product_params["taxon_ids"].split(',')
+   product_params["taxon_ids"].each do |taxon|
+    #  @taxon = Spree::Product.taxons.new({:product_id=>@productObj.id,:taxon_id=>taxon})
+     # @taxon.save
+
+   end
+    @productObj.assign_attributes(taxons:Spree::Taxon.find(product_params["taxon_ids"]))
 
 unless params[:variant].nil?
 params[:variant].each do |variant_params|
@@ -76,11 +84,13 @@ params[:variant].each do |variant_params|
     @suppliervariant.save
     #OptionValue
    #@variantnewObj.save
-   #params[:variantimages].each do |variant_images|
-    #logger.debug "imagessssssssss #{product_images["image"].path}"
-    #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
-    #@variantnewObj.images << image
-    #end
+   params[:variantimages].each do |variant_images|
+      #logger.debug "imagessssssssss #{product_images["image"].path}"
+      #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
+      #@variantnewObj.images << image
+    varimage = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
+    @variantnewObj.images << varimage
+  end
   end
     
  end

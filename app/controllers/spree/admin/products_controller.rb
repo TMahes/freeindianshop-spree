@@ -76,7 +76,7 @@ params[:variant].each do |variant_params|
     #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
     @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
     logger.debug "@stocklocation.id #{@stocklocation.id}"
-    @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => variant_params["quantity"], :backorderable => false)
+    @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => 0, :backorderable => false)
 
     @staockMovementObj = Spree::StockMovement.new
     @staockMovementObj.stock_item_id = @stockObj.id
@@ -86,6 +86,8 @@ params[:variant].each do |variant_params|
     @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
     @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
     @suppliervariant.save
+
+    Spree::StockItem.find_by(variant_id:@variantnewObj).update(backorderable: false)
     #OptionValue
    #@variantnewObj.save
   # params[:variantimages].each do |variant_images|

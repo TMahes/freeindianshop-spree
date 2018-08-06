@@ -71,26 +71,30 @@ params[:variant].each do |variant_params|
     end
     Spree::Price.where(:variant_id => @variantnewObj.id , :amount => "50").destroy_all
     #Quantity save
-    logger.debug "StockMovement #{product_params["sku"]+"-"+variant_params["option_types"]}"
+    
     #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
     #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
-    #@staockMovementObj = Spree::StockMovement.new
-    #@staockMovementObj.stock_item_id = @staockItemObj.id
-    #@staockMovementObj.quantity = @quantity
-    #@staockMovementObj.save
+    @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
+    logger.debug "@stocklocation.id #{@stocklocation.id}"
+    @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => variant_params["quantity"], :backorderable => false)
+
+    @staockMovementObj = Spree::StockMovement.new
+    @staockMovementObj.stock_item_id = @stockObj.id
+    @staockMovementObj.quantity = variant_params["quantity"]
+    @staockMovementObj.save
     logger.debug "spulllllllllllllliiiiiier id #{spree_current_user.supplier_id}"
     @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
     @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
     @suppliervariant.save
     #OptionValue
    #@variantnewObj.save
-   params[:variantimages].each do |variant_images|
+  # params[:variantimages].each do |variant_images|
       #logger.debug "imagessssssssss #{product_images["image"].path}"
       #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
       #@variantnewObj.images << image
-    varimage = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
+    varimage = Image.create(:attachment =>File.open(variant_params["image"].path) ,:viewable => @variantnewObj)
     @variantnewObj.images << varimage
-  end
+  #end
   end
     
  end

@@ -6,7 +6,7 @@ img {
     background:white;
 }
 
-input[name=images[][image]] {
+input[name=variant[][image]] {
     display:none;
 }
 </style>
@@ -155,14 +155,11 @@ input[name=images[][image]] {
 <td>
        <div data-hook="file" class="form-group">
         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile2" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none" %>
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none" %>
     </div>
   </td>
   <td>
-     <div data-hook="file" class="form-group">
-        <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile3" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none" %>
-    </div>
+ 
   </td>
     
     <td><a href="#" class='btn btn-default add' >Add</a></td>
@@ -203,14 +200,10 @@ input[name=images[][image]] {
 <td>
        <div data-hook="file" class="form-group">
          <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none",disabled:true %>
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
     </div>
   </td>
   <td>
-    <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile6" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none",disabled:true %>
-   </div>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
     <td><a href="#" class='btn btn-default add' >Add</a></td>
@@ -249,14 +242,10 @@ input[name=images[][image]] {
 <td>
        <div data-hook="file" class="form-group">
          <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none",disabled:true %>
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
     </div>
   </td>
   <td>
-    <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile6" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variantimages[][image]",style:"display:none" %>
-   </div>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
     <td><a href="#" class='btn btn-default add' >Add</a></td>
@@ -406,7 +395,7 @@ currentrow++;
 $('table tr:eq(' + currentrow  + ')').find('#product_quantity').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_option_types').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', false);
-$('table tr:eq(' + currentrow  + ')').find("input[name='variantimages[][image]']").prop('disabled', false);
+$('table tr:eq(' + currentrow  + ')').find("input[name='variant[][image]']").prop('disabled', false);
 
 });
 
@@ -431,7 +420,7 @@ $('table').on('click', '.rmv', function () {
   $(this).closest('tr').find('#product_quantity').prop('disabled', true);
   $(this).closest('tr').find('#product_option_types').prop('disabled', true);
   $(this).closest('tr').find('#product_price').prop('disabled', true);
-  $(this).closest('tr').find("input[name='variantimages[][image]']").prop('disabled', true);
+  $(this).closest('tr').find("input[name='variant[][image]']").prop('disabled', true);
 });
 
 $('table').on('click', '.add', function () {
@@ -440,7 +429,7 @@ $('table').on('click', '.add', function () {
   $(this).closest('tr').next('tr').find('#product_quantity').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#product_option_types').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
-  $(this).closest('tr').next('tr').find("input[name='variantimages[][image]']").prop('disabled', false);
+  $(this).closest('tr').next('tr').find("input[name='variant[][image]']").prop('disabled', false);
 });
 
 $('#product_price').keypress(function(event){
@@ -450,36 +439,36 @@ $('#product_price').keypress(function(event){
 //image upload
 $(document).on("click", ".img", function () {
 
-    $(this).closest("div").find("input[name='variantimages[][image]']").trigger("click");
+    $(this).closest("div").find("input[name='images[][image]']").trigger("click");
 });
 
 $(document).on("click", ".img", function () {
 
-    $(this).closest("div").find("input[name='images[][image]']").trigger("click");
+    $(this).closest("div").find("input[name='variant[][image]']").trigger("click");
 });
 
 var count = 1;
 $(".add").on("click", function () {
     count++;
-    var row = '<div class="row"><label> Step ' + count + ' </label> <img src="http://png-4.findicons.com/files/icons/129/soft_scraps/256/button_upload_01.png" id="upfile1" style="cursor:pointer" class="img"/ ><input type="file" name="variantimages[][image]" class="inputimg" />';
+    var row = '<div class="row"><label> Step ' + count + ' </label> <img src="http://png-4.findicons.com/files/icons/129/soft_scraps/256/button_upload_01.png" id="upfile1" style="cursor:pointer" class="img"/ ><input type="file" name="variant[][image]" class="inputimg" />';
     $(".prep").append(row);
 
-    $("input[name='images[][image]']").change(function () {
+    $("input[name='variant[][image]']").change(function () {
         console.log(this);
         readURL(this);
     });
 
 });
-$("input[name='images[][image]']").change(function () {
+$("input[name='variant[][image]']").change(function () {
     readURL(this);
 });
 
-$("input[name='variantimages[][image]']").change(function () {
+$("input[name='variant[][image]']").change(function () {
         console.log(this);
         readURL(this);
     });
 
-$("input[name='variantimages[][image]']").change(function () {
+$("input[name='images[][image]']").change(function () {
     readURL(this);
 });
 

@@ -1,12 +1,15 @@
 development:
-    AWS_ACCESS_KEY: AKIAI3XF7D56OTPTCYNA 
-    AWS_SECRET_TOKEN: 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
-    AWS_BUCKET: 'freeindianshop'
+    AWS_ACCESS_KEY: AKIAIVY5R7JMIJ4MPRPQ
+    AWS_SECRET_TOKEN: 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
+    AWS_BUCKET: 'freeindianshopproduct'
+    AWS_REGION : 'US East (Ohio)'
 production:
-    AWS_ACCESS_KEY: ENV['AWS_ACCESS_KEY']
-    AWS_SECRET_TOKEN: ENV['AWS_SECRET_TOKEN']
-    AWS_BUCKET: ENV['AWS_BUCKET']
+    AWS_ACCESS_KEY: AKIAIVY5R7JMIJ4MPRPQ
+    AWS_SECRET_TOKEN: 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
+    AWS_BUCKET: 'freeindianshopproduct'
+    AWS_REGION : 'US East (Ohio)'
 test:
-    AWS_ACCESS_KEY: AKIAI3XF7D56OTPTCYNA
-    AWS_SECRET_TOKEN: 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
-    AWS_BUCKET: 'freeindianshop'
+    AWS_ACCESS_KEY: AKIAIVY5R7JMIJ4MPRPQ
+    AWS_SECRET_TOKEN: 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
+    AWS_BUCKET: 'freeindianshopproduct'
+    AWS_REGION : 'US East (Ohio)'

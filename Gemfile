@@ -41,7 +41,8 @@ gem 'spree_drop_ship', github: 'spree-contrib/spree_drop_ship'
 #gem 'spree_multi_vendor', github: 'spree-contrib/spree_multi_vendor'
 #gem 'spree_marketplace', github: '0bserver07/spree_marketplace'
 gem 'carmen-rails', '~> 1.0.0'
-
+gem 'vinsol_spree_themes', github: 'vinsol-spree-contrib/spree_themes', branch: 'master'
+gem 'sprockets-helpers', '~> 1.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

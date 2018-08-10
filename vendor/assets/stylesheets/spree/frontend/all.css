@@ -8,5 +8,11 @@
  *= require_self
  *= require_tree .
  *= require spree/frontend/spree_drop_ship
- *= require spree/frontend/spree_themes
+ *= require spree/frontend/variables
+ *= require spree/frontend/global
+ *= require spree/frontend/global-header
+ *= require spree/frontend/global-footer
+ *= require spree/frontend/slick-theme
+ *= require spree/frontend/slick
+ *= require spree/frontend/home
 */

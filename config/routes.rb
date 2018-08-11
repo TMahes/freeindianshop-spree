@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   #get "admin/products/multinew" => "products#multinew"
   #get 'admin/products/multinew', :to => 'products#multinew', :as => :multinew
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
- 
+ post '/checkemail', to: 'spree/home#emailcheck'
+ post '/checkshopname', to: 'spree/home#checkshopname'
 end

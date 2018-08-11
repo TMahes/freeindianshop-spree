@@ -5,7 +5,8 @@
  <div class="form-group">
     <%= f.text_field :shop_name, :class => 'form-control', :placeholder => 'Shop Name',:required => true %>
   </div>
-  <div id="checkshopname"></div>
+  <div id="checkshopnamesuccess" style="color: green"></div>
+  <div id="checkshopnamefail" style="color: red"></div>
   <% end %>
     <%= f.text_field :first_name, :class => 'form-control', :placeholder => Spree.t(:first_name),:required => true %>
   </div>
@@ -15,7 +16,8 @@
   <div class="form-group">
     <%= f.email_field :email, :class => 'form-control', :placeholder => Spree.t(:email),:required => true %>
   </div>
-  <div id="checkemail"></div>
+  <div id="checkemailsuccess" style="color: green;"></div>
+  <div id="checkemailfail" style="color: red;"></div>
   <div class="form-group">
     <%= f.text_field :phone, :class => 'form-control', :placeholder => "Phone",maxlength: 10 %>
   </div>
@@ -53,19 +55,38 @@ $("#spree_user_email").on('change paste',function(){
     if(regex.test($("#spree_user_email").val())){
         $.post('/checkemail?email='+$("#spree_user_email").val(),function(data){
             console.log(data[2]);
-            $("#checkemail").text(data[2]);
+            if(data[1]==true){
+                $("#checkemailsuccess").show();
+                $("#checkemailsuccess").text("Congrats! Email Available");
+                $("#checkemailfail").hide();    
+            }
+            else{
+                $("#checkemailfail").show();
+                $("#checkemailfail").text("Sorry! Email ID already taken");    
+                $("#checkemailsuccess").hide();
+            }
+            
         });
     }
     else
     {
-        $("#checkemail").text("Please enter valid email");
+        $("#checkemailfail").text("Please enter valid email");
     }
 });
 $("#spree_user_shop_name").on('change paste',function(){
         console.log("change?");
     $.post('/checkshopname?shopname='+$("#spree_user_shop_name").val(),function(data){
         console.log(data[2]);
-        $("#checkshopname").text(data[2]);
+        if(data[1]==true){
+            $("#checkshopnamesuccess").show();
+                $("#checkshopnamesuccess").text("Congrats! Shop Name Available");  
+                $("#checkshopnamefail").hide();  
+            }
+            else{
+                $("#checkshopnamefail").show();
+                $("#checkshopnamefail").text("Sorry! Shop Name already taken");    
+                $("#checkshopnamesuccess").hide();
+            }
     });
 });
 </script>

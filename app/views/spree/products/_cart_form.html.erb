@@ -15,7 +15,7 @@
                   <%= variant_options variant %>
                 </span>
                 <% if variant_price variant %>
-                  <span class="price diff"><%= variant_price variant %></span>
+                  
                 <% end %>
                 <% unless variant.can_supply? %>
                   <span class="out-of-stock"><%= Spree.t(:out_of_stock) %></span>

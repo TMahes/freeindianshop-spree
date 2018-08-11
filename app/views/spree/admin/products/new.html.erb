@@ -88,7 +88,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "product[][price]",:step => 50, value: 50, class: 'form-control', required: :required %>
+          <%= f.number_field :price,name: "product[][price]",min:0,:step => 50, value: 50, class: 'form-control', required: :required %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>

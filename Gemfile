@@ -44,6 +44,7 @@ gem 'carmen-rails', '~> 1.0.0'
 gem 'aws-sdk' , '< 3.0'
 gem 'vinsol_spree_themes', github: 'vinsol-spree-contrib/spree_themes', branch: 'master'
 gem 'sprockets-helpers', '~> 1.2.1'
+gem "appengine", "~> 0.4.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

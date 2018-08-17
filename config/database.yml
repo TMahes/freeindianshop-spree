@@ -11,6 +11,7 @@ default: &default
 
 development:
   <<: *default
+  host: localhost
   database: my_database_development
   username: postgres
   password: Admin123
@@ -19,12 +20,16 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: localhost
   database: my_database_test
   username: postgres
   password: Admin123
 
 production:
-  <<: *default
-  database: my_database_production
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
   username: postgres
   password: Admin123
+  database: postgres-database
+  host: /cloudsql/my-project-1486809255957:us-central1:postgres-instance

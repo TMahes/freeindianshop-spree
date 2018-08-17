@@ -21,7 +21,9 @@
       <% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
       <% @taxonomies.each do |taxonomy| %>
         <% cache [I18n.locale, taxonomy, max_level, @taxon] do %>
-          <% if taxonomy.root.children.any? && taxonomy.name != 'Brands' %>
+          <% if taxonomy.root.children.any? && taxonomy.name != 'Women' %>
+            <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
+            <%= Spree::Taxonomy.find_by(name: 'Brands').root.children.name %>
             <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
           <% end %>
         <% end %>

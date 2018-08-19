@@ -64,10 +64,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" style="margin-left: 50px;">
     <span class="close">&times;</span>
-    <%= link_to Spree.t(:create_a_new_account), spree.signup_path , class:"btn btn-success" %> |
-    <%= link_to "Become Seller", spree.signup_path(:seller=>"yes"), class:"btn btn-success" %>
+    <h4>Create an Account as</h4>
+    <%= link_to "Buyer", spree.signup_path , class:"btn btn-success" %> <span>OR</span>
+    <%= link_to "Seller", spree.signup_path(:seller=>"yes"), class:"btn btn-success" %>
 
   </div>
 

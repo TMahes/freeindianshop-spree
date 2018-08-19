@@ -1,34 +1,79 @@
-<%= render partial: 'spree/shared/search' %>
+<style>
+.navbar {
+    margin-bottom: 0px;
+    background-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-<nav id="top-nav-bar" class="user_bar">
-  <a href="javascript:void(0);" class="close_this userbar_toggle"></a>
-  <ul id="nav-bar" class="nav navbar-nav" data-hook>
-    <li id="link-to-cart" data-hook>
-      <noscript>
-        <%= link_to_cart %>
-      </noscript>
-    </li>
-    <script>Spree.fetch_cart()</script>
-    <li id="search-bar" data-hook>
-    </li>
-  </ul>
-</nav>
-<div class="main_menu">
-  <a href="javascript:void(0);" class="close_this main_menu_toggle"></a>
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+  <%= render partial: 'spree/shared/search' %>
+  <nav id="top-nav-bar" class="user_bar">
+    <a href="javascript:void(0);" class="close_this userbar_toggle"></a>
+    <ul id="nav-bar" class="nav navbar1-nav" data-hook>
+      <li id="link-to-cart" data-hook>
+        <noscript>
+          <%= link_to_cart %>
+        </noscript>
+      </li>
+      <script>Spree.fetch_cart()</script>
+      <li id="search-bar" data-hook>
+      </li>
+    </ul>
+  </nav>
   <% if @taxonomies.present? %>
-    <div class="main_navigation">
-      <% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
-      <% @taxonomies.each do |taxonomy| %>
-        <% cache [I18n.locale, taxonomy, max_level, @taxon] do %>
-          <% if taxonomy.root.children.any? && taxonomy.name != 'Women' %>
-            <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
-            <%= Spree::Taxonomy.find_by(name: 'Brands').root.children.name %>
-            <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
+<div class="main_menu">
+    <% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+    <div class="navbar"> 
+        <% @taxonomies.each do |taxonomy| %>
+          <% cache [I18n.locale, taxonomy, max_level, @taxon] do %>
+            <% if taxonomy.root.children.any? && taxonomy.name != 'Brands' %>
+                <%= taxons_menu_tree(taxonomy.root, @taxon, max_level) %>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
+        <% end %>    
     </div>
-  <% end %>
-
 </div>
+<% end %>
+  </div>

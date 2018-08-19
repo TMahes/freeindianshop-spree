@@ -6,4 +6,4 @@ env_variables:
   SECRET_KEY_BASE: 2e08ee8deb3aa4002ba1d4110bd6bbf053449663e1c257da6425dba000da3bfc41e19ce2def41b6d20c10e6805e4cce4f8d1beb27fbae1ff254505ed73a076fd
 
 beta_settings:
-  cloud_sql_instances: /cloudsql/my-project-1486809255957:us-central1:postgres-instance
+  cloud_sql_instances: my-project-1486809255957:us-central1:postgres-instance

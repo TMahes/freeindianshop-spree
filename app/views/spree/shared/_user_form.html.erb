@@ -21,6 +21,7 @@
   <div class="form-group">
     <%= f.text_field :phone, :class => 'form-control', :placeholder => "Phone",maxlength: 10 %>
   </div>
+  <% if params[:seller] %>
    <div class="form-group">
     <%= f.date_field :dob,:class => 'form-control', :placeholder => 'DOB' %>
   </div>
@@ -38,7 +39,7 @@
   <div class="form-group">
     <%= f.text_field :zip_code, :class => 'form-control', :placeholder => 'ZipCode' , maxlength:6,:required => true %>
   </div>
-  
+  <% end %>
   <hr />
   <div class="form-group">
     <%= f.password_field :password, :class => 'form-control', :placeholder => Spree.t(:password),:required => true %>

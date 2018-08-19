@@ -11,3 +11,4 @@
 //= require_tree .
 //= require spree/backend/spree_drop_ship
 //= require spree/backend/spree_themes
+//= require admin/spree_fancy_menu

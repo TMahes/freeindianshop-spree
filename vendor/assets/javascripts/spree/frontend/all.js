@@ -45,4 +45,4 @@ $(document).on('ready', function() {
     $(".responsive-overlay").toggleClass("open");
   });
 
-});
+});//= require store/spree_fancy_menu

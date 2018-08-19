@@ -96,16 +96,17 @@ module Spree
     end
     def taxons_menu_tree(root_taxon, current_taxon, max_level = 1)
       return '' if max_level < 1 || root_taxon.leaf?
-      menu=[]
         taxons = root_taxon.children.map do |taxon|
          content_tag :div, class: 'dropdown' do
-            concat(link_to(taxon.name, seo_url(taxon)))
+          concat(("<button class='dropbtn'>").html_safe)
+            concat(link_to(taxon.name, seo_url(taxon))) 
+            concat(("</button>").html_safe)
                 taxonc = Spree::Taxon.where(:parent_id => taxon.id)
+                concat(("<div class='dropdown-content'>").html_safe)
                    taxonc.each do |taxont|
-                    content_tag :div, class: 'dropdown-content' do
-                    concat(content_tag(:div, link_to(taxont.name, seo_url(taxont))))
+                    concat(link_to(taxont.name, seo_url(taxont)))
                     end
-                end
+                concat(("</div>").html_safe)
           end
         end
         safe_join(taxons, "\n")  

@@ -28,7 +28,7 @@ module Spree
     
     @productObj = Product.new
     @productObj.name = product_params["name"]
-    @productObj.price = product_params["price"]
+    @productObj.price = 50
     d = DateTime.now
     @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
     @productObj.shipping_category_id = product_params["shipping_category_id"]

@@ -29,7 +29,7 @@
               <%= content_tag(:div, truncate(product.name, length: 50), class: 'info product_name', itemprop: "name", title: product.name) %>
             <% end %>
             <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <div class="price selling" itemprop="price"><%= display_price(product) %></div>
+              <div class="price selling" itemprop="price"><%= product.variants.first ? display_price(product.variants.first) : display_price(product) %></div>
             </div>
         <% end %>
       </div>

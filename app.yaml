@@ -3,7 +3,7 @@ env: flex
 runtime: ruby
 
 env_variables:
-  SECRET_KEY_BASE: 2e08ee8deb3aa4002ba1d4110bd6bbf053449663e1c257da6425dba000da3bfc41e19ce2def41b6d20c10e6805e4cce4f8d1beb27fbae1ff254505ed73a076fd
+  SECRET_KEY_BASE: d55a4fdb14a57877d4b119cef4dc6c8c75dc00a3e951d9391d118c1d8f71230ea9c17cd9027700591e259d7985f131f40f76b65ce58060c9fb62a9697502730e
 
 beta_settings:
   cloud_sql_instances: my-project-1486809255957:us-central1:postgres-instance

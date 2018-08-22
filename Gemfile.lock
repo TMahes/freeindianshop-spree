@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/openjaf/spree_fancy_menu.git
-  revision: ae67939de75bb4b804150bff8f39bc761ca8469b
-  branch: master
-  specs:
-    spree_fancy_menu (0.7.0)
-      bootstrap-sass
-      jquery-ui-rails
-      spree_auth_devise (>= 2.2.0)
-      spree_core (>= 2.3.1)
-
-GIT
   remote: https://github.com/spree-contrib/spree_drop_ship.git
   revision: c776adc63194931876dc4edc362d91373015aeab
   specs:
@@ -508,7 +497,6 @@ DEPENDENCIES
   spree (~> 3.4.4)
   spree_auth_devise (~> 3.3)
   spree_drop_ship!
-  spree_fancy_menu!
   spree_gateway (~> 3.3)
   spring
   spring-watcher-listen (~> 2.0.0)

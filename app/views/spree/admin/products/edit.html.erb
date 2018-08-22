@@ -1,8 +1,10 @@
 <% content_for :page_actions do %>
   <% if can?(:create, Spree::Product) %>
+  <%=  button_link_to  "Go to Store",spree.root_path, target: :blank  %>
+  <%=  button_link_to  "Add New Product",'/admin/products', target: :blank  %>
   <% end %>
 <% end %>
-
+ 
 <%= render partial: 'spree/admin/shared/product_tabs', locals: {current: :details} %>
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @product } %>
 

@@ -37,7 +37,7 @@
           <div class="well" itemprop="description" data-hook="description">
             <%= product_description(@product) %>
           </div>
-
+          <h5>Sold BY:<%= @product.master.id %>(TO do link to show supplier products)</h5>
           <div id="cart-form" data-hook="cart_form">
             <%= render partial: 'cart_form' %>
           </div>

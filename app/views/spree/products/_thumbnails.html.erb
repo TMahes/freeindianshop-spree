@@ -3,7 +3,7 @@
   <ul id="product-thumbnails" class="thumbnails list-inline" data-hook>
     <% @product.images.each do |i| %>
       <li class='tmb-all tmb-<%= i.viewable.id %>'>
-        <%= link_to(image_tag(i.attachment.url(:mini), class: "thumbnail"), i.attachment.url(:product)) %>
+       <%= link_to(image_tag(i.attachment.url(:mini), class: "thumbnail"), i.attachment.url(:product)) %>
       </li>
     <% end %>
 
@@ -17,3 +17,6 @@
     <% end %>
   </ul>
 <% end %>
+<script type="text/javascript">
+  $('ul li:not(:first):not(:last)').show();
+</script>

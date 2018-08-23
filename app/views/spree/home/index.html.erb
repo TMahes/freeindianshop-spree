@@ -20,7 +20,7 @@
 <div class="text-center common-subheading">Suggested for you.</div>
 <div data-hook="homepage_products" class="homepage_products">
   <% cache(cache_key_for_products) do %>
-    <%= render partial: 'spree/shared/products', locals: { products: @products.in_taxon(Spree::Taxon.find_by(id:6)) } %>
+    <%= render partial: 'spree/shared/hotproducts', locals: { products: @products.in_taxon(Spree::Taxon.find_by(id:6)) } %>
   <% end %>
 </div>
 <div class="text-center common-heading">Today's Featured Collections</div>

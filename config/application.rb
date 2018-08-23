@@ -31,4 +31,4 @@ module Freeindianshop
   end
 end
 # This constant need to be loaded before it being used in config/initializers/paperclip.rb
-#S3_CREDENTIALS = YAML.load_file(File.join(Rails.root, 'config', 's3.yml'))[Rails.env]
+S3_CREDENTIALS = YAML.load_file(File.join(Rails.root, 'config', 's3.yml'))[Rails.env]

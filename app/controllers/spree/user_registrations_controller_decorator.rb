@@ -10,7 +10,7 @@ Spree::UserRegistrationsController.class_eval do
     #Adding supplier
     if params[:spree_user][:seller] == 'yes'
         		logger.debug "Seller Registration #{resource.id}"
-        		@object = Spree::Supplier.new(:active => true,:email => params[:spree_user][:email],:name => params[:spree_user][:first_name],:url => params[:spree_user][:shop_name] )
+        		@object = Spree::Supplier.new(:active => true,:email => params[:spree_user][:email],:name => params[:spree_user][:shop_name],:url => params[:spree_user][:shop_name] )
         		@object.save
         		logger.debug "#{@object.id}"
     			@rolesObj = Spree::Role.find_by(name:'Sellers')
@@ -18,7 +18,10 @@ Spree::UserRegistrationsController.class_eval do
     			logger.debug "Role ID #{resource.id}"
     			@rolesUserObj = @rolesObj.role_users.new(:role_id => @rolesObj.id, :user_id => resource.id)
     			@rolesUserObj.save
-    			@userObj = Spree.user_class.find_by(id:resource.id).update(supplier_id:@object.id)
+    			@userObj = Spree.user_class.find_by(id:resource.id)
+          logger.debug "update#{@userObj.id}"
+          @userObj.update(supplier_id:@object.id)
+          logger.debug "update#{@userObj.supplier_id}"
     			
     end
     

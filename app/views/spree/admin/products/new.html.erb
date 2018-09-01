@@ -5,7 +5,6 @@ img {
     width:50px;
     background:white;
 }
-
 input[name=variant[][image]] {
     display:none;
 }
@@ -168,9 +167,218 @@ input[name=variant[][image]] {
     
     <td><a href="#" class='btn btn-default add' >Add</a></td>
   </tr>
-  </tr>
-  </thead>
+  
   <tr id="DocumentRow" style="display: none">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="#" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="#" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="#" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="#" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
+    <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.collection_select :option_types,
+          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"],:disabled=>"disabled"} %>
+        </div>
+    </td>
+       <td>
+        <div class="form-group" data-hook="presentation">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+          <%= f.collection_select :option_types, 
+          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"],:disabled=>"disabled"} %>
+          <% end %>
+        </div>
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="#" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
     <td>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
@@ -377,7 +585,6 @@ input[name=variant[][image]] {
      clone.find('.select2-choices').hide();
      clone.append("<td><button class='rmv' >Remove</button></td>");
     t.append(clone);
-
 });*/
 var currentrow = 3;
 $('table tr:eq(2)').show();
@@ -388,9 +595,7 @@ $('table tr:eq(' + currentrow  + ')').find('#product_quantity').prop('disabled',
 $('table tr:eq(' + currentrow  + ')').find('#product_option_types').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find("input[name='variant[][image]']").prop('disabled', false);
-
 });
-
 function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -401,11 +606,9 @@ function readURL(input) {
                     .width(50)
                     .height(50);
             };
-
             reader.readAsDataURL(input.files[0]);
         }
     }
-
 $('table').on('click', '.rmv', function () {
   $(this).closest('tr').hide();
   $(this).closest('tr').prev('tr').find('.add').show();
@@ -414,7 +617,6 @@ $('table').on('click', '.rmv', function () {
   $(this).closest('tr').find('#product_price').prop('disabled', true);
   $(this).closest('tr').find("input[name='variant[][image]']").prop('disabled', true);
 });
-
 $('table').on('click', '.add', function () {
   $(this).closest('tr').find('.add').hide();
   $(this).closest('tr').next('tr').show();
@@ -423,59 +625,45 @@ $('table').on('click', '.add', function () {
   $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
   $(this).closest('tr').next('tr').find("input[name='variant[][image]']").prop('disabled', false);
 });
-
 $('#product_price').keypress(function(event){
     event.preventDefault();
 });
-
 //image upload
 $(document).on("click", ".img", function () {
-
     $(this).closest("div").find("input[name='images[][image]']").trigger("click");
 });
-
 $(document).on("click", ".img", function () {
-
     $(this).closest("div").find("input[name='variant[][image]']").trigger("click");
 });
-
 var count = 1;
 $(".add").on("click", function () {
     count++;
     var row = '<div class="row"><label> Step ' + count + ' </label> <img src="http://png-4.findicons.com/files/icons/129/soft_scraps/256/button_upload_01.png" id="upfile1" style="cursor:pointer" class="img"/ ><input type="file" name="variant[][image]" class="inputimg" />';
     $(".prep").append(row);
-
     $("input[name='variant[][image]']").change(function () {
         console.log(this);
         readURL(this);
     });
-
 });
 $("input[name='variant[][image]']").change(function () {
     readURL(this);
 });
-
 $("input[name='variant[][image]']").change(function () {
         console.log(this);
         readURL(this);
     });
-
 $("input[name='images[][image]']").change(function () {
     readURL(this);
 });
-
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
             $(input).siblings('.img').attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 }
-
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results==null){
@@ -485,8 +673,6 @@ $.urlParam = function(name){
        return decodeURI(results[1]) || 0;
     }
 }
-
-
 if($.urlParam('single')=='true')
 {
  $('#oChild').remove();
@@ -494,7 +680,6 @@ if($.urlParam('single')=='true')
  $('#addVariant').hide();
  $('.image2').show();
 }
-
 if($.urlParam('single')==null)
 {
  $('#price').hide();
@@ -514,5 +699,4 @@ n.addEventListener("keyup", function(e) {
 n.addEventListener("change", function(e) {
     r.value=n.value;
 }, false);
-
 </script>

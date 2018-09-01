@@ -74,7 +74,7 @@ params[:variant].each do |variant_params|
     if variant_params["price"] != 50
     Spree::Price.create!({:variant_id => @variantnewObj.id, :amount => variant_params["price"]})
     end
-    Spree::Price.where(:variant_id => @variantnewObj.id , :amount => "50").destroy_all
+    Spree::Price.where(:variant_id => @variantnewObj.id , :amount => product_params["price"] ).first.destroy
     #Quantity save
     
     #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)

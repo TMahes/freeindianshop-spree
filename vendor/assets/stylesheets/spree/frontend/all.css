@@ -15,4 +15,6 @@
  *= require spree/frontend/slick-theme
  *= require spree/frontend/slick
  *= require spree/frontend/home
+ *= require luminous-basic
+ *= require spree/frontend/spree_product_hover_zoom
 */

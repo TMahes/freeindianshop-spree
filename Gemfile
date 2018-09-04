@@ -65,3 +65,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+#zoom plus 
+gem "spree_product_hover_zoom", :git => "git://github.com/vinzloh/spree_product_hover_zoom.git"

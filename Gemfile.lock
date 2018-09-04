@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/vinzloh/spree_product_hover_zoom.git
+  revision: 95dbba4860436716e3c6624d29aa7dba75fdace3
+  specs:
+    spree_product_hover_zoom (1.0.3)
+      spree_core (~> 3.2)
+      spree_frontend (~> 3.2)
+
+GIT
   remote: https://github.com/spree-contrib/spree_drop_ship.git
   revision: c776adc63194931876dc4edc362d91373015aeab
   specs:
@@ -498,6 +506,7 @@ DEPENDENCIES
   spree_auth_devise (~> 3.3)
   spree_drop_ship!
   spree_gateway (~> 3.3)
+  spree_product_hover_zoom!
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets-helpers (~> 1.2.1)
@@ -508,4 +517,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.3

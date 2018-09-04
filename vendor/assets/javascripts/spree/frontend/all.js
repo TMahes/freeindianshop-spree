@@ -46,3 +46,6 @@ $(document).on('ready', function() {
   });
 
 });//= require store/spree_fancy_menu
+//= require drift.min
+//= require luminous
+//= require spree/frontend/spree_product_hover_zoom

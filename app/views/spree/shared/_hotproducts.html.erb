@@ -1,11 +1,11 @@
 <% content_for :head do %>
-  <% if products.respond_to?(:total_pages) %>
-    <%= rel_next_prev_link_tags products %>
+  <% if hotproducts.respond_to?(:total_pages) %>
+    <%= rel_next_prev_link_tags hotproducts %>
   <% end %>
 <% end %>
 
 <div data-hook="products_search_results_heading">
-  <% if products.empty? %>
+  <% if hotproducts.empty? %>
     <div data-hook="products_search_results_heading_no_results_found">
       <%= Spree.t(:no_products_found) %>
     </div>
@@ -16,20 +16,20 @@
   <% end %>
 </div>
 
-<% if products.any? %>
+<% if hotproducts.any? %>
   <div id="products" class="product-list" data-hook>
-    <% products.each do |product| %>
-      <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-      <div id="product_<%= product.id %>" data-hook="products_list_item" class="product-list-item" itemscope itemtype="https://schema.org/Product">
-        <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : cache_key_for_product(product)) do %>
+    <% hotproducts.each do |hotproduct| %>
+      <% url = spree.product_path(hotproduct, taxon_id: @taxon.try(:id)) %>
+      <div id="product_<%= hotproduct.id %>" data-hook="products_list_item" class="product-list-item" itemscope itemtype="https://schema.org/Product">
+        <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, hotproduct] : cache_key_for_product(hotproduct)) do %>
             <%= link_to url, itemprop: "url" do %>
               <div class="product_image_area">
-                <%= product_image(product, itemprop: "image", class: "img-responsive center-block") %>
+                <%= product_image(hotproduct, itemprop: "image", class: "img-responsive center-block") %>
               </div>
-              <%= content_tag(:div, truncate(product.name, length: 50), class: 'info product_name', itemprop: "name", title: product.name) %>
+              <%= content_tag(:div, truncate(hotproduct.name, length: 50), class: 'info product_name', itemprop: "name", title: hotproduct.name) %>
             <% end %>
             <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <div class="price selling" itemprop="price"><%= product.variants.first ? display_price(product.variants.first) : display_price(product) %></div>
+              <div class="price selling" itemprop="price"><%= hotproduct.variants.first ? display_price(hotproduct.variants.first) : display_price(hotproduct) %></div>
             </div>
         <% end %>
       </div>

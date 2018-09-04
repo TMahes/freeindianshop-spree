@@ -87,7 +87,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "product[][price]",:step => 50,min:0,class: 'form-control', required: :required, id: "master_product product_price" %>
+          <%= f.text_field :price,name: "product[][price]",:step => 50,min:0,class: 'form-control', required: :required, id: "master_product product_price" %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -150,7 +150,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'first_product product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'first_product product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -165,7 +165,7 @@ input[name=variant[][image]] {
  
   </td>
     
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
   
   <tr id="DocumentRow" style="display: none">
@@ -194,7 +194,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -208,7 +208,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
     <tr id="DocumentRow" style="display: none">
     <td>
@@ -236,7 +236,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -250,7 +250,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
     <tr id="DocumentRow" style="display: none">
     <td>
@@ -278,7 +278,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -292,7 +292,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
     <tr id="DocumentRow" style="display: none">
     <td>
@@ -320,7 +320,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -334,7 +334,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
     <tr id="DocumentRow" style="display: none">
     <td>
@@ -362,7 +362,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -376,7 +376,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
     <tr id="DocumentRow" style="display: none">
     <td>
@@ -404,7 +404,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -418,7 +418,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -446,7 +446,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -460,7 +460,7 @@ input[name=variant[][image]] {
   <td>
  </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -488,7 +488,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -500,7 +500,7 @@ input[name=variant[][image]] {
     </div>
   </td>
     <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="#" class='btn btn-default add' >Add</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
    <tr id="DocumentRow" style="display: none">
     <td>
@@ -528,7 +528,7 @@ input[name=variant[][image]] {
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
 <!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.number_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -540,7 +540,7 @@ input[name=variant[][image]] {
     </div>
   </td>
    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-  <td><a href="#" class='btn btn-default add' >Add</a></td>
+  <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
   </tr>
 </table>
     <div data-hook="product-from-prototype" id="product-from-prototype">
@@ -625,9 +625,7 @@ $('table').on('click', '.add', function () {
   $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
   $(this).closest('tr').next('tr').find("input[name='variant[][image]']").prop('disabled', false);
 });
-$('#product_price').keypress(function(event){
-    event.preventDefault();
-});
+
 //image upload
 $(document).on("click", ".img", function () {
     $(this).closest("div").find("input[name='images[][image]']").trigger("click");
@@ -699,4 +697,22 @@ n.addEventListener("keyup", function(e) {
 n.addEventListener("change", function(e) {
     r.value=n.value;
 }, false);
+
+$(document).ready(function() {
+    $("input[name='variant[][price]']").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+             // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+             // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+});
 </script>

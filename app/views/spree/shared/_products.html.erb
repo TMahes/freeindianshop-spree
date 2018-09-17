@@ -1,3 +1,14 @@
+<style type="text/css">
+  .price{
+    text-align: center;
+  }
+  .product_name{
+    text-align: center;
+  }
+  .carousel-control{
+    width: 8px;
+  }
+</style>
 <% content_for :head do %>
   <% if products.respond_to?(:total_pages) %>
     <%= rel_next_prev_link_tags products %>
@@ -17,8 +28,17 @@
 </div>
 
 <% if products.any? %>
-  <div id="products" class="product-list" data-hook>
+  <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+      <div class="carousel slide multi-item-carousel" id="theCarousel">
+        <div class="carousel-inner">
+          <div class="item active">
+  </div>
     <% products.each do |product| %>
+    <div class="item">
+            <div class="col-md-3">
+              <div>
       <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
       <div id="product_<%= product.id %>" data-hook="products_list_item" class="product-list-item" itemscope itemtype="https://schema.org/Product">
         <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : cache_key_for_product(product)) do %>
@@ -27,15 +47,25 @@
                 <%= product_image(product, itemprop: "image", class: "img-responsive center-block") %>
               </div>
               <%= content_tag(:div, truncate(product.name, length: 50), class: 'info product_name', itemprop: "name", title: product.name) %>
-            <% end %>
-            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+              <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
               <div class="price selling" itemprop="price"><%= product.variants.first ? display_price(product.variants.first) : display_price(product) %></div>
             </div>
+            <% end %>
         <% end %>
       </div>
+    </div>
+     </div>
+   </div>
     <% end %>
     <% reset_cycle("classes") %>
+    </div>
+  <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+  
   </div>
+</div>
+</div>
+</div>
 <% end %>
 
 

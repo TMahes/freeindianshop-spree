@@ -33,11 +33,15 @@
     <div class="col-md-12">
       <div class="carousel slide multi-item-carousel" id="theCarousel">
         <div class="carousel-inner">
-          <div class="item active">
-  </div>
+          <% count = 0; %>
     <% products.each do |product| %>
-    <div class="item">
-            <div class="col-md-3">
+    <% count=count+1 %>
+    <% if count==1 %>
+    <div class="item active">  
+      <% else %>
+      <div class="item">  
+    <% end %>
+            <div class="col-md-4">
               <div>
       <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
       <div id="product_<%= product.id %>" data-hook="products_list_item" class="product-list-item" itemscope itemtype="https://schema.org/Product">

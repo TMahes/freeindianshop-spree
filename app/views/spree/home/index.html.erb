@@ -31,7 +31,6 @@
   .carouse-control{
     &.left, &.right{
       background-image: none;
-      width:4px;
     }
   }
 }
@@ -77,15 +76,11 @@ h1{
 </div>
 <div class="text-center common-heading">Men's Collection</div>
 <div data-hook="homepage_products" class="homepage_products">
-  <% cache(cache_key_for_products) do %>
         <%= render partial: 'spree/shared/hotproducts', locals: { hotproducts: @products.in_taxon(Spree::Taxon.find_by(id:3)) } %>
-  <% end %>
 </div>
 <div class="text-center common-heading">Women's Collection</div>
 <div data-hook="homepage_products" class="homepage_products">
-  <% cache(cache_key_for_products) do %>
     <%= render partial: 'spree/shared/hotproducts', locals: { hotproducts: @products.in_taxon(Spree::Taxon.find_by(id:4)) } %>
-  <% end %>
 </div>
 
 </div>

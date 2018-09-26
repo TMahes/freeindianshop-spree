@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180818231926) do
+ActiveRecord::Schema.define(version: 20180925234508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20180818231926) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "vendor_id"
+    t.string "products_category"
     t.index ["name"], name: "index_spree_option_types_on_name"
     t.index ["position"], name: "index_spree_option_types_on_position"
     t.index ["vendor_id"], name: "index_spree_option_types_on_vendor_id"
@@ -251,6 +252,7 @@ ActiveRecord::Schema.define(version: 20180818231926) do
     t.integer "option_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "products"
     t.index ["name"], name: "index_spree_option_values_on_name"
     t.index ["option_type_id"], name: "index_spree_option_values_on_option_type_id"
     t.index ["position"], name: "index_spree_option_values_on_position"
@@ -1063,6 +1065,7 @@ ActiveRecord::Schema.define(version: 20180818231926) do
     t.string "meta_description"
     t.string "meta_keywords"
     t.integer "depth"
+    t.string "option_values"
     t.index ["lft"], name: "index_spree_taxons_on_lft"
     t.index ["name"], name: "index_spree_taxons_on_name"
     t.index ["parent_id"], name: "index_taxons_on_parent_id"

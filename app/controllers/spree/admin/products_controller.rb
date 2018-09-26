@@ -21,6 +21,17 @@ module Spree
       def multinew
        @product = Product.new
     end
+    def choose
+      @product = Product.new
+    end
+    def showoptiontypes
+      @optiontypes = Spree::Taxon.where(:id=>params[:category])
+      if @optiontypes.present?
+        render :json =>  ["free-user", false , @optiontypes]
+        else
+        render :json =>  ["free-user", true , "No Option Types available on"]
+      end
+    end
       def create
         
         params[:product].each do |product_params|

@@ -1,0 +1,48 @@
+<%= form_for [:admin, @product], html: { multipart: true } do |f| %>
+<div data-hook="admin_product_form_taxons">
+    <%= f.field_container :taxons, class: ['form-group'] do %>
+      
+        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
+      
+        <ul class="text_list">
+          <% @product.taxons.each do |taxon| %>
+            <li><%= taxon.name %></li>
+        <% end %>
+        </ul>
+  </div>
+  <% end %>
+  <div class="option_values"></div>
+  <p><%= f.submit Spree.t(:create), :class => 'btn btn-small btn-success' %></p>
+  <% end %>
+  
+
+  <script type="text/javascript">
+  	$('.btn').hide();
+  	$('#product_taxon_ids').change(function(){
+  		$('.btn').show();
+  		var container = $(".option_values");
+    alert($('#product_taxon_ids').val());
+    $.post('/showoptiontypes?category='+$("#product_taxon_ids").val(),function(data){
+            console.log(data[2]);
+            $.each(data[2], function (index, value) {
+         $.each(value, function (index1, value1) {
+         	if (index1 == 'option_values') {
+         	console.log(value1);
+         	var array = value1.split(',');
+         	$.each(array, function (index2, value2) {
+         	$('<input />', { type: 'checkbox', id: value2, value: value2, class:"checkbox" }).appendTo(container);
+   			$('<label />', { 'for': value2, text: value2 }).appendTo(container);
+   		});
+         }
+    });
+    });
+            if(data[1]==true){
+                  
+            }
+            else{
+                
+            }
+            
+        });
+})
+  </script>

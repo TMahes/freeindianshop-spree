@@ -5,12 +5,13 @@ class AbilityDecorator
 
 
     if user.respond_to?(:has_spree_role?) && user.has_spree_role?('Sellers')
+      can :choose, Spree::Product
       can [:admin, :manage], Spree::Product
       can [:admin, :manage], Spree::Image
       can [:admin, :manage], Spree::Taxon
-      can [:read], Spree::Taxonomy
+      can [:read,], Spree::Taxonomy
       can [:admin, :index, :read, :update], Spree::Variant
-      can [:admin, :index], Spree::OptionType
+      can [:admin, :index, :manage], Spree::OptionType
       can [:read], :taxons
     end
   end

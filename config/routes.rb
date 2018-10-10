@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   #
   # We ask that you don't use the :as option here, as Spree relies on it being
   # the default of "spree".
-  get 'admin/products/multinew'     => 'spree/admin/products#multinew', as: 'admin_products_multinew'
-  get 'admin/products/choose'     => 'spree/admin/products#choose', as: 'admin_products_choose'
   mount Spree::Core::Engine, at: '/'
 
   #get "admin/products/multinew" => "products#multinew"
@@ -17,4 +15,10 @@ Rails.application.routes.draw do
  post '/checkemail', to: 'spree/home#emailcheck'
  post '/checkshopname', to: 'spree/home#checkshopname'
  post '/showoptiontypes', to: 'spree/admin/products#showoptiontypes'
+
+ Spree::Core::Engine.add_routes do
+  post 'admin/products/choosepost'     => 'admin/products#choosepost'
+  get 'admin/products/multinew'     => 'admin/products#multinew', as: 'admin_products_multinew'
+  get 'admin/products/choose'     => 'admin/products#choose'
+end
 end

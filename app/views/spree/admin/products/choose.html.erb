@@ -1,4 +1,4 @@
-<%= form_for [:admin, @product], html: { multipart: true } do |f| %>
+<%= form_for [:admin, @product],:url => admin_products_choosepost_url, html: { multipart: true } do |f| %>
 <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
       
@@ -30,7 +30,7 @@
          	console.log(value1);
          	var array = value1.split(',');
          	$.each(array, function (index2, value2) {
-         	$('<input />', { type: 'checkbox', id: value2, value: value2, class:"checkbox" }).appendTo(container);
+         	$('<input />', { type: 'checkbox', id: value2, value: value2, class:"checkbox", name: "option_types[]" }).appendTo(container);
    			$('<label />', { 'for': value2, text: value2 }).appendTo(container);
    		});
          }

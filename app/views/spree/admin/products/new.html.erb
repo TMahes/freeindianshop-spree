@@ -117,28 +117,25 @@ input[name=variant[][image]] {
 <table class="table" id="oChild">
   <thead>
     <tr>
-  <th>Color</th>
-  <th>Size</th>
+  <th>Category</th>
+  <th>Category</th>
   <th>Quantity</th>
   <th>price</th>
   <th>Image</th>
 </tr>
   </thead>
   <tr>
-    <td>
+    <% 
+       params["options"].each do |type| %>
+       <td>
+        <%= type %>
+        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
-          Spree::OptionValue.where(:option_type_id=>1), :id, :name,{},{:name => ["variant[][option_types]"]} %>
+          Spree::OptionValue.where(:option_type_id => optionType), :id, :name,{},{:name => ["variant[][option_types]"]} %>
         </div>
     </td>
-       <td>
-        <div class="form-group" data-hook="presentation">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-          <%= f.collection_select :option_types, 
-          Spree::OptionValue.where(:option_type_id=>2), :id, :name,{},{:name => ["variant[][option_types_size]"]} %>
-          <% end %>
-        </div>
-    </td>
+    <% end %>
     <td>
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>

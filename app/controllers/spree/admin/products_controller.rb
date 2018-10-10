@@ -24,6 +24,12 @@ module Spree
     def choose
       @product = Product.new
     end
+    def choosepost
+      @product = Product.new
+        logger.debug "choosen option types1 #{params[:option_types]}"
+        optionTypes = params[:option_types].map(&:inspect).join(', ')
+        redirect_to :action => "new", :options=> params[:option_types]
+    end
     def showoptiontypes
       @optiontypes = Spree::Taxon.where(:id=>params[:category])
       if @optiontypes.present?

@@ -21,7 +21,6 @@
   	$('#product_taxon_ids').change(function(){
   		$('.btn').show();
   		var container = $(".option_values");
-    alert($('#product_taxon_ids').val());
     $.post('/showoptiontypes?category='+$("#product_taxon_ids").val(),function(data){
             console.log(data[2]);
             $.each(data[2], function (index, value) {

@@ -28,8 +28,12 @@ module Spree
       @product = Product.new
         logger.debug "choosen option types1 #{params[:option_types]}"
         optionTypes = params[:option_types].map(&:inspect).join(', ')
-        redirect_to :action => "new", :options=> params[:option_types]
+        params[:product].each do |product_params|
+          @productTaxon = product_params["taxon_ids"]
+        end
+        redirect_to :action => "new", :options=> params[:option_types], :taxons=> @productTaxon
     end
+
     def showoptiontypes
       @optiontypes = Spree::Taxon.where(:id=>params[:category])
       if @optiontypes.present?
@@ -38,8 +42,19 @@ module Spree
         render :json =>  ["free-user", true , "No Option Types available on"]
       end
     end
+
+    def showoptionvalues
+      @optiontypes = Spree::OptionType.where(:name=>params[:type]).first
+      @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
+      if @optionvalue.present?
+        render :json =>  ["free-user", params[:type] , @optionvalue]
+        else
+        render :json =>  ["free-user", true , "No Option Types available on"]
+      end
+    end
+
+
       def create
-        
         params[:product].each do |product_params|
           product_params.permit!
     

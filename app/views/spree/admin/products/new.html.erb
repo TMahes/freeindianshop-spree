@@ -9,6 +9,9 @@ input[name=variant[][image]] {
     display:none;
 }
 </style>
+<% if params['multi'] == "yes" %> 
+<%= render "choose.html.erb" %>
+<% else %>
 <% content_for :page_title do %>
   <%= link_to Spree.t(:products), spree.admin_products_url %> /
   <%= Spree.t(:new_product) %>
@@ -60,7 +63,7 @@ input[name=variant[][image]] {
         <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
       
-        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
+        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: params["taxons"] %>
       
         <ul class="text_list">
           <% @product.taxons.each do |taxon| %>
@@ -117,25 +120,25 @@ input[name=variant[][image]] {
 <table class="table" id="oChild">
   <thead>
     <tr>
-  <th>Category</th>
-  <th>Category</th>
+  <th>Variants</th>
   <th>Quantity</th>
   <th>price</th>
   <th>Image</th>
 </tr>
   </thead>
   <tr>
+    <td>
     <% 
        params["options"].each do |type| %>
-       <td>
+       
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.collection_select :option_types,
           Spree::OptionValue.where(:option_type_id => optionType), :id, :name,{},{:name => ["variant[][option_types]"]} %>
         </div>
-    </td>
     <% end %>
+    </td>
     <td>
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>
@@ -547,7 +550,7 @@ input[name=variant[][image]] {
     <%= render partial: 'spree/admin/shared/new_resource_links' %>
   </fieldset>
 <% end %>
-
+<% end %>
 
 
 <script type="text/javascript">

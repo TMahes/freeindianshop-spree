@@ -15,6 +15,7 @@ Rails.application.routes.draw do
  post '/checkemail', to: 'spree/home#emailcheck'
  post '/checkshopname', to: 'spree/home#checkshopname'
  post '/showoptiontypes', to: 'spree/admin/products#showoptiontypes'
+ post '/showoptionvalues', to: 'spree/admin/products#showoptionvalues'
 
  Spree::Core::Engine.add_routes do
   post 'admin/products/choosepost'     => 'admin/products#choosepost'

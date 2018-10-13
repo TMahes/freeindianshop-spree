@@ -15,7 +15,7 @@ checkbox {
   *overflow: hidden;
 }
 </style>
-<%= form_for [:admin, @product],:url => admin_products_choosepost_url, html: { multipart: true } do |f| %>
+<%= form_for [:admin, @product],:url => '/choosepost', html: { multipart: true } do |f| %>
 <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
       

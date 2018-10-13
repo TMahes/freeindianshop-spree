@@ -29,5 +29,35 @@ module Spree
         render :json =>  ["free-user", true , "Shop name Available"]
       end
     end
+
+        def showoptiontypes
+      @optiontypes = Spree::Taxon.where(:id=>params[:category])
+      if @optiontypes.present?
+        render :json =>  ["free-user", false , @optiontypes]
+        else
+        render :json =>  ["free-user", true , "No Option Types available on"]
+      end
+    end
+
+    def showoptionvalues
+      @optiontypes = Spree::OptionType.where(:name=>params[:type]).first
+      @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
+      if @optionvalue.present?
+        render :json =>  ["free-user", params[:type] , @optionvalue]
+        else
+        render :json =>  ["free-user", true , "No Option Types available on"]
+      end
+    end
+
+     def choosepost
+      @product = Product.new
+        logger.debug "choosen option types1 #{params[:option_types]}"
+        optionTypes = params[:option_types].map(&:inspect).join(', ')
+        params[:product].each do |product_params|
+          @productTaxon = product_params["taxon_ids"]
+        end
+        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon)
+    end
+
   end
 end

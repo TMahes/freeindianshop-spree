@@ -9,10 +9,10 @@ class AbilityDecorator
       can [:admin, :manage], Spree::Product
       can [:admin, :manage], Spree::Image
       can [:admin, :manage], Spree::Taxon
-      can [:read,], Spree::Taxonomy
+      can [:manage], Spree::Taxonomy
       can [:admin, :index, :read, :update], Spree::Variant
       can [:admin, :index, :manage], Spree::OptionType
-      can [:read], :taxons
+      can [:manage], :taxons
     end
   end
 end

@@ -14,12 +14,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
  post '/checkemail', to: 'spree/home#emailcheck'
  post '/checkshopname', to: 'spree/home#checkshopname'
- post '/showoptiontypes', to: 'spree/admin/products#showoptiontypes'
- post '/showoptionvalues', to: 'spree/admin/products#showoptionvalues'
+ post '/showoptiontypes', to: 'spree/home#showoptiontypes'
+ post '/showoptionvalues', to: 'spree/home#showoptionvalues'
+ post '/choosepost', to: 'spree/home#choosepost'
 
  Spree::Core::Engine.add_routes do
-  post 'admin/products/choosepost'     => 'admin/products#choosepost'
   get 'admin/products/multinew'     => 'admin/products#multinew', as: 'admin_products_multinew'
-  get 'admin/products/choose'     => 'admin/products#choose'
 end
 end

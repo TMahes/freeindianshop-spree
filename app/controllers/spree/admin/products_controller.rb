@@ -24,34 +24,6 @@ module Spree
     def choose
       @product = Product.new
     end
-    def choosepost
-      @product = Product.new
-        logger.debug "choosen option types1 #{params[:option_types]}"
-        optionTypes = params[:option_types].map(&:inspect).join(', ')
-        params[:product].each do |product_params|
-          @productTaxon = product_params["taxon_ids"]
-        end
-        redirect_to :action => "new", :options=> params[:option_types], :taxons=> @productTaxon
-    end
-
-    def showoptiontypes
-      @optiontypes = Spree::Taxon.where(:id=>params[:category])
-      if @optiontypes.present?
-        render :json =>  ["free-user", false , @optiontypes]
-        else
-        render :json =>  ["free-user", true , "No Option Types available on"]
-      end
-    end
-
-    def showoptionvalues
-      @optiontypes = Spree::OptionType.where(:name=>params[:type]).first
-      @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
-      if @optionvalue.present?
-        render :json =>  ["free-user", params[:type] , @optionvalue]
-        else
-        render :json =>  ["free-user", true , "No Option Types available on"]
-      end
-    end
 
 
       def create
@@ -97,7 +69,8 @@ module Spree
 
 unless params[:variant].nil?
 params[:variant].each do |variant_params|
-  @optionValue = Spree::OptionValue.where(id:[variant_params["option_types"],variant_params["option_types_size"]])
+  logger.debug "@iamgesssssssssss #{variant_params["price"]}"
+  @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"]])
     logger.debug "Creating Variants #{@productObj.id}"
   @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
   @productObj.variants << @variantnewObj
@@ -113,6 +86,7 @@ params[:variant].each do |variant_params|
     #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
     @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
     logger.debug "@stocklocation.id #{@stocklocation.id}"
+    logger.debug "@iamgesssssssssss #{params["image"]}"
     @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => 0, :backorderable => false)
 
     @staockMovementObj = Spree::StockMovement.new
@@ -131,6 +105,7 @@ params[:variant].each do |variant_params|
       #logger.debug "imagessssssssss #{product_images["image"].path}"
       #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
       #@variantnewObj.images << image
+      logger.debug "@iamgesssssssssss #{variant_params["image"]}"
     varimage = Image.create(:attachment =>File.open(variant_params["image"].path) ,:viewable => @variantnewObj)
     @variantnewObj.images << varimage
   #end

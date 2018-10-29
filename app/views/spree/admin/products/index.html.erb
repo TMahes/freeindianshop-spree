@@ -4,7 +4,7 @@
 
 <% content_for :page_actions do %>
 <%= button_link_to "Multiple Product", new_object_url(:multi => "yes"), { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
-    <%= button_link_to "Signle Product", new_object_url(:single => "true"), { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
+    <%= button_link_to "Signle Product", new_object_url(:single => "true",:options => [false]), { class: "btn-success", icon: 'add', id: 'admin_new_product' } %>
 <% end if can?(:create, Spree::Product) %>
 
 <% content_for :table_filter do %>

@@ -58,6 +58,14 @@ module Spree
         end
         redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon)
     end
-
+       def choosesinglepost
+      @product = Product.new
+        logger.debug "choosen option types1 #{params[:option_types]}"
+        optionTypes = params[:option_types].map(&:inspect).join(', ')
+        params[:product].each do |product_params|
+          @productTaxon = product_params["taxon_ids"]
+        end
+        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
+    end
   end
 end

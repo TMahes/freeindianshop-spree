@@ -69,6 +69,7 @@ module Spree
 
 unless params[:variant].nil?
 params[:variant].each do |variant_params|
+
   logger.debug "@iamgesssssssssss #{variant_params["price"]}"
   @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"],variant_params["option_types_2"]])
     logger.debug "Creating Variants #{@productObj.id}"

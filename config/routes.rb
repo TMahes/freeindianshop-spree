@@ -17,6 +17,7 @@ Rails.application.routes.draw do
  post '/showoptiontypes', to: 'spree/home#showoptiontypes'
  post '/showoptionvalues', to: 'spree/home#showoptionvalues'
  post '/choosepost', to: 'spree/home#choosepost'
+ post '/choosesinglepost', to: 'spree/home#choosesinglepost'
 
  Spree::Core::Engine.add_routes do
   get 'admin/products/multinew'     => 'admin/products#multinew', as: 'admin_products_multinew'

@@ -15,6 +15,7 @@ checkbox {
   *overflow: hidden;
 }
 </style>
+<% if type == "yes" %>
 <%= form_for [:admin, @product],:url => '/choosepost', html: { multipart: true } do |f| %>
 <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
@@ -38,8 +39,32 @@ checkbox {
 
   <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
   <% end %>
-  
+  <% end %>
+<% if type != "yes" %>
+<%= form_for [:admin, @product],:url => '/choosesinglepost', html: { multipart: true } do |f| %>
+<div data-hook="admin_product_form_taxons">
+    <%= f.field_container :taxons, class: ['form-group'] do %>
+      
+        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
+      
+        <ul class="text_list">
+          <% @product.taxons.each do |taxon| %>
+            <li><%= taxon.name %></li>
+        <% end %>
+        </ul>
+  </div>
+  <% end %>
+  <div class="option_values">
+ 
+  </div> 
+  <div class="row">
+    <div id="values" class="col-xs-12">
+    </div>
+  </div>
 
+  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
+  <% end %>
+  <% end %>
   <script type="text/javascript">
     $('.btn').hide();
         var container = $(".option_values");

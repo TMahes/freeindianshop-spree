@@ -9,8 +9,8 @@ input[name=variant[][image]] {
     display:none;
 }
 </style>
-<% if params['multi'] == "yes" %> 
-<%= render "choose.html.erb" %>
+<% if params['multi'] == "yes" || params['single'] == "true" %> 
+<%= render "choose.html.erb" , type: params['multi'] %>
 <% else %>
 <% content_for :page_title do %>
   <%= link_to Spree.t(:products), spree.admin_products_url %> /
@@ -24,6 +24,7 @@ input[name=variant[][image]] {
   <th>Name</th>
   <th>Model No</th>
   <th>Category</th>
+  <th id="svariant">Variant</th>
   <th id="quantity">Quantity</th>
   <th id="price">Price</th>
   <th>Image</th>
@@ -73,6 +74,17 @@ input[name=variant[][image]] {
   </div>
   <% end %>
 </td>
+<td id="tdvariant">
+    <% 
+       params["options"].each_with_index do |type, index| %>
+       
+        <%= type %>
+        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
+        <div class="form-group" data-hook="presentation">
+         <%= f.text_field :price,name: "product[][txtvariant]", min:0 ,class: 'form-control',id:'variantid' %>
+        </div>
+    <% end %>
+    </td>
   <td id="tdquantity">
   <div class="form-group">
           <%= f.field_container :quantity, class: ['form-group'] do %>
@@ -134,7 +146,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control' %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2' %>
         </div>
     <% end %>
     </td>
@@ -643,7 +655,7 @@ $.urlParam = function(name){
        return decodeURI(results[1]) || 0;
     }
 }
-if($.urlParam('single')=='true')
+if($.urlParam('single')=='yes')
 {
  $('#oChild').remove();
  $('.labelvariant').hide();

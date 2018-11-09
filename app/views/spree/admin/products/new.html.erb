@@ -78,10 +78,10 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+        
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-         <%= f.text_field :price,name: "product[][txtvariant]", min:0 ,class: 'form-control',id:'variantid' %>
+         <%= f.text_field :price,name: 'product[][txtvariant_'+index.to_s+']', min:0 ,class: 'form-control',id:'variantid', value: type+' :'  %>
         </div>
     <% end %>
     </td>
@@ -667,6 +667,8 @@ if($.urlParam('single')==null)
  $('#price').hide();
  $('#quantity').hide();
  $('#tdquantity').hide();
+ $('#tdvariant').hide();
+ $('#svariant').hide();
  $('#tdprice').hide();
  $('.image2').hide();
 }

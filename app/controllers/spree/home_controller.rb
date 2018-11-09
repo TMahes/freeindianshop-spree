@@ -65,7 +65,14 @@ module Spree
         params[:product].each do |product_params|
           @productTaxon = product_params["taxon_ids"]
         end
+        @permalink = Spree::Taxon.find_by(:id=>@productTaxon)
+          logger.debug "permalink #{@permalink.permalink}"
+          if @permalink.permalink.include?("clothing")
+            logger.debug "Clothing category redirect to multiple"
+            redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
+        else
         redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
+      end
     end
   end
 end

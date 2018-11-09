@@ -1,4 +1,4 @@
-<style type="text/css">
+ <style type="text/css">
     label {
   display: block;
   padding-left: 15px;
@@ -15,7 +15,6 @@ checkbox {
   *overflow: hidden;
 }
 </style>
-<% if type == "yes" %>
 <%= form_for [:admin, @product],:url => '/choosepost', html: { multipart: true } do |f| %>
 <div data-hook="admin_product_form_taxons">
     <%= f.field_container :taxons, class: ['form-group'] do %>
@@ -39,30 +38,8 @@ checkbox {
 
   <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
   <% end %>
-  <% end %>
-<% if type != "yes" %>
-<%= form_for [:admin, @product],:url => '/choosesinglepost', html: { multipart: true } do |f| %>
-<div data-hook="admin_product_form_taxons">
-    <%= f.field_container :taxons, class: ['form-group'] do %>
-      
-        <%= f.hidden_field :taxon_ids, name:"product[][taxon_ids]" ,class:['product_taxon_ids'], value: @product.taxon_ids.join(',') %>
-      
-        <ul class="text_list">
-          <% @product.taxons.each do |taxon| %>
-            <li><%= taxon.name %></li>
-        <% end %>
-        </ul>
-  </div>
-  <% end %>
   
-  <div class="row">
-    <div id="values" class="col-xs-12">
-    </div>
-  </div>
 
-  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
-  <% end %>
-  <% end %>
   <script type="text/javascript">
     $('.btn').hide();
         var container = $(".option_values");
@@ -91,10 +68,10 @@ checkbox {
           $.post('/showoptionvalues?type='+value2,function(data){
             /*$('<label />', { 'for': value2, text: value2 }).appendTo(container);*/
             $('<label>'+data[1]+'<input type=checkbox name=option_types[] id=valuetype value="'+ data[1]+'" /></label>').appendTo(container2);
-       /*     $.each(data[2], function (index3, value3) {
+            $.each(data[2], function (index3, value3) {
                 console.log(value3['name']);
                  $('<h6>'+value3['name']+'</h6>').appendTo(container2);
-    });*/
+    });
     });
     }
   </script>

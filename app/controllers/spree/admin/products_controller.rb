@@ -42,6 +42,7 @@ module Spree
     @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
     @productObj.shipping_category_id = product_params["shipping_category_id"]
     @productObj.sku = product_params["sku"]
+    @productObj.product_variant_desc = "#{product_params["txtvariant_0"]}#{','}#{product_params["txtvariant_1"]}#{','}#{product_params["txtvariant_2"]}"
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
     logger.debug "with taxons #{product_params["taxon_ids"]}"

@@ -68,12 +68,100 @@ module Spree
    end
     @productObj.assign_attributes(taxons:Spree::Taxon.find(product_params["taxon_ids"]))
 
-unless params[:variant].nil?
-params[:variant].each do |variant_params|
+    unless params[:values].nil?
 
+end
+
+unless params[:variant].nil?
+params[:variant].each_with_index do |variant_params, index1|
+@values = []
+params[:values].each_with_index do |variant_para, index|
+  logger.debug "typessssssssss #{variant_para['option_types_value']}"
+  logger.debug "println #{variant_para['option_types_value'].split(':')[0]}"
+  @optionType = Spree::OptionType.where(:name=>variant_para['option_types_value'].split(':')[0].gsub(/\s+/, "")).first
+  logger.debug "OPPPPP #{@optionType.id}"
+  @createdValue = Spree::OptionValue.create!({:name => variant_para['option_types_value'].split(':')[1], :presentation => variant_para['option_types_value'].split(':')[1], :option_type_id => @optionType.id})
+  @values << @createdValue
+  end
+logger.debug "arrrrrrrrayyy #{@values}"
+logger.debug "arrrrrrrrayyy size #{params[:countValues]}"
   logger.debug "@iamgesssssssssss #{variant_params["price"]}"
-  @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"],variant_params["option_types_2"]])
-    logger.debug "Creating Variants #{@productObj.id}"
+  if params[:countValues] == '1' 
+  if index1 == 0
+  @optionValue = Spree::OptionValue.where(id: [@values[index1]])
+elsif index1 == 1
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+elsif index1 ==2
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==3
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==4
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==5
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==6
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==7
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+  elsif index1 ==8
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+elsif index1 ==9
+  @optionValue = Spree::OptionValue.where(id:[@values[index1].id])
+end
+end
+
+if params[:countValues] == '2' 
+  logger.debug "println two option values"
+  if index1 == 0
+  @optionValue = Spree::OptionValue.where(id: [@values[index1] ,@values[index1+1].id])
+elsif index1 == 1
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+1].id,@values[index1+2].id])
+elsif index1 ==2
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+2].id,@values[index1+3].id])
+  elsif index1 ==3
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+3].id,@values[index1+4].id])
+  elsif index1 ==4
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+4].id,@values[index1+5].id])
+  elsif index1 ==5
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+5].id,@values[index1+6].id])
+  elsif index1 ==6
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+6].id,@values[index1+7].id])
+  elsif index1 ==7
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+7].id,@values[index1+8].id])
+  elsif index1 ==8
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+8].id,@values[index1+9].id])
+elsif index1 ==9
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+9].id,@values[index1+10].id])
+end
+end
+
+if params[:countValues] == '3' 
+  if index1 == 0
+  @optionValue = Spree::OptionValue.where(id: [@values[index1] ,@values[index1+1].id,@values[index1+2].id])
+elsif index1 == 1
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+2].id,@values[index1+3].id,@values[index1+4].id])
+elsif index1 ==2
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+4].id,@values[index1+5].id,@values[index1+6].id])
+  elsif index1 ==3
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+6].id,@values[index1+7].id,@values[index1+8].id])
+  elsif index1 ==4
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+8].id,@values[index1+9].id,@values[index1+10].id])
+  elsif index1 ==5
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+10].id,@values[index1+11].id,@values[index1+12].id])
+  elsif index1 ==6
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+12].id,@values[index1+13].id,@values[index1+14].id])
+  elsif index1 ==7
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+14].id,@values[index1+15].id,@values[index1+16].id])
+  elsif index1 ==8
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+16].id,@values[index1+17].id,@values[index1+18].id])
+elsif index1 ==9
+  @optionValue = Spree::OptionValue.where(id:[@values[index1+18].id,@values[index1+19].id,@values[index1+20].id])
+end
+end
+    
+    logger.debug "Creating Variants #{@optionValue}"
+    logger.debug "index #{index1}"
+    logger.debug "index+1 #{index1+1}"
   @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
   @productObj.variants << @variantnewObj
    @productObj.save
@@ -111,9 +199,8 @@ params[:variant].each do |variant_params|
     varimage = Image.create(:attachment =>File.open(variant_params["image"].path) ,:viewable => @variantnewObj)
     @variantnewObj.images << varimage
   #end
-  end
  end
-
+ end
  @productObj.save
 
  firstvariant = Spree::Variant.find_by(sku: @productObj.sku)

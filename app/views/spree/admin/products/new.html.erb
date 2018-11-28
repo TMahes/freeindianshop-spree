@@ -141,14 +141,17 @@ input[name=variant[][image]] {
   <tr>
     <td>
     <% 
+        countValues=0
        params["options"].each_with_index do |type, index| %>
-       
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2' %>
+         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :'  %>
+         
         </div>
+        <% countValues=countValues+1 %>
     <% end %>
+     <%= f.hidden_field :price,name: 'countValues', min:0 ,class: 'form-control',id:'variantid', value: countValues %>
     </td>
     <td>
   <div class="form-group">
@@ -187,7 +190,47 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+                    <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
+        </div>
+    <% end %>
+   
+    </td>
+    <td>
+  <div class="form-group">
+          <%= f.field_container :quantity, class: ['form-group'] do %>
+            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
+          <% end %>
+        </div>
+</td>
+    <td>
+      <div data-hook="new_product_price">
+        <%= f.field_container :price, class: ['form-group'] do %>
+<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.error_message_on :price %>
+        <% end %>
+      </div>
+</td>
+<td>
+       <div data-hook="file" class="form-group">
+         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
+      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
+    </div>
+  </td>
+  <td>
+ </td>
+    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
+    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
+  </tr>
+    <tr id="DocumentRow" style="display: none">
+    <td>
+    <% 
+       params["options"].each_with_index do |type, index| %>
+       
+        <%= type %>
+        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
+        <div class="form-group" data-hook="presentation">
+          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -226,7 +269,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -265,7 +308,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -304,7 +347,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -343,46 +386,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-        <%= type %>
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -421,7 +425,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -460,7 +464,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+       <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -497,7 +501,7 @@ input[name=variant[][image]] {
         <%= type %>
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'form-control',:disabled=>"disabled" %>
+          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
         </div>
     <% end %>
     </td>
@@ -577,6 +581,7 @@ currentrow++;
   $('table tr:eq(' + currentrow  + ')').show();
 $('table tr:eq(' + currentrow  + ')').find('#product_quantity').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_option_types').prop('disabled', false);
+$('table tr:eq(' + currentrow  + ')').find('#variantid').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find("input[name='variant[][image]']").prop('disabled', false);
 });
@@ -598,6 +603,7 @@ $('table').on('click', '.rmv', function () {
   $(this).closest('tr').prev('tr').find('.add').show();
   $(this).closest('tr').find('#product_quantity').prop('disabled', true);
   $(this).closest('tr').find('#product_option_types').prop('disabled', true);
+  $(this).closest('tr').find('#variantid').prop('disabled', true);
   $(this).closest('tr').find('#product_price').prop('disabled', true);
   $(this).closest('tr').find("input[name='variant[][image]']").prop('disabled', true);
 });
@@ -606,6 +612,7 @@ $('table').on('click', '.add', function () {
   $(this).closest('tr').next('tr').show();
   $(this).closest('tr').next('tr').find('#product_quantity').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#product_option_types').prop('disabled', false);
+  $(this).closest('tr').next('tr').find('#variantid').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
   $(this).closest('tr').next('tr').find("input[name='variant[][image]']").prop('disabled', false);
 });

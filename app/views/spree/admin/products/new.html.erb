@@ -143,7 +143,7 @@ input[name=variant[][image]] {
     <% 
         countValues=0
        params["options"].each_with_index do |type, index| %>
-        <%= type %>
+      
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :'  %>
@@ -187,7 +187,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+       
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
                     <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -227,7 +227,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+       
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -266,7 +266,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+       
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -305,7 +305,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+    
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -344,7 +344,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+       
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -383,7 +383,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+        
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -422,7 +422,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+      
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -461,7 +461,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+      
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
        <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
@@ -498,7 +498,7 @@ input[name=variant[][image]] {
     <% 
        params["options"].each_with_index do |type, index| %>
        
-        <%= type %>
+     
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>

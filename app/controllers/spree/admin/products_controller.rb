@@ -78,7 +78,7 @@ params[:variant].each_with_index do |variant_params, index1|
 params[:values].each_with_index do |variant_para, index|
   logger.debug "typessssssssss #{variant_para['option_types_value']}"
   logger.debug "println #{variant_para['option_types_value'].split(':')[0]}"
-  @optionType = Spree::OptionType.where(:name=>variant_para['option_types_value'].split(':')[0].gsub(/\s+/, "")).first
+  @optionType = Spree::OptionType.where(:name=>variant_para['option_types_value'].split(':')[0].strip).first
   logger.debug "OPPPPP #{@optionType.id}"
   @createdValue = Spree::OptionValue.create!({:name => variant_para['option_types_value'].split(':')[1], :presentation => variant_para['option_types_value'].split(':')[1], :option_type_id => @optionType.id})
   @values << @createdValue

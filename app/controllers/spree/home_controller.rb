@@ -67,11 +67,11 @@ module Spree
         end
         @permalink = Spree::Taxon.find_by(:id=>@productTaxon)
           logger.debug "permalink #{@permalink.permalink}"
-          if @permalink.permalink.include?("kurtis")
+          if @permalink.permalink.include?("new-node")
             logger.debug "Clothing category redirect to multiple"
-            redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
+            redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
         else
-        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
+        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
       end
     end
   end

@@ -109,6 +109,14 @@ module Spree
                     taxontl.each do |taxond|
                       concat(("<li>").html_safe)
                       concat(link_to(taxond.name, seo_url(taxond)))
+                      taxontf = Spree::Taxon.where(:parent_id => taxond.id)
+                      concat(("<ul class='fourth-level-menu'>").html_safe)
+                      taxontf.each do |taxonf|
+                        concat(("<li>").html_safe)
+                        concat(link_to(taxonf.name, seo_url(taxonf)))
+                      end
+                      concat(("</ul>").html_safe) 
+                      concat(("</li>").html_safe)   
                       concat(("</li>").html_safe)
                     end
                   concat(("</ul>").html_safe) 

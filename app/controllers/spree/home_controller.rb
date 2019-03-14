@@ -41,12 +41,18 @@ module Spree
 
     def showoptionvalues
       @optiontypes = Spree::OptionType.where(:name=>params[:type]).first
-      @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
+      @optionvalue = Spree::OptionValue.select("id,name").where(:option_type_id=>@optiontypes.id)
       if @optionvalue.present?
         render :json =>  ["free-user", params[:type] , @optionvalue]
         else
         render :json =>  ["free-user", true , "No Option Types available on"]
       end
+    end
+
+    def getoptionvalues
+      @optiontypes = Spree::OptionType.where(:name=>params[:type]).first
+      @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
+      render :json => [@optionvalue]
     end
 
      def choosepost
@@ -67,11 +73,11 @@ module Spree
         end
         @permalink = Spree::Taxon.find_by(:id=>@productTaxon)
           logger.debug "permalink #{@permalink.permalink}"
-          if @permalink.permalink.include?("new-node")
+          if @permalink.permalink.include?("clothing")
             logger.debug "Clothing category redirect to multiple"
-            redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
+            redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
         else
-        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
+        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
       end
     end
   end

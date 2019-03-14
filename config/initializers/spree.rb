@@ -1,3 +1,4 @@
+require 'product_filters'
 # Configure Spree Preferences
 #
 # Note: Initializing preferences available within the Admin will overwrite any changes that were made through the user interface when you restart.
@@ -16,7 +17,7 @@ Spree.config do |config|
   admin_interface_logo = "logo/spree_50.png"
   config.products_per_page = 50
 end
-
+Spree::Auth::Config[:confirmable] = true
 Spree.user_class = "Spree::User"
 Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :city, :state, :zip_code, :address, :seller,:shop_name,:phone
 

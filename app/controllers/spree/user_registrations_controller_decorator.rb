@@ -22,6 +22,11 @@ Spree::UserRegistrationsController.class_eval do
           logger.debug "update#{@userObj.id}"
           @userObj.update(supplier_id:@object.id)
           logger.debug "update#{@userObj.supplier_id}"
+          a = Geokit::Geocoders::GoogleGeocoder.geocode(params[:spree_user][:zip_code])
+          logger.debug "=====#{a.ll}"
+          ll = (a.ll).split(',')
+          @distanceObject = Spree::Distance.new(:zipcode => params[:spree_user][:zip_code],:latitude => ll[0],:longitude => ll[1])
+          @distanceObject.save
     			
     end
     

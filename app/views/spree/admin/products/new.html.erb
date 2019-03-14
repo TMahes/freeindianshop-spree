@@ -8,15 +8,68 @@ img {
 input[name=variant[][image]] {
     display:none;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.myBtn{
+  float:right;
+}
 </style>
+
 <% if params['multi'] == "yes" || params['single'] == "true" %> 
 <%= render "choose.html.erb" , type: params['multi'] %>
 <% else %>
 <% content_for :page_title do %>
   <%= link_to Spree.t(:products), spree.admin_products_url %> /
   <%= Spree.t(:new_product) %>
-
 <% end %>
+
+  <% params["options"].each_with_index do |type, index| %>
+    <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
+    <%= link_to Spree.t("New"+ optionType.name), "JavaScript:Void(0);" , class: 'myBtn btn btn-small' %>
+    <div id="myModal" class="modal">
+      <% @option_type = Spree::OptionType.find_by(:name=>type.to_s.gsub('"', '')) %>
+        <div class="modal-content">
+        <%= render partial: 'spree/admin/option_types/modal',locals: { option_type: @option_type } %>
+        </div>
+    </div>
+  <% end %>
 <table class="table">
   
   <thead>
@@ -129,408 +182,7 @@ input[name=variant[][image]] {
 </tr>
 </table>
 <h4 class="labelvariant"> Variants </h4>
-<table class="table" id="oChild">
-  <thead>
-    <tr>
-  <th>Variants</th>
-  <th>Quantity</th>
-  <th>price</th>
-  <th>Image</th>
-</tr>
-  </thead>
-  <tr>
-    <td>
-    <% 
-        countValues=0
-       params["options"].each_with_index do |type, index| %>
-      
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :'  %>
-         
-        </div>
-        <% countValues=countValues+1 %>
-    <% end %>
-     <%= f.hidden_field :price,name: 'countValues', min:0 ,class: 'form-control',id:'variantid', value: countValues %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0  %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'first_product product_price' %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-        <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile2" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none" %>
-    </div>
-  </td>
-  <td>
- 
-  </td>
-    
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-  
-  <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-       
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-                    <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-   
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-       
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-       
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-    
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-       
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-    <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-        
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-   <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-      
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-         <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]", min:0 ,class: 'form-control', value: 1,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-  <td>
- </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-   <tr id="DocumentRow" style="display: none">
-    <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-      
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-       <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control', value: 1, min:0 ,disabled:true %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-    <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-    <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-   <tr id="DocumentRow" style="display: none">
-   <td>
-    <% 
-       params["options"].each_with_index do |type, index| %>
-       
-     
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
-        <div class="form-group" data-hook="presentation">
-          <%= f.text_field :price,name: 'values[][option_types_value]', min:0 ,class: 'form-control',id:'variantid', value: type+' :' , disabled:"disabled"  %>
-        </div>
-    <% end %>
-    </td>
-    <td>
-  <div class="form-group">
-          <%= f.field_container :quantity, class: ['form-group'] do %>
-            <%= f.number_field :quantity,name:"variant[][quantity]",class: 'form-control',disabled:true, min:0 , value: 1 %>
-          <% end %>
-        </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
-          <%= f.error_message_on :price %>
-        <% end %>
-      </div>
-</td>
-<td>
-       <div data-hook="file" class="form-group">
-         <img src="http://www.returntosundaysupper.com/wp-content/themes/sundaysupper/images/bloglovin.png" id="upfile5" style="cursor:pointer" class="img" />
-      <%= f.file_field :attachment,name:"variant[][image]",style:"display:none",disabled:true %>
-    </div>
-  </td>
-   <td><a href="#" class='btn btn-default rmv' >Remove</a></td>
-  <td><a href="JavaScript:Void(0)" class='btn btn-default add' >Add</a></td>
-  </tr>
-</table>
+<%= render partial: 'spree/admin/products/variants', locals: { f: f } %>
     <div data-hook="product-from-prototype" id="product-from-prototype">
       <%= render file: 'spree/admin/prototypes/show' if @prototype %>
     </div>
@@ -539,8 +191,6 @@ input[name=variant[][image]] {
   </fieldset>
 <% end %>
 <% end %>
-
-
 <script type="text/javascript">
 //<![CDATA[
   (function($){
@@ -692,6 +342,19 @@ n.addEventListener("change", function(e) {
 }, false);
 
 $(document).ready(function() {
+   $('.edit_option_type')
+    .bind('ajax:success', function(evt, data, status, xhr) {
+      //function called on status: 200 (for ex.)
+      alert("Option Value Added!");
+      $('.modal').hide();
+       $('.select').trigger("chosen:updated");2-choice
+    })
+    .bind("ajax:error", function(evt, xhr, status, error) {
+      //function called on status: 401 or 500 (for ex.)
+     // console.log(xhr.responseText);
+      alert("Option Value Added!");
+      $('.modal').hide();
+    });
     $("input[name='variant[][price]']").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
@@ -707,5 +370,39 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
+});
+</script>
+
+<script type="text/javascript">
+// Get the modal
+    $(document).ready(function() {
+      $('.myBtn').click(function() {
+        $(this).next('.modal').css('display', 'block');
+      });
+      $('.close').click(function() {
+        $('.modal').css('display', 'none');
+      });
+    });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('.onclick').on('click', function () {
+    var element = $(this).siblings('#product_option_types');
+    $.ajax({
+        url: "/showoptionvalues",
+        type: 'post',
+        data: {
+                type: element.siblings("#product_option_type").val()
+            },
+            dataType: 'json',
+    }).done(function (data) {
+        element.empty();
+    $.each(data[2],function (key, index) {
+        //$(this).append($("<option></option>").attr("value", index).text(key));
+        element.append(new Option(index.name, index.id));
+        console.log(index);
+    });
+    });
+});
 });
 </script>

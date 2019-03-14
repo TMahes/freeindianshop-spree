@@ -46,6 +46,8 @@ gem 'vinsol_spree_themes', github: 'vinsol-spree-contrib/spree_themes', branch: 
 gem 'sprockets-helpers', '~> 1.2.1'
 gem "appengine", "~> 0.4.1"
 gem 'posix-spawn'
+gem 'spree_mail_settings', github: 'spree-contrib/spree_mail_settings'
+ gem 'geokit-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

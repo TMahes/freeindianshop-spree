@@ -44,7 +44,7 @@
     </span>
   </p>
 
-<!--   <% if Spree::Config[:address_requires_state] %>
+  <% if Spree::Config[:address_requires_state] %>
     <p class="form-group" id=<%="#{address_id}state" %>>
       <% have_states = !address.country.states.empty? %>
       <%= form.label :state do %>
@@ -68,7 +68,7 @@
       <noscript>
         <%= form.text_field :state_name, class: 'form-control', required: true %>
       </noscript>
-  <% end %> -->
+  <% end %> 
 
   <p class="form-group" id=<%="#{address_id}zipcode" %>>
     <%= form.label :zipcode do %>

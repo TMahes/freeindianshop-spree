@@ -60,7 +60,13 @@
           <%= f.text_field :available_on, value: datepicker_field_value(@product.available_on), class: 'datepicker form-control' %>
         <% end %>
       </div>
-
+      <div data-hook="admin_product_form_available_on">
+        <%= f.field_tex :GST, class: ['form-group'] do %>
+          <%= f.label :GST, 'GST%' %>
+          <%= f.error_message_on :GST %>
+          <%= f.text_field :GST, class: 'form-control' %>
+        <% end %>
+      </div>
       <div data-hook="admin_product_form_discontinue_on">
         <%= f.field_container :discontinue_on, class: ['form-group'] do %>
           <%= f.label :discontinue_on, Spree.t(:discontinue_on) %>
@@ -71,13 +77,13 @@
 
       <div data-hook="admin_product_form_promotionable">
         <%= f.field_container :promotionable, class: ['form-group'] do %>
-          <%= f.label :promotionable, Spree.t(:promotionable) %>
+          <%= f.label :promotionable, 'Made In India' %>
           <%= f.error_message_on :promotionable %>
           <%= f.check_box :promotionable, class: 'form-control' %>
         <% end %>
       </div>
 
-    <!--  <% if @product.has_variants? %>
+    <% if @product.has_variants? %>
          <div data-hook="admin_product_form_multiple_variants" class="well">
           <%= f.label :skus, Spree.t(:sku).pluralize %>
           <div class="info marginb">
@@ -105,7 +111,7 @@
             <%= f.label :sku, Spree.t(:sku) %>
             <%= f.text_field :sku, size: 16, class: 'form-control' %>
           <% end %>
-        </div> -->
+        </div> 
 
         <div id="shipping_specs" class="row">
           <div class="col-xs-12 col-md-6">
@@ -137,7 +143,7 @@
           </div>
         </div>
       <% end %>
-
+<!-- 
       <div data-hook="admin_product_form_shipping_categories">
         <%= f.field_container :shipping_category, class: ['form-group'] do %>
           <%= f.label :shipping_category_id, Spree.t(:shipping_category) %>
@@ -153,7 +159,7 @@
           <%= f.error_message_on :tax_category %>
         <% end %>
       </div>
-    </div>
+    </div> -->
 
   </div>
 
@@ -228,3 +234,18 @@
 
   </div>
 </div>
+<div id="txtAge" style="display: none;">Terms and conditions</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+        $('#product_promotionable').click(function () {
+            if ($(this).is(':checked')) {
+                var checkstr =  confirm('Terms and conditions ');
+                if(checkstr == true){
+                  // do your code
+                }else{
+                return false;
+                }
+            }
+        });
+    });
+</script>

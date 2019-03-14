@@ -16,6 +16,8 @@ Rails.application.routes.draw do
  post '/checkshopname', to: 'spree/home#checkshopname'
  post '/showoptiontypes', to: 'spree/home#showoptiontypes'
  post '/showoptionvalues', to: 'spree/home#showoptionvalues'
+ post '/showoptionvalues', to: 'spree/home#showoptionvalues'
+ get '/getoptionvalues', to: 'spree/home#getoptionvalues'
  post '/choosepost', to: 'spree/home#choosepost'
  post '/choosesinglepost', to: 'spree/home#choosesinglepost'
 

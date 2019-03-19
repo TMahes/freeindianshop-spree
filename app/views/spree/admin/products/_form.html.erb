@@ -61,10 +61,10 @@
         <% end %>
       </div>
       <div data-hook="admin_product_form_available_on">
-        <%= f.field_tex :GST, class: ['form-group'] do %>
-          <%= f.label :GST, 'GST%' %>
+        <%= f.field_container :GST, class: ['form-group'] do %>
+          <%= f.label :gst, 'GST%' %>
           <%= f.error_message_on :GST %>
-          <%= f.text_field :GST, class: 'form-control' %>
+          <%= f.text_field :gst, class: 'form-control' %>
         <% end %>
       </div>
       <div data-hook="admin_product_form_discontinue_on">
@@ -82,7 +82,13 @@
           <%= f.check_box :promotionable, class: 'form-control' %>
         <% end %>
       </div>
-
+      <div data-hook="admin_product_form_promotionable">
+        <%= f.field_container :pick_up, class: ['form-group'] do %>
+          <%= f.label :pick_up, 'Store Pick Up' %>
+          <%= f.error_message_on :pick_up %>
+          <%= f.check_box :pick_up, class: 'form-control' %>
+        <% end %>
+      </div>
     <% if @product.has_variants? %>
          <div data-hook="admin_product_form_multiple_variants" class="well">
           <%= f.label :skus, Spree.t(:sku).pluralize %>
@@ -230,6 +236,41 @@
       <% end %>
     </div> -->
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+      </div>
+      <div class="modal-body">
+        Terms & Conditions
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id='disagree'>No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="agree">Agree</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+      </div>
+      <div class="modal-body">
+        Terms & Conditions
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id='disagree2'>No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="agree2">Agree</button>
+      </div>
+    </div>
+  </div>
+</div>
     <div data-hook="admin_product_form_additional_fields"></div>
 
   </div>
@@ -237,15 +278,27 @@
 <div id="txtAge" style="display: none;">Terms and conditions</div>
 <script type="text/javascript">
   $(document).ready(function () {
-        $('#product_promotionable').click(function () {
-            if ($(this).is(':checked')) {
-                var checkstr =  confirm('Terms and conditions ');
-                if(checkstr == true){
-                  // do your code
-                }else{
-                return false;
-                }
-            }
-        });
+      $('#product_pick_up').on('change', function(e){
+        if(e.target.checked){
+          $('#myModal').modal();
+        }
+      });
+      $('#product_promotionable').on('change', function(e){
+        if(e.target.checked){
+          $('#myModal2').modal();
+        }
+      });
+    $('#agree').on('click',function(){
+      $('#product_pick_up').prop('checked',true);
+    });
+    $('#disagree').on('click',function(){
+       $('#product_pick_up').prop('checked',false);
+    });
+    $('#agree2').on('click',function(){
+      $('#product_promotionable').prop('checked',true);
+    });
+    $('#disagree2').on('click',function(){
+       $('#product_promotionable').prop('checked',false);
+    });
     });
 </script>

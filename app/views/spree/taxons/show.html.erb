@@ -1,11 +1,24 @@
+<style type="text/css">
+  .filter_buttons{width: 100%;}
+  .Zipcode_filter{margin-top: 30px;}
+  .go-btn{width: 40px;}
+</style>
 <h1 class="taxon-title"><%= @taxon.name %></h1>
 
 <% if params[:search].present? %>
   <%= render partial: 'spree/shared/trackers/segment/product_list_filtered.js',
               formats: :js,
               locals: { search: params[:search], products: @products } %>
-<% end %>
+<% end %> 
 <% content_for :sidebar do %>
+<div class="filter_buttons">
+  <%= link_to 'Make In India', :mii => "yes"   %><br>
+  <%= link_to 'Non Indian', :ni => "yes" %><br>
+</div> 
+<div class="Zipcode_filter">
+  <input type="text" name="zipcode" id="zipcode" value="<%= spree_current_user.zip_code %>" /><br>
+  <%= link_to 'Go', '#',:class => 'go-btn' %>
+</div>
   <div data-hook="taxon_sidebar_navigation">
     <%= render partial: 'spree/shared/taxonomies' %>
     <%= render partial: 'spree/shared/filters' if @taxon.leaf? %>
@@ -23,3 +36,11 @@
     <% end %>
   </div>
 <% end %>
+<script type="text/javascript">
+  $(".go-btn").click(function(){
+    var textVal = $("input:text[name=zipcode]").val();
+    alert(location.href);
+    location.href = location.href+ "?zip=" + textVal;
+
+});
+</script>

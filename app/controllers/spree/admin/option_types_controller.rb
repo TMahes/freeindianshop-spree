@@ -49,7 +49,9 @@ module Spree
       private
 
       def setup_new_option_value
+        
         @option_type.option_values.build if @option_type.option_values.empty?
+
       end
       def permitted_resource_params
         params[resource.object_name].present? ? params.require(resource.object_name).permit! : ActionController::Parameters.new

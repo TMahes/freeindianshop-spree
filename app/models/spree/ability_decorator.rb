@@ -12,6 +12,7 @@ class AbilityDecorator
       can [:manage], Spree::Taxonomy
       can [:admin, :index, :read, :update], Spree::Variant
       can [:admin, :index, :manage], Spree::OptionType
+      can [:admin, :index, :manage], Spree::OptionValue, supplier_id: user.supplier_id
       can [:manage], :taxons
     end
   end

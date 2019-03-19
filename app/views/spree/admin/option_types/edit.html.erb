@@ -36,7 +36,8 @@
             <td class="actions text-center"></td>
           </tr>
         <% else %>
-          <%= f.fields_for :option_values do |option_value_form| %>
+        <% optionvalues = @option_type.option_values.where(:supplier_id => nil).pluck(:id) %>
+          <%= f.fields_for :option_values, f.object.option_values.where('supplier_id=? OR by_admin=?',spree_current_user.id.to_s,true) do |option_value_form| %>
             <%= render partial: 'option_value_fields', locals: { f: option_value_form } %>
           <% end %>
         <% end %>

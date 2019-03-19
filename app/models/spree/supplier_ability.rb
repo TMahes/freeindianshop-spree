@@ -20,6 +20,7 @@ module Spree
         can %i[admin manage], Spree::StockLocation, supplier_id: user.supplier_id
         can :create, Spree::StockLocation
         can %i[admin manage], Spree::Order
+        can %i[admin manage], Spree::OptionValue,supplier_id:user.supplier_id
         can %i[admin manage], Spree::StockMovement, stock_item: { stock_location_id: user.supplier.stock_locations.pluck(:id) }
         can :create, Spree::StockMovement
         can %i[admin update], Spree::Supplier, id: user.supplier_id

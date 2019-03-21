@@ -8,12 +8,10 @@ class AbilityDecorator
       can :choose, Spree::Product
       can [:admin, :manage], Spree::Product
       can [:admin, :manage], Spree::Image
-      can [:admin, :manage], Spree::Taxon
-      can [:manage], Spree::Taxonomy
+      can [:read], Spree::Taxonomy
       can [:admin, :index, :read, :update], Spree::Variant
-      can [:admin, :index, :manage], Spree::OptionType
+      can [:index, :manage], Spree::OptionType
       can [:admin, :index, :manage], Spree::OptionValue, supplier_id: user.supplier_id
-      can [:manage], :taxons
     end
   end
 end

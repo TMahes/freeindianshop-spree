@@ -2,13 +2,23 @@
   <td class="move-handle text-center">
     <span class="icon icon-move handle"></span>
     <%= f.hidden_field :id %>
-    <%= f.text_field :supplier_id, :value => spree_current_user.id %>
+    <%= f.hidden_field :supplier_id, :value => spree_current_user.id %>
 
     <% if spree_current_user.admin? %>
-    <%= f.text_field :supplier_id,:value => true %>
+    <%= f.hidden_field :supplier_id,:value => true %>
     <% end %>
   </td>
   <td class="name"><%= f.text_field :name, class: "form-control" %></td>
   <td class="presentation"><%= f.text_field :presentation, class: "form-control" %></td>
   <td class="actions actions-1 text-center"><%= link_to_icon_remove_fields f %></td>
 </tr>
+<script type="text/javascript">
+$(".edit_option_type").submit(function(){
+   // Let's find the input to check
+   var $input = $(this).find("input[name=whatever]");
+   if (!$input.val()) {
+     // Value is falsey (i.e. null), lets set a new one
+     $input.val("whatever you want");
+   }
+});
+</script>

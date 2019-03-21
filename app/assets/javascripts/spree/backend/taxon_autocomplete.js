@@ -12,7 +12,7 @@ var set_taxon_select = function(selector){
       initSelection: function (element, callback) {
         var url = Spree.url(Spree.routes.taxons_api, {
           ids: element.val(),
-          without_children: true,
+          without_children: false,
           token: Spree.api_key
         });
         return $.getJSON(url, null, function (data) {
@@ -26,7 +26,7 @@ var set_taxon_select = function(selector){
           return {
             per_page: 50,
             page: page,
-            without_children: true,
+            without_children: false,
             q: {
               name_cont: term
             },
@@ -35,8 +35,11 @@ var set_taxon_select = function(selector){
         },
         results: function (data, page) {
           var more = page < data.pages;
+          var filtered=data['taxons'].filter(function(item){
+            return item.parent_id!="1";         
+            });
           return {
-            results: data['taxons'],
+            results: filtered,
             more: more
           };
         }

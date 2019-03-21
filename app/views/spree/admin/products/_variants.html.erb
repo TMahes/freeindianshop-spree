@@ -16,8 +16,8 @@
       
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-          <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn' %>
+          <div class="onclick" style="width: 20px;>  <span class="glyphicon glyphicon-refresh"></span></div>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn' %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
        
@@ -63,7 +63,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -105,7 +105,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
        <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -187,7 +187,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -228,7 +228,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -269,7 +269,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
        <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -310,7 +310,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
        <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -351,7 +351,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
        <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>
@@ -390,7 +390,7 @@
         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
        <div class="form-group" data-hook="presentation">
           <div class="onclick" style="width: 20px;color: white">click</div>
-          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'variant[][option_types_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn',disabled: true %>
               <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
         </div> 
     <% end %>

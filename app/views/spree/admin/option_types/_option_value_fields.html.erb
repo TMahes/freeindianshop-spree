@@ -10,15 +10,5 @@
   </td>
   <td class="name"><%= f.text_field :name, class: "form-control" %></td>
   <td class="presentation"><%= f.text_field :presentation, class: "form-control" %></td>
-  <td class="actions actions-1 text-center"><%= link_to_icon_remove_fields f %></td>
+<% if spree_current_user.admin? %>  <td class="actions actions-1 text-center"><%= link_to_icon_remove_fields f %></td> <%end %>
 </tr>
-<script type="text/javascript">
-$(".edit_option_type").submit(function(){
-   // Let's find the input to check
-   var $input = $(this).find("input[name=whatever]");
-   if (!$input.val()) {
-     // Value is falsey (i.e. null), lets set a new one
-     $input.val("whatever you want");
-   }
-});
-</script>

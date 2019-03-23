@@ -41,8 +41,11 @@ var set_taxon_select = function(selector){
           var filtered2=filtered.filter(function(item){
             return item.parent_id!="2";         
             });
+          var filtered3=filtered.filter(function(item){
+            return item.parent_id!="3";         
+            });
           return {
-            results: filtered2,
+            results: filtered3,
             more: more
           };
         }

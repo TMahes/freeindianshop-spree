@@ -6,7 +6,7 @@
     <div class="col-xs-12 col-md-8" data-hook="admin_product_form_left">
       <div data-hook="admin_product_form_name">
         <%= f.field_container :name, class: ['form-group'] do %>
-          <%= f.label :name, raw(Spree.t(:name) + content_tag(:span, ' *', class: 'required')) %>
+          <%= f.label :name, 'Product Name' %>
           <%= f.text_field :name, class: 'form-control title' %>
           <%= f.error_message_on :name %>
         <% end %>
@@ -93,6 +93,7 @@
           <%= f.label :pick_up, 'Store Pick Up' %>
           <%= f.error_message_on :pick_up %>
           <%= f.check_box :pick_up, class: 'form-control' %>
+          <div id="pickup_discount"></div>
         <% end %>
       </div>
     <% if @product.has_variants? %>
@@ -296,6 +297,8 @@
       });
     $('#agree').on('click',function(){
       $('#product_pick_up').prop('checked',true);
+      $("#pickup_discount").empty();
+      $("#pickup_discount").append('<input type="text" name="amount" placeholder="Discount Amount" />');
     });
     $('#disagree').on('click',function(){
        $('#product_pick_up').prop('checked',false);

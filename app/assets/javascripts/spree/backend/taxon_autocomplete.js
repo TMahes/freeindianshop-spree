@@ -8,7 +8,7 @@ var set_taxon_select = function(selector){
   if ($(selector).length > 0) {
     $(selector).select2({
       placeholder: Spree.translations.taxon_placeholder,
-      multiple: true,
+      multiple:true,
       initSelection: function (element, callback) {
         var url = Spree.url(Spree.routes.taxons_api, {
           ids: element.val(),
@@ -38,8 +38,11 @@ var set_taxon_select = function(selector){
           var filtered=data['taxons'].filter(function(item){
             return item.parent_id!="1";         
             });
+          var filtered2=filtered.filter(function(item){
+            return item.parent_id!="2";         
+            });
           return {
-            results: filtered,
+            results: filtered2,
             more: more
           };
         }

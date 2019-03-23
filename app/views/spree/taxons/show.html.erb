@@ -16,7 +16,11 @@
   <%= link_to 'Non Indian', :ni => "yes" %><br>
 </div> 
 <div class="Zipcode_filter">
+  <% if spree_current_user %>
   <input type="text" name="zipcode" id="zipcode" value="<%= spree_current_user.zip_code %>" /><br>
+  <% else %>
+  <input type="text" name="zipcode" id="zipcode" value="" placeholder="Enter Zip" /><br>
+  <% end %>
   <%= link_to 'Go', '#',:class => 'go-btn' %>
 </div>
   <div data-hook="taxon_sidebar_navigation">

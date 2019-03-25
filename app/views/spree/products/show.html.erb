@@ -40,7 +40,9 @@
           </div>
           <% @shop = Spree.user_class.find_by(supplier_id: @product.suppliers.ids[0]) %>
           <h5>Sold BY:<%=link_to  @shop.shop_name,'#' %></h5>
+           <% if !@product.variants_and_option_values(current_currency).any? %>
           <h3 class="product-section-title"><%= @product.product_variant_desc %> </h3>
+          <% end %>
           <div id="cart-form" data-hook="cart_form">
             <%= render partial: 'cart_form' %>
           </div>

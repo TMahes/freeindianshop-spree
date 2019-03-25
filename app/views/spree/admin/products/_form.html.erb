@@ -1,4 +1,5 @@
-
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=r0g95oeg7jrw0apjlnwd5408k63qxh1p4q4uudrikv1mp901"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
 <div data-hook="admin_product_form_fields">
 
   <div class="row">
@@ -126,10 +127,10 @@
           </div>
         </div>
       <% else %>
-        <!-- <div data-hook="admin_product_form_sku">
+         <div data-hook="admin_product_form_sku">
           <%= f.field_container :sku, class: ['form-group'] do %>
             <%= f.label :sku, Spree.t(:sku) %>
-            <%= f.text_field :sku, size: 16, class: 'form-control' %> -->
+            <%= f.text_field :sku, size: 16, class: 'form-control',disabled: true %> 
           <% end %>
         </div> 
 

@@ -26,23 +26,23 @@ module Spree
     end
 
 
-      def create
-        params[:product].each do |product_params|
-          product_params.permit!
-    
+def create
+  logger.debug "ddddddddd #{params["multiple"]}"
+  params[:product].each do |product_params|
+    product_params.permit!
     @productObj = Product.new
     @productObj.name = product_params["name"]
     if @productObj.price != 50
-    @productObj.price = product_params["price"]  
+      @productObj.price = product_params["price"]  
     else
       @productObj.price = 50
-      end
+    end
     
     d = DateTime.now
     @productObj.available_on = d.strftime("%d/%m/%Y %H:%M")
     @productObj.shipping_category_id = product_params["shipping_category_id"]
     @productObj.sku = product_params["sku"]
-    @productObj.product_variant_desc = "#{product_params["txtvariant_0"]}#{','}#{product_params["txtvariant_1"]}#{','}#{product_params["txtvariant_2"]}"
+    #@productObj.product_variant_desc = "#{product_params["txtvariant_0"]}#{','}#{product_params["txtvariant_1"]}#{','}#{product_params["txtvariant_2"]}"
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
     @productObj.vendor_id = spree_current_user.supplier_id
@@ -50,8 +50,8 @@ module Spree
     print product_params["taxon_ids"]
 
     params[:images].each do |product_images|
-    image = Image.create(:attachment =>File.open(product_images["image"].path) ,:viewable => @productObj)
-    @productObj.images << image
+      image = Image.create(:attachment =>File.open(product_images["image"].path) ,:viewable => @productObj)
+      @productObj.images << image
     end
 
     @optionValue = @productObj.product_option_types.new({:product_id=>@productObj.id, :option_type_id=>1})
@@ -60,86 +60,66 @@ module Spree
     @optionType.save
 
     @productObj.save
-
-   product_params["taxon_ids"] = product_params["taxon_ids"].split(',')
-   product_params["taxon_ids"].each do |taxon|
-    #  @taxon = Spree::Product.taxons.new({:product_id=>@productObj.id,:taxon_id=>taxon})
-     # @taxon.save
-
-   end
+    product_params["taxon_ids"] = product_params["taxon_ids"].split(',')
     @productObj.assign_attributes(taxons:Spree::Taxon.find(product_params["taxon_ids"]))
 
-unless params[:variant].nil?
-params[:variant].each do |variant_params|
-
-  logger.debug "@iamgesssssssssss #{variant_params["price"]}"
-  @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"],variant_params["option_types_2"]])
-    logger.debug "Creating Variants #{@productObj.id}"
-  @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
-  @productObj.variants << @variantnewObj
-   @productObj.save
-    logger.debug "@variantnewObj #{@variantnewObj.id}"
-    if variant_params["price"] != 50
-    Spree::Price.create!({:variant_id => @variantnewObj.id, :amount => variant_params["price"]})
+    if product_params["is_single"] == 'yes'
+        @optionValue = Spree::OptionValue.where(id:[product_params["master_types_0"],product_params["master_types_1"],product_params["master_types_2"]])
+        @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => product_params["price"], :is_master => true, :option_values => @optionValue})
+        @productObj.variants << @variantnewObj
+        if product_params["price"] != 50
+          Spree::Price.create!({:variant_id => @variantnewObj.id, :amount => product_params["price"]})
+        end
+        Spree::Price.where(:variant_id => @variantnewObj.id , :amount => product_params["price"] ).first.destroy
+        @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
+        @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => 0, :backorderable => false)
+        @staockMovementObj = Spree::StockMovement.new
+        @staockMovementObj.stock_item_id = @stockObj.id
+        @staockMovementObj.quantity = product_params["quantity"]
+        @staockMovementObj.save
+        @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
+        @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
+        @suppliervariant.save
+        Spree::StockItem.find_by(variant_id:@variantnewObj).update(backorderable: false)
     end
-    Spree::Price.where(:variant_id => @variantnewObj.id , :amount => product_params["price"] ).first.destroy
-    #Quantity save
-    
-    #Spree::StockItem.find_by(variant_id:@variantnewObj.id).update(count_on_hand: 0)
-    #@staockItemObj = Spree::StockItem.find_by(variant_id:@variantnewObj.id)
-    @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
-    logger.debug "@stocklocation.id #{@stocklocation.id}"
-    logger.debug "@iamgesssssssssss #{params["image"]}"
-    @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => 0, :backorderable => false)
 
-    @staockMovementObj = Spree::StockMovement.new
-    @staockMovementObj.stock_item_id = @stockObj.id
-    @staockMovementObj.quantity = variant_params["quantity"]
-    @staockMovementObj.save
-    logger.debug "spulllllllllllllliiiiiier id #{spree_current_user.supplier_id}"
-    @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
-    @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
-    @suppliervariant.save
-
-    Spree::StockItem.find_by(variant_id:@variantnewObj).update(backorderable: false)
-    #OptionValue
-   #@variantnewObj.save
-  # params[:variantimages].each do |variant_images|
-      #logger.debug "imagessssssssss #{product_images["image"].path}"
-      #image = Image.create(:attachment =>File.open(variant_images["image"].path) ,:viewable => @variantnewObj)
-      #@variantnewObj.images << image
-      logger.debug "@iamgesssssssssss #{variant_params["image"]}"
-    varimage = Image.create(:attachment =>File.open(variant_params["image"].path) ,:viewable => @variantnewObj)
-    @variantnewObj.images << varimage
-  #end
+    unless params[:variant].nil?
+      params[:variant].each do |variant_params|
+        logger.debug "@iamgesssssssssss #{variant_params["price"]}"
+        @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"],variant_params["option_types_2"]])
+        logger.debug "Creating Variants #{@productObj.id}"
+        @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
+        @productObj.variants << @variantnewObj
+        @productObj.save
+        logger.debug "@variantnewObj #{@variantnewObj.id}"
+        if variant_params["price"] != 50
+          Spree::Price.create!({:variant_id => @variantnewObj.id, :amount => variant_params["price"]})
+        end
+        Spree::Price.where(:variant_id => @variantnewObj.id , :amount => product_params["price"] ).first.destroy
+        @stocklocation = Spree::StockLocation.find_by(supplier_id:spree_current_user.supplier_id)
+        @stockObj = Spree::StockItem.create!(:stock_location_id => @stocklocation.id ,:variant_id => @variantnewObj.id , :count_on_hand => 0, :backorderable => false)
+        @staockMovementObj = Spree::StockMovement.new
+        @staockMovementObj.stock_item_id = @stockObj.id
+        @staockMovementObj.quantity = variant_params["quantity"]
+        @staockMovementObj.save
+        @supplierObj = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
+        @suppliervariant = @supplierObj.supplier_variants.new(:supplier_id => @supplierObj.id, :variant_id => @variantnewObj.id)
+        @suppliervariant.save
+        Spree::StockItem.find_by(variant_id:@variantnewObj).update(backorderable: false)
+        varimage = Image.create(:attachment =>File.open(variant_params["image"].path) ,:viewable => @variantnewObj)
+        @variantnewObj.images << varimage
+      end
+    end
+        @productObj.save
+        firstvariant = Spree::Variant.find_by(sku: @productObj.sku)
+        @supplierObj1 = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
+        @suppliervariant1 = @supplierObj1.supplier_variants.new(:supplier_id => @supplierObj1.id, :variant_id => firstvariant.id)
+        @suppliervariant1.save
   end
- end
-
- @productObj.save
-
- firstvariant = Spree::Variant.find_by(sku: @productObj.sku)
- @supplierObj1 = Spree::Supplier.find_by(id:spree_current_user.supplier_id)
-    @suppliervariant1 = @supplierObj1.supplier_variants.new(:supplier_id => @supplierObj1.id, :variant_id => firstvariant.id)
-    @suppliervariant1.save
-   
-   logger.debug "variant1 #{@productObj.sku}"
-
-
-=begin 
-@productTaxonObj.update_attributes(:taxon_id => @productTaxon)
-   productTaxonObj.id = @productTaxon
-    productTaxonObj.product_id = @productObj.id
-    productTaxonObj.save
-   
-     productOptionObj = OptionTypes.new
-    productOptionObj.option_type_id = @optionTypeId
-    productOptionObj.product_id = @productObj.id
-=end
-  end
-  flash[:success] = "Product Uploaded Successfully"
-    redirect_to edit_admin_product_url(@productObj)
-   #redirect_to new_object_url
-  end
+        flash[:success] = "Product Uploaded Successfully"
+        redirect_to edit_admin_product_url(@productObj)
+         #redirect_to new_object_url
+end
   
       def update
         if params[:product][:taxon_ids].present?

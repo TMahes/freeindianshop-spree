@@ -132,11 +132,14 @@ input[name=variant[][image]] {
        params["options"].each_with_index do |type, index| %>
        
         
-        <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
+         <% optionType = Spree::OptionType.where(:name=>type.to_s.gsub('"', '')).first %>
         <div class="form-group" data-hook="presentation">
-         <%= f.text_field :price,name: 'product[][txtvariant_'+index.to_s+']', min:0 ,class: 'form-control',id:'variantid', value: type+' :'  %>
-        </div>
+          <div class="onclick" ><%= type %></div>
+          <%= f.select :option_types, options_from_collection_for_select(Spree::OptionValue.where(:option_type_id => optionType).order(:name => :asc), "id", "name"), {},:name=> 'product[][master_type_'+index.to_s+']',:multiple=> false,:class=> 'select2 btn' %>
+              <%= f.hidden_field :option_type, name:'option_type', value: optionType.name %>
+        </div> 
     <% end %>
+    <%= f.hidden_field :option_type, name:'product[][is_single]', value: params['single'] %>
     </td>
   <td id="tdquantity">
   <div class="form-group">
@@ -328,6 +331,7 @@ if($.urlParam('single')==null)
  $('#svariant').hide();
  $('#tdprice').hide();
  $('.image2').hide();
+ 
 }
 var n = document.getElementById("first_product product_price");
 var r = document.getElementById("master_product product_price");

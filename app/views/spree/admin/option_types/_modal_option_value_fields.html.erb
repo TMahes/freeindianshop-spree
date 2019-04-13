@@ -1,0 +1,31 @@
+<tr class="option_value fields" id="spree %>" data-hook="option_value">
+  <td class="move-handle text-center">
+    <span class="icon icon-move handle"></span>
+  </td>
+  <td class="name"><input type="text" name="admin_option_values_name_<%= option_type.name %>" class= "form-control" id=admin_option_values_name_<%= option_type.name %> ></td>
+  <td class="presentation"><input type="text" name="admin_option_values_presentation" class= "form-control" id=admin_option_values_presentation_<%= option_type.name %> ></td>
+  <input type="hidden" name="admin_option_values_presentation" class= "form-control" id=option_type_<%= option_type.name %> value="<%= option_type.id %>" >
+</tr>
+
+<!-- <script type="text/javascript">
+$(document).ready(function () {
+   $("input[name^='option_type[option_values_attributes]']").click(function () {
+       var option_value = $.trim($(this).val());
+
+       if (option_value.length > 0) {
+       	$(this).attr("readonly", true); 
+       }
+       else{
+       	$(this).attr("readonly", false); 
+       }
+    });
+   $("input[name^='option_type[option_values_attributes]']").keyup(function() {
+  alert('tets');
+    var caps = $("input[name^='option_type[option_values_attributes]']").val(); 
+    caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        $("input[name^='option_type[option_values_attributes]']").val(caps);
+  });
+}); 
+
+</script> -->
+

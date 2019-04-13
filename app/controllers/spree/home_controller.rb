@@ -64,6 +64,23 @@ module Spree
         end
         redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon)
     end
+      def optiontypecreate
+         @optionvalue = Spree::OptionValue.find_by(name: params[:name].downcase)
+        if @optionvalue.present?
+           render :json =>  ["free-user", false , "Option Value already available"]
+        else
+            @optionvalue = OptionValue.new
+            @optionvalue.position = 1
+            @optionvalue.name = params[:name].downcase
+            @optionvalue.presentation = params[:presentation]
+            @optionvalue.option_type_id = params[:option_type]
+            d = DateTime.now
+            @optionvalue.created_at = d.strftime("%d/%m/%Y %H:%M")
+            @optionvalue.updated_at = d.strftime("%d/%m/%Y %H:%M")
+            @optionvalue.save
+            render :json =>  ["free-user", true , "Option Value Added"]
+        end
+      end
        def choosesinglepost
       @product = Product.new
         logger.debug "choosen option types1 #{params[:option_types]}"

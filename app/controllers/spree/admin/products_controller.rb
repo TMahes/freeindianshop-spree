@@ -25,7 +25,6 @@ module Spree
       @product = Product.new
     end
 
-
 def create
   logger.debug "ddddddddd #{params["multiple"]}"
   params[:product].each do |product_params|
@@ -46,6 +45,7 @@ def create
     @productTaxon = product_params["taxon_ids"]
     @quantity = product_params["quantity"]
     @productObj.vendor_id = spree_current_user.supplier_id
+    @productObj.promotionable = false
     logger.debug "with taxons #{product_params["taxon_ids"]}"
     print product_params["taxon_ids"]
 

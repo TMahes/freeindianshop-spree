@@ -70,6 +70,8 @@ input[name=variant[][image]] {
         </div>
     </div>
   <% end %>
+  <div id="checkemailsuccess"></div>
+  <div id="checkemailfail"></div>
 <table class="table">
   
   <thead>
@@ -351,11 +353,11 @@ $(document).ready(function() {
       //function called on status: 200 (for ex.)
       alert("Option Value Added!");
       $('.modal').hide();
-       $('.select').trigger("chosen:updated");2-choice
+       $('.select').trigger("chosen:updated");
     })
     .bind("ajax:error", function(evt, xhr, status, error) {
       //function called on status: 401 or 500 (for ex.)
-     // console.log(xhr.responseText);
+      console.log(xhr.responseText);
       alert("Option Value Added!");
       $('.modal').hide();
     });

@@ -1,20 +1,9 @@
  <span class="close">&times;</span>
 
-  <span id="new_add_option_value" data-hook>
-    <%= button_link_to Spree.t(:add_option_value), "javascript:;", { icon: 'add', :'data-target' => "tbody#option_values", class: 'btn-success spree_add_fields' } %>
-  </span>
-
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @option_type } %>
-
-<%= form_for [:admin, @option_type],html: { remote: true } do |f| %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h1 class="panel-title">
-        <%= Spree.t(:option_values) %>
-      </h1>
-    </div>
-    <div class="panel-body">
-      <%= render partial: 'spree/admin/option_types/form', locals: { f: f } %>
+      Add New <%= @option_type.name %>
     </div>
     <table class="table table-condensed table-bordered sortable" data-hook data-sortable-link="<%= update_values_positions_admin_option_types_url %>">
       <thead data-hook="option_header">
@@ -31,14 +20,40 @@
             <td class="actions text-center"></td>
           </tr>
         <% else %>
-          <%= f.fields_for :option_values do |option_value_form| %>
-            <%= render partial: 'spree/admin/option_types/option_value_fields', locals: { f: option_value_form } %>
-          <% end %>
+            <%= render partial: 'spree/admin/option_types/modal_option_value_fields',locals: { option_type: @option_type } %>
         <% end %>
       </tbody>
-    </table>
+    </table> 
     <div class="panel-footer text-center">
-      <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+      <div class="form-actions" data-hook="buttons">
+  <%= button Spree.t('actions.update'), 'refresh', 'submit', {class: 'btn-success', id:'option_save_'+@option_type.name , data: { disable_with: "#{ Spree.t(:saving) }..." }} %>
+  <span class="or"><%= Spree.t(:or) %></span>
+  <%= button Spree.t('actions.cancel'), icon: 'delete' %>
+</div>
+
     </div>
   </div>
-<% end %>
+
+   <script type="text/javascript">
+
+$(document).on("click", '#option_save_<%= @option_type.name %>', function(event){
+        console.log($('#admin_option_values_name_<%= @option_type.name %>').val());
+        $.post('/optiontypecreate?name='+$("#admin_option_values_name_<%= @option_type.name %>").val()+'&presentation='+$("#admin_option_values_presentation_<%= @option_type.name %>").val()+'&option_type='+$("#option_type_<%= @option_type.name %>").val(),function(data){
+            console.log(data[2]);
+            if(data[1]==true){
+                $("#checkemailsuccess").show();
+                $("#checkemailsuccess").text("Option Value Added");
+                $("#checkemailfail").hide();
+                $('.modal').hide();    
+            }
+            else{
+                $("#checkemailfail").show();
+                $("#checkemailfail").text("Sorry! Option Value already available");    
+                $("#checkemailsuccess").hide();
+                $('.modal').hide();
+            }
+            
+        });
+});
+
+</script>

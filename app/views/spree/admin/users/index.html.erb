@@ -4,6 +4,8 @@
 
 <% content_for :page_actions do %>
   <%= button_link_to Spree.t(:new_user), new_admin_user_url, class: "btn-success", icon: 'add', id: 'admin_new_user_link' %>
+  <%= button_link_to Spree.t('Sellers'), '/admin/users?sellers=yes', class: "btn-success", id: 'admin_new_user_link' %>
+   <%= button_link_to Spree.t('Buyers'), '/admin/users?sellers=', class: "btn-success", id: 'admin_new_user_link' %>
 <% end if can? :create, Spree::user_class %>
 
 <% content_for :table_filter_title do %>
@@ -49,13 +51,16 @@
         <th>
           <%= sort_link @search,:email, Spree.t(:user), {}, {title: 'users_email_title'} %>
         </th>
+        <th>Shop Name</th>
         <th data-hook="admin_users_index_header_actions" class="actions"></th>
       </tr>
     </thead>
     <tbody>
+      <% @users = @users.where(seller: params['sellers']) %>
       <% @users.each do |user|%>
         <tr id="<%= spree_dom_id user %>" data-hook="admin_users_index_rows">
           <td class='user_email'><%=link_to user.email, edit_admin_user_url(user) %></td>
+          <td class='user_email'><%= user.shop_name %></td>
           <td data-hook="admin_users_index_row_actions" class="actions actions-2 text-right">
             <%= link_to_edit user, no_text: true if can?(:edit, user) %>
             <%= link_to_delete user, no_text: true if can?(:delete, user) %>

@@ -8,6 +8,22 @@
   .carousel-control{
     width: 8px;
   }
+          .box{
+        position: relative;
+        display: inline-block; /* Make the width of box same as image */
+    }
+
+    .box .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 95px;
+        right: 0;
+        top: -17%;
+         /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        width: 100%; /* Set the width of the positioned div */
+    }
 </style>
 <% content_for :head do %>
   <% if products.respond_to?(:total_pages) %>
@@ -46,6 +62,13 @@
       <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
       <div id="product_<%= product.id %>" data-hook="products_list_item" class="product-list-item" itemscope itemtype="https://schema.org/Product">
         <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : cache_key_for_product(product)) do %>
+        <% if product.promotionable? %>
+               <div class="box">
+        <div class="text">
+            <img src="/assets/mi.png" width="100" height="80">
+        </div>
+      </div>
+        <% end %>
             <%= link_to url, itemprop: "url" do %>
               <div class="product_image_area">
                 <%= product_image(product, itemprop: "image", class: "img-responsive center-block") %>

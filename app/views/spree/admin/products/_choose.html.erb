@@ -37,7 +37,7 @@ checkbox {
     </div>
   </div>
 
-  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
+  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success nxt_btn' %></p>
   <% end %>
   <% end %>
 <% if type != "yes" %>
@@ -60,15 +60,23 @@ checkbox {
     </div>
   </div>
 
-  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success' %></p>
+  <p><%= f.submit 'Next', :class => 'btn btn-small btn-success nxt_btn' %></p>
   <% end %>
   <% end %>
   <script type="text/javascript">
-    $('.btn').hide();
+        $(document).ready(function(){
+        $('.nxt_btn').click(function(){
+            if($('.valuetype').prop("checked") == true){
+               $('.btn').show();
+            }
+        });
+
+    });
+        
         var container = $(".option_values");
         var container2 = $("#values");
     $('#product_taxon_ids').change(function(){
-        $('.btn').show();
+        //$('.btn').show();
         $('#values').empty();
     $.post('/showoptiontypes?category='+$("#product_taxon_ids").val(),function(data){
             console.log(data[2]);
@@ -90,7 +98,7 @@ checkbox {
 
           $.post('/showoptionvalues?type='+value2,function(data){
             /*$('<label />', { 'for': value2, text: value2 }).appendTo(container);*/
-            $('<label>'+data[1]+'<input type=checkbox name=option_types[] id=valuetype value="'+ data[1]+'" /></label>').appendTo(container2);
+            $('<label>'+data[1]+'<input type=checkbox name=option_types[] id=valuetype class=valuetype value="'+ data[1]+'" /></label>').appendTo(container2);
        /*     $.each(data[2], function (index3, value3) {
                 console.log(value3['name']);
                  $('<h6>'+value3['name']+'</h6>').appendTo(container2);

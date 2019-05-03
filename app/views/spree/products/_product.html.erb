@@ -1,10 +1,36 @@
+<style type="text/css">
+    .box{
+        position: relative;
+        display: inline-block; /* Make the width of box same as image */
+    }
+
+    .box .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 95px;
+        right: 0;
+        top: -17%;
+         /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        width: 100%; /* Set the width of the positioned div */
+    }
+
+</style>
 <% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
 <div id="product_<%= product.id %>" class="col-md-3 col-sm-6 col-xs-6 product-list-item" data-hook="products_list_item" itemscope itemtype="https://schema.org/Product">
+  <div class="box">
   <div class="panel panel-default">
     <% cache(taxon.present? ? [I18n.locale, current_currency, taxon, product] : cache_key_for_product(product)) do %>
       <div class="panel-body text-center product-body">
         <%= link_to url, itemprop: "url" do %>
-          <%= small_image(product, itemprop: "image") %><br/>
+          <%= small_image(product, itemprop: "image") %>
+          <% if product.promotionable? %>
+        <div class="text">
+            <img src="/assets/mi.png" width="100" height="80">
+        </div>
+        <% end %>
+          <br/>
           <%= content_tag(:span, truncate(product.name, length: 50), class: 'info', itemprop: "name", title: product.name) %>
         <% end %>
         <br/>
@@ -22,4 +48,5 @@
       </div>
     <% end %>
   </div>
+</div>
 </div>

@@ -9,6 +9,14 @@ GIT
       spree_extension
 
 GIT
+  remote: https://github.com/spree-contrib/spree_mail_settings.git
+  revision: be7a9a9fa866054a81270f15e8e5fb289e80a9d7
+  specs:
+    spree_mail_settings (3.3.0)
+      spree_auth_devise (>= 3.1.0, < 4.0)
+      spree_backend (>= 3.1.0, < 4.0)
+
+GIT
   remote: https://github.com/vinsol-spree-contrib/spree_themes.git
   revision: 1af86f015f90280c78b98db85a104b4f753935f3
   branch: master
@@ -152,6 +160,10 @@ GEM
     ffi (1.9.25-x64-mingw32)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
+    geokit (1.13.1)
+    geokit-rails (2.3.1)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     google-cloud-core (1.2.2)
@@ -487,6 +499,7 @@ DEPENDENCIES
   carmen-rails (~> 1.0.0)
   coffee-rails (~> 4.2)
   deface (~> 1.0, >= 1.0.2)
+  geokit-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   paperclip
@@ -500,6 +513,7 @@ DEPENDENCIES
   spree_auth_devise (~> 3.3)
   spree_drop_ship!
   spree_gateway (~> 3.3)
+  spree_mail_settings!
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets-helpers (~> 1.2.1)
@@ -510,4 +524,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181109083258) do
+ActiveRecord::Schema.define(version: 20190503111402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,22 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.index ["stock_location_id"], name: "index_spree_customer_returns_on_stock_location_id"
   end
 
+  create_table "spree_distance", force: :cascade do |t|
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "zipcode"
+    t.index ["latitude"], name: "index_spree_distance_on_latitude"
+    t.index ["longitude"], name: "index_spree_distance_on_longitude"
+  end
+
+  create_table "spree_distances", force: :cascade do |t|
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "zipcode"
+    t.index ["latitude"], name: "index_spree_distances_on_latitude"
+    t.index ["longitude"], name: "index_spree_distances_on_longitude"
+  end
+
   create_table "spree_fancy_menu_items", force: :cascade do |t|
     t.string "name"
     t.integer "index"
@@ -253,6 +269,8 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "products"
+    t.string "supplier_id"
+    t.boolean "by_admin", default: false
     t.index ["name"], name: "index_spree_option_values_on_name"
     t.index ["option_type_id"], name: "index_spree_option_values_on_option_type_id"
     t.index ["position"], name: "index_spree_option_values_on_position"
@@ -429,6 +447,9 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.integer "vendor_id"
     t.boolean "featured", default: false
     t.string "product_variant_desc"
+    t.string "gst"
+    t.boolean "pick_up", default: false
+    t.string "seller_sku"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["discontinue_on"], name: "index_spree_products_on_discontinue_on"
@@ -870,6 +891,33 @@ ActiveRecord::Schema.define(version: 20181109083258) do
   end
 
   create_table "spree_store_credits", id: :serial, force: :cascade do |t|
+    t.string "reason"
+    t.string "type"
+    t.string "transaction_id"
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "balance", precision: 10, scale: 2
+    t.integer "payment_mode"
+    t.integer "user_id"
+    t.integer "category_id"
+    t.integer "created_by_id"
+    t.decimal "amount_used", precision: 8, scale: 2, default: "0.0", null: false
+    t.text "memo"
+    t.datetime "deleted_at"
+    t.string "currency"
+    t.decimal "amount_authorized", precision: 8, scale: 2, default: "0.0", null: false
+    t.integer "originator_id"
+    t.string "originator_type"
+    t.integer "type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "transactioner_id"
+    t.index ["transaction_id"], name: "index_spree_store_credits_on_transaction_id", unique: true
+    t.index ["transactioner_id"], name: "index_spree_store_credits_on_transactioner_id"
+    t.index ["type"], name: "index_type_on_spree_store_credits"
+    t.index ["user_id"], name: "index_user_id_on_spree_store_credits"
+  end
+
+  create_table "spree_store_credits_old", id: :integer, default: -> { "nextval('spree_store_credits_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "user_id"
     t.integer "category_id"
     t.integer "created_by_id"
@@ -916,7 +964,6 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.integer "country_iso"
     t.string "name"
     t.index ["supplier_id"], name: "index_spree_supplier_bank_accounts_on_supplier_id"
-    t.index ["token"], name: "index_spree_supplier_bank_accounts_on_token"
   end
 
   create_table "spree_supplier_option_types", force: :cascade do |t|
@@ -979,6 +1026,8 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.boolean "agree_tos", default: false
     t.boolean "agree_not_dropshiped", default: false
     t.boolean "agree_tos_violate", default: false
+    t.integer "suspended_period"
+    t.boolean "suspend_status"
     t.index ["active"], name: "index_spree_suppliers_on_active"
     t.index ["address_id"], name: "index_spree_suppliers_on_address_id"
     t.index ["deleted_at"], name: "index_spree_suppliers_on_deleted_at"
@@ -1149,6 +1198,14 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.string "seller"
     t.string "shop_name"
     t.string "phone"
+    t.string "gst_number"
+    t.string "pan_number"
+    t.string "product_source"
+    t.string "brand_letter_path"
+    t.string "pickup_loc"
+    t.decimal "store_credits_total", precision: 10, scale: 2, default: "0.0"
+    t.boolean "allowPickUp"
+    t.boolean "MadeInIndia"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true

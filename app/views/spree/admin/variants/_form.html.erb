@@ -19,9 +19,13 @@
         <%= f.text_field :price, value: number_to_currency(@variant.price, unit: ''), class: 'form-control' %>
       </div>
 
-      <div class="form-group" data-hook="cost_price">
-        <%= f.label :cost_price, Spree.t('MRP') %>
+      <!-- <div class="form-group" data-hook="cost_price">
+        <%= f.label :cost_price, Spree.t('Price') %>
         <%= f.text_field :cost_price, value: number_to_currency(@variant.cost_price, unit: ''), class: 'form-control' %>
+      </div> -->
+      <div class="form-group" data-hook="cost_price">
+        <%= f.label :mrp, Spree.t('MRP') %>
+        <%= f.text_field :mrp, value: number_to_currency(@variant.mrp, unit: ''), class: 'form-control' %>
       </div>
 <!-- 
       <div class="form-group" data-hook="tax_category">

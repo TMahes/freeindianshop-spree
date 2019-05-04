@@ -88,7 +88,7 @@ def create
         logger.debug "@iamgesssssssssss #{variant_params["price"]}"
         @optionValue = Spree::OptionValue.where(id:[variant_params["option_types_0"],variant_params["option_types_1"],variant_params["option_types_2"]])
         logger.debug "Creating Variants #{@productObj.id}"
-        @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue})
+        @variantnewObj =  Spree::Variant.create!({:product_id => @productObj.id, :sku => "", :cost_price => variant_params["price"], :is_master => false, :option_values => @optionValue, :mrp => variant_params["mrp"]})
         @productObj.variants << @variantnewObj
         @productObj.save
         logger.debug "@variantnewObj #{@variantnewObj.id}"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181109083258) do
+ActiveRecord::Schema.define(version: 20190503045005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,22 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.index ["stock_location_id"], name: "index_spree_customer_returns_on_stock_location_id"
   end
 
+  create_table "spree_distance", force: :cascade do |t|
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "zipcode"
+    t.index ["latitude"], name: "index_spree_distance_on_latitude"
+    t.index ["longitude"], name: "index_spree_distance_on_longitude"
+  end
+
+  create_table "spree_distances", force: :cascade do |t|
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "zipcode"
+    t.index ["latitude"], name: "index_spree_distances_on_latitude"
+    t.index ["longitude"], name: "index_spree_distances_on_longitude"
+  end
+
   create_table "spree_fancy_menu_items", force: :cascade do |t|
     t.string "name"
     t.integer "index"
@@ -253,6 +269,8 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "products"
+    t.string "supplier_id"
+    t.boolean "by_admin", default: false
     t.index ["name"], name: "index_spree_option_values_on_name"
     t.index ["option_type_id"], name: "index_spree_option_values_on_option_type_id"
     t.index ["position"], name: "index_spree_option_values_on_position"
@@ -429,6 +447,11 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.integer "vendor_id"
     t.boolean "featured", default: false
     t.string "product_variant_desc"
+    t.string "gst"
+    t.boolean "pick_up", default: false
+    t.string "seller_sku"
+    t.string "pickup_discount"
+    t.string "mrp"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["discontinue_on"], name: "index_spree_products_on_discontinue_on"
@@ -1149,6 +1172,7 @@ ActiveRecord::Schema.define(version: 20181109083258) do
     t.string "seller"
     t.string "shop_name"
     t.string "phone"
+    t.string "mrp"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true

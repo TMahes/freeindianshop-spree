@@ -19,7 +19,7 @@ Spree.config do |config|
 end
 Spree::Auth::Config[:confirmable] = true
 Spree.user_class = "Spree::User"
-Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :city, :state, :zip_code, :address, :seller,:shop_name,:phone
+Spree::PermittedAttributes.user_attributes.push :first_name, :last_name, :dob, :city, :state, :zip_code, :address, :seller,:shop_name,:phone,:allowPickUp,:MadeInIndia
 attachment_config = {
     s3_credentials: {
         access_key_id: S3_CREDENTIALS['AWS_ACCESS_KEY'],

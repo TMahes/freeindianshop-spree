@@ -36,8 +36,12 @@ Rails.application.configure do
    config.action_mailer.default_url_options = { host: 'localhost:3000' }
    config.action_mailer.smtp_settings = {
     user_name:      'freeindianshop3@gmail.com',
+<<<<<<< HEAD
+    password:       'Mahes@98',
+=======
     password:       '',
     from:           'admin@lelyaa.in',
+>>>>>>> da6ab357ca7396e0b0fca169df85545fefa957e7
     domain:         'localhost:3000',
     address:       'smtp.gmail.com',
     port:          '587',

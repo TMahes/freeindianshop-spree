@@ -1,4 +1,3 @@
-
 <style type="text/css">
   div.onclick {
    content:url(/assets/refresh.png);
@@ -15,7 +14,6 @@
     <tr>
   <th>Variants</th>
   <th>Quantity</th>
-  <th>MRP</th>
   <th>Price</th>
   <th>Image</th>
 </tr>
@@ -44,19 +42,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp' %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'first_product product_price' %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp' %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -96,19 +89,13 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp', disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -145,19 +132,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -194,19 +176,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true%>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -243,19 +220,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -292,19 +264,14 @@
           <% end %>
         </div>
 </td>
+
  <td>
       <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -341,19 +308,13 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -392,17 +353,11 @@
 </td>
  <td>
       <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
-      <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -439,19 +394,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control',disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -486,19 +436,14 @@
           <% end %>
         </div>
 </td>
- <td>
-      <div data-hook="new_product_price">
-        <%= f.field_container :mrp, class: ['form-group'] do %>
-          <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'first_product product_mrp',disabled:true %>
-          <%= f.error_message_on :mrp %>
-        <% end %>
-      </div>
-</td>
-    <td>
+
+<td>
       <div data-hook="new_product_price">
         <%= f.field_container :price, class: ['form-group'] do %>
-<!--           <%= f.label :price, Spree.t(:price) %> <span class="required">*</span> -->
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 , class: 'form-control' ,disabled:true %>
+          <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
+<%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
+<%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>

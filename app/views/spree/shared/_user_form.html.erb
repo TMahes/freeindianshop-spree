@@ -24,11 +24,17 @@
   <div id="checkemailsuccess" style="color: green;"></div>
   <div id="checkemailfail" style="color: red;"></div>
   <div class="form-group">
-    <%= f.text_field :phone, :class => 'form-control', :placeholder => "Phone",maxlength: 10 %>
+    <%= f.text_field :phone, :class => 'form-control', :placeholder => "Mobile",maxlength: 10 %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :mobile2, :class => 'form-control', :placeholder => "Secondary Mobile",maxlength: 10 %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :land_line, :class => 'form-control', :placeholder => "Secondary Mobile",maxlength: 10 %>
   </div>
   <% if params[:seller] %>
    <div class="form-group">
-    <%= f.date_field :dob,:class => 'form-control', :placeholder => 'DOB' %>
+    <%= f.text_field :dob,:class => 'form-control datepicker', :placeholder => 'DOB' %>
   </div>
   <div class="form-group">
     <%= f.text_area :address, :class => 'form-control', :placeholder => 'Address' %>
@@ -88,7 +94,7 @@
             <li>If any questions arise, please do not engage in heated discussion. Just report the incident to site. </li>
                 <li>If you have CCTV facility, (recommended) upload the video on Google drive and share the link with customer support.</li>
                 <li>Please provide parking instruction for buyer’s vehicle (car/bike).</li>
-      
+      </ol>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" id='disagree'>No</button>
@@ -125,6 +131,12 @@
 </div>
  <script type="text/javascript">
  $(document).ready(function () {
+   $('.datepicker').datepicker({
+         dateFormat: 'dd-mm-yy',
+         changeYear: true,
+         changeMonth: true,
+         yearRange: "-100:+0"
+    });
       $('#spree_user_allowPickUp').on('change', function(e){
         if(e.target.checked){
           $('#allowPickUp_modal').modal();

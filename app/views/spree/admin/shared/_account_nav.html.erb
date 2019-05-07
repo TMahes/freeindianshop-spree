@@ -8,7 +8,7 @@
       <ul class="dropdown-menu">
         <% if spree.respond_to? :root_path %>
           <li>
-            <%= link_to spree.admin_path, target: :blank do %>
+            <%= link_to '/admin/products' do %>
               <i class="glyphicon glyphicon-new-window"></i>
               &nbsp;
               <%= Spree.t(:back_to_store) %>
@@ -16,7 +16,7 @@
           </li>
         <% end %>
         <li>
-            <%= link_to spree.root_path, target: :blank do %>
+            <%= link_to spree.root_path do %>
               <i class="glyphicon glyphicon-new-window"></i>
               &nbsp;
               <%= Spree.t('Home Page') %>
@@ -29,6 +29,14 @@
             <%= Spree.t(:account) %>
           <% end %>
         </li>
+        <li>
+          <%= link_to '#' do %>
+            <i class="glyphicon glyphicon-info-sign"></i>
+            &nbsp;
+            <%= Spree.t('FAQ') %>
+          <% end %>
+        </li>
+        <hr />
         <% if spree.respond_to? :admin_logout_path %>
           <li>
             <%= link_to spree.admin_logout_path do %>
@@ -38,14 +46,6 @@
             <% end %>
           </li>
         <% end %>
-        <hr />
-        <li>
-          <%= link_to '#', target: :blank do %>
-            <i class="glyphicon glyphicon-info-sign"></i>
-            &nbsp;
-            <%= Spree.t(:help_center) %>
-          <% end %>
-        </li>
       </ul>
     </li>
   </ul>

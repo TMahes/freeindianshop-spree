@@ -238,6 +238,7 @@ $('table tr:eq(' + currentrow  + ')').find('#product_quantity').prop('disabled',
 $('table tr:eq(' + currentrow  + ')').find('#product_option_types').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#variantid').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find('#product_price').prop('disabled', false);
+$('table tr:eq(' + currentrow  + ')').find('#product_mrp').prop('disabled', false);
 $('table tr:eq(' + currentrow  + ')').find("input[name='variant[][image]']").prop('disabled', false);
 });
 function readURL(input) {
@@ -260,6 +261,7 @@ $('table').on('click', '.rmv', function () {
   $(this).closest('tr').find('#product_option_types').prop('disabled', true);
   $(this).closest('tr').find('#variantid').prop('disabled', true);
   $(this).closest('tr').find('#product_price').prop('disabled', true);
+  $(this).closest('tr').find('#product_mrp').prop('disabled', true);
   $(this).closest('tr').find("input[name='variant[][image]']").prop('disabled', true);
 });
 $('table').on('click', '.add', function () {
@@ -269,6 +271,7 @@ $('table').on('click', '.add', function () {
   $(this).closest('tr').next('tr').find('#product_option_types').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#variantid').prop('disabled', false);
   $(this).closest('tr').next('tr').find('#product_price').prop('disabled', false);
+  $(this).closest('tr').next('tr').find('#product_mrp').prop('disabled', false);
   $(this).closest('tr').next('tr').find("input[name='variant[][image]']").prop('disabled', false);
 });
 
@@ -410,5 +413,16 @@ $(document).ready(function() {
     });
     });
 });
+   $("input[name='variant[][price]']").on('keyup', function() {
+      if (parseInt($(this).val(), 10) > parseInt($(this).prevAll("input[name='variant[][mrp]']").val(), 10))
+      {
+        alert("Price should be lesser than MRP");
+        var mrp_val_check = $.trim( $(this).val() );
+        mrp_val_check="";
+
+      } else {
+       
+      }
+    });
 });
 </script>

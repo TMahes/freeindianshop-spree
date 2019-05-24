@@ -54,7 +54,12 @@ module Spree
       @optionvalue = Spree::OptionValue.where(:option_type_id=>@optiontypes.id)
       render :json => [@optionvalue]
     end
-
+    def policies
+     render :partial => "spree/shared/policies"
+    end
+    def refund
+      render :partial => "/spree/shared/refund_policy"
+    end
      def choosepost
       @product = Product.new
         logger.debug "choosen option types1 #{params[:option_types]}"
@@ -81,21 +86,22 @@ module Spree
             render :json =>  ["free-user", true , "Option Value Added"]
         end
       end
-       def choosesinglepost
-      @product = Product.new
+    def choosesinglepost
+        @product = Product.new
         logger.debug "choosen option types1 #{params[:option_types]}"
         optionTypes = params[:option_types].map(&:inspect).join(', ')
         params[:product].each do |product_params|
           @productTaxon = product_params["taxon_ids"]
-        end
+      end
         @permalink = Spree::Taxon.find_by(:id=>@productTaxon)
           logger.debug "permalink #{@permalink.permalink}"
           if @permalink.permalink.include?("clothing")
             logger.debug "Clothing category redirect to multiple"
             redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
         else
-        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :single=> 'yes')
+        redirect_to new_admin_product_path(:options=> params[:option_types], :taxons=> @productTaxon, :multiple=> 'yes')
       end
     end
   end
+  
 end

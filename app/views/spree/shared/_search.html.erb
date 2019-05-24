@@ -1,3 +1,18 @@
+<style type="text/css">
+  .Zipcode_filter{
+    float: right;
+    display: inline-flex;
+  }
+  .form-control{
+    display: inline;
+  }
+  .search_area #keywords{
+    width: 75%;
+  }
+  .go-btn{
+    float: right;
+  }
+</style>
 <div class="search_area">
   <a href="javascript:void(0);" class="close_this search_toggle"></a>
   <% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots %>
@@ -13,4 +28,12 @@
     <%= search_field_tag :keywords, params[:keywords], placeholder: Spree.t(:search) %>
     <%= button_tag '', name: nil, class: "fa fa-search search-btn" %>
   <% end %>
+<!--    <div class="Zipcode_filter">
+  <% if spree_current_user %>
+  <input type="text" name="zipcode" id="zipcode" class="form-control" value="<%= spree_current_user.zip_code %>" placeholder="Enter Zipcode" /><br>
+  <% else %>
+  <input type="text" name="zipcode" id="zipcode" value="" placeholder="Enter Zipcode" /><br>
+  <% end %>
+  <%= link_to 'Go', '#',:class => 'go-btn' %>
+</div> -->
 </div>

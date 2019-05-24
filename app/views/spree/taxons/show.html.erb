@@ -42,9 +42,8 @@
 <% end %>
 <script type="text/javascript">
   $(".go-btn").click(function(){
-    var textVal = $("input:text[name=zipcode]").val();
-    alert(location.href);
-    location.href = location.href+ "?zip=" + textVal;
-
+     var textVal = $("input:text[name=zipcode]").val();
+    location.href = location.href.split('?')[0]+ "?zip=" + textVal;
+    //$("input:text[name=zipcode]").val(textVal);
 });
 </script>

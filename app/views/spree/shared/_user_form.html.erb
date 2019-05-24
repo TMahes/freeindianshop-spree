@@ -153,14 +153,13 @@
      
     });
     $('#disagree').on('click',function(){
-       $('#product_pick_up').prop('checked',false);
-       $("#product_pickup_discount").prop('disabled',true)
+       $('#spree_user_allowPickUp').prop('checked',false);
     });
     $('#agree2').on('click',function(){
-      $('#product_promotionable').prop('checked',true);
+      $('#spree_user_MadeInIndia').prop('checked',true);
     });
     $('#disagree2').on('click',function(){
-       $('#product_promotionable').prop('checked',false);
+       $('#spree_user_MadeInIndia').prop('checked',false);
     });
     });
 

@@ -49,7 +49,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp' %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'first_product product_price' %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -95,7 +95,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -139,7 +139,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -183,7 +183,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -227,7 +227,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -271,7 +271,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -314,7 +314,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -357,7 +357,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -401,7 +401,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -443,7 +443,7 @@
           <%= f.label :price, Spree.t('MRP') %> <span class="required">*</span>
 <%= f.text_field :mrp,name: "variant[][mrp]",class: 'form-control',id:'product_mrp',disabled:true %>
 <%= f.label :price, Spree.t(:price) %> <span class="required">*</span>
-          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price' %>
+          <%= f.text_field :price,name: "variant[][price]",:step => 50, value: number_to_currency(@product.price, unit: ''), min:0 ,class: 'form-control',id:'product_price',disabled:true %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>

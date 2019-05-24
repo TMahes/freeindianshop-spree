@@ -44,8 +44,51 @@ var set_taxon_select = function(selector){
           var filtered3=filtered2.filter(function(item){
             return item.parent_id!="6";         
             });
+          var filtered4=filtered3.filter(function(item){
+            return item.parent_id!="84";         
+            });
+          var filtered5=filtered4.filter(function(item){
+            return item.parent_id!="227";         
+            });
+          var filtered6=filtered5.filter(function(item){
+            return item.parent_id!="299";         
+            });
+          var filtered7=filtered6.filter(function(item){
+            return item.parent_id!="148";         
+            });
+          var filtered8=filtered7.filter(function(item){
+            return item.parent_id!="83";         
+            });
+          var filtered9=filtered8.filter(function(item){
+            return item.parent_id!="226";         
+            });
+          var filtered10=filtered9.filter(function(item){
+            return item.parent_id!="298";         
+            });
+          var filtered11=filtered10.filter(function(item){
+            return item.parent_id!="6";         
+            });
+          var filtered12=filtered11.filter(function(item){
+            return item.parent_id!="373";         
+            });
+          var filtered13=filtered12.filter(function(item){
+            return item.parent_id!="45";         
+            });
+          var filtered14=filtered13.filter(function(item){
+            return item.parent_id!="271";         
+            });
+          var filtered15=filtered14.filter(function(item){
+            return item.parent_id!="180";         
+            });
+          var filtered16=filtered15.filter(function(item){
+            return item.parent_id!="83";         
+            });
+          var filtered17=filtered16.filter(function(item){
+            return item.parent_id!="406";         
+            });
+
           return {
-            results: filtered3,
+            results: filtered17,
             more: more
           };
         }

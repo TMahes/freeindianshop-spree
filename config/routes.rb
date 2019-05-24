@@ -22,6 +22,8 @@ Rails.application.routes.draw do
  post '/choosepost', to: 'spree/home#choosepost'
  post '/choosesinglepost', to: 'spree/home#choosesinglepost'
  post '/optiontypecreate', to: 'spree/home#optiontypecreate'
+ get '/policies', to: 'spree/home#policies'
+ get '/refund', to: 'spree/home#refund'
 
 # Spree::Core::Engine.add_routes do
  # get 'admin/products/multinew'     => 'admin/products#multinew', as: 'admin_products_multinew'

@@ -258,7 +258,7 @@ GEM
     mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     monetize (1.9.0)
       money (~> 6.12)
@@ -267,10 +267,10 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nio4r (2.3.1)
-    nokogiri (1.8.4)
-      mini_portile2 (~> 2.3.0)
-    nokogiri (1.8.4-x64-mingw32)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.8-x64-mingw32)
+      mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.0.0)
     paperclip (5.2.1)
@@ -501,6 +501,7 @@ DEPENDENCIES
   deface (~> 1.0, >= 1.0.2)
   geokit-rails
   jbuilder (~> 2.5)
+  jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   paperclip
   pg
